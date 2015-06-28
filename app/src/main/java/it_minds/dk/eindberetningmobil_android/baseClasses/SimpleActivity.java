@@ -1,6 +1,8 @@
 package it_minds.dk.eindberetningmobil_android.baseClasses;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +20,7 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.inner.ViewUtilClass;
  * Created by kasper on 28-06-2015.
  */
 public class SimpleActivity extends AppCompatActivity {
-    public <T extends View> T getViewById(int id) throws ClassCastException {
+    public <T extends View> T getViewById(@IdRes int id) throws ClassCastException {
         return ViewUtilClass.getViewById(this, id);
     }
 
@@ -29,7 +31,7 @@ public class SimpleActivity extends AppCompatActivity {
         }
     }
 
-    public void setActionbarBackDisplay(int titleId) {
+    public void setActionbarBackDisplay(@StringRes int titleId) {
         if (getSupportActionBar() != null) {
             setActionbarBackDisplay();
             getSupportActionBar().setTitle(titleId);
@@ -62,12 +64,12 @@ public class SimpleActivity extends AppCompatActivity {
         }
     }
 
-    public void setListOfStringsToSpinner(List<String> data, int spinnerId, ArrayAdapter<String> adapter) {
+    public void setListOfStringsToSpinner(List<String> data,@IdRes int spinnerId, ArrayAdapter<String> adapter) {
         Spinner spinner = getViewById(spinnerId);
         setListOfStringsToSpinner(data, spinner, adapter);
     }
 
-    public int getSelectedIndexFromSpinner(int viewId) {
+    public int getSelectedIndexFromSpinner(@IdRes int viewId) {
         Spinner spinner = getViewById(viewId);
         if (spinner != null) {
             return spinner.getSelectedItemPosition();
@@ -88,7 +90,7 @@ public class SimpleActivity extends AppCompatActivity {
         }
     }
 
-    public void setSpinnerIndex(int indexByValue, int viewId) {
+    public void setSpinnerIndex(int indexByValue,@IdRes int viewId) {
         Spinner spin = getViewById(viewId);
         spin.setSelection(indexByValue);
     }

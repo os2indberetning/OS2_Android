@@ -2,12 +2,9 @@ package it_minds.dk.eindberetningmobil_android.views;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.google.android.gms.drive.widget.DataBufferAdapter;
 
 import java.util.List;
 
@@ -26,9 +23,9 @@ public class ChooseProvider extends SimpleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (MainSettings.haveProvider()) {
-            useProvider(MainSettings.getProvider());
+        MainSettings settings = MainSettings.getInstance(this);
+        if (settings.haveProvider()) {
+            useProvider(settings.getProvider());
             return;
         }
 

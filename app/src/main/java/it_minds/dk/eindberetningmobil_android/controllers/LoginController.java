@@ -7,4 +7,5 @@ package it_minds.dk.eindberetningmobil_android.controllers;
 public class LoginController {
 
 
+
 }

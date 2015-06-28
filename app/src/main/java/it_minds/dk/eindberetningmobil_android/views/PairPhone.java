@@ -8,13 +8,11 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
 /**
  * Created by kasper on 28-06-2015.
  */
-public class StartActivity extends SimpleActivity {
+public class PairPhone extends SimpleActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_tracking_layout);
+        setContentView(R.layout.pair_phone_view);
     }
-
-
 }

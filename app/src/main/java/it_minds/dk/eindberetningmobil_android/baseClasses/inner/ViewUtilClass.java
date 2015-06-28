@@ -3,6 +3,8 @@ package it_minds.dk.eindberetningmobil_android.baseClasses.inner;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -61,40 +63,40 @@ public class ViewUtilClass {
 
 
     //<editor-fold desc="Textview features">
-    public static String getTextFromSpinner(final View vg, int spinnerId) {
+    public static String getTextFromSpinner(final View vg,@IdRes int spinnerId) {
         Spinner spinner = getViewById(vg, spinnerId);
         return spinner.getSelectedItem().toString();
     }
 
-    public static void SetTextToView(final Activity act, String text, int resId) {
+    public static void SetTextToView(final Activity act, String text,@IdRes int resId) {
         View v = act.findViewById(resId);
         if (v instanceof TextView) {
             ((TextView) v).setText(text);
         }
     }
 
-    public static void SetTextToView(final View v, final String text, final int resId) {
+    public static void SetTextToView(final View v, final String text,@IdRes final int resId) {
         View vg = v.findViewById(resId);
         if (vg instanceof TextView) {
             ((TextView) vg).setText(text);
         }
     }
 
-    public static void SetTextToView(final View vg, int textResId, int viewId) {
+    public static void SetTextToView(final View vg,@StringRes int textResId, @IdRes int viewId) {
         View v = vg.findViewById(viewId);
         if (v instanceof TextView) {
             ((TextView) v).setText(textResId);
         }
     }
 
-    public static void SetTextToView(final Activity act, int textResId, int viewId) {
+    public static void SetTextToView(final Activity act ,@StringRes int textResId, @IdRes int viewId) {
         View v = act.findViewById(viewId);
         if (v instanceof TextView) {
             ((TextView) v).setText(textResId);
         }
     }
 
-    public static String getTextFromView(final Activity act, int resId) {
+    public static String getTextFromView(final Activity act,@IdRes int resId) {
         View v = act.findViewById(resId);
         if (v instanceof TextView) {
             return ((TextView) v).getText().toString();
@@ -102,7 +104,7 @@ public class ViewUtilClass {
         return "";
     }
 
-    public static String getTextFromView(final View vg, int resId) {
+    public static String getTextFromView(final View vg,@IdRes int resId) {
         View v = vg.findViewById(resId);
         if (v instanceof TextView) {
             return ((TextView) v).getText().toString();
@@ -113,7 +115,7 @@ public class ViewUtilClass {
 
 
     //<editor-fold desc="util features">
-    public static <T extends View> T getViewById(final View vg, int id) throws ClassCastException {
+    public static <T extends View> T getViewById(final View vg, @IdRes int id) throws ClassCastException {
         View v = vg.findViewById(id);
         if (v == null) {
             return null;
@@ -127,10 +129,10 @@ public class ViewUtilClass {
         }
     }
 
-        public static <T extends View> T getViewById(final Activity act, int id) throws ClassCastException {
-            View v = act.findViewById(android.R.id.content);
-            return getViewById(v, id);
-        }
+    public static <T extends View> T getViewById(final Activity act, @IdRes int id) throws ClassCastException {
+        View v = act.findViewById(android.R.id.content);
+        return getViewById(v, id);
+    }
 
 
     //</editor-fold>

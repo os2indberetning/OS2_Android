@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -28,6 +31,10 @@ public class ProviderAdapter extends ArrayAdapter<Provider> {
         if (convertView == null) {
             v = View.inflate(getContext(), android.R.layout.simple_list_item_1, null);
         }
+        TextView tv = (TextView) v;
+        Provider prov = getItem(position);
+
+        tv.setText(prov.getName());
 
 
         return v;

@@ -1,5 +1,6 @@
 package it_minds.dk.eindberetningmobil_android.views;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -43,5 +44,9 @@ public class MonitoringActivity extends SimpleActivity {
         return findViewById(R.id.monitoring_view_stop_btn);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        controller.stopListning();
+    }
 }

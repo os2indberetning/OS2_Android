@@ -13,7 +13,6 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 
-import it_minds.dk.eindberetningmobil_android.controllers.MonitoringController;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnLocationChangedCallback;
 
 /**
@@ -106,10 +105,16 @@ public class LocationMgr implements GoogleApiClient.ConnectionCallbacks, GoogleA
 
     public void registerOnLocationChanged(OnLocationChangedCallback callback) {
         this.onLocationChangedCallbacks.add(callback);
+        if (!mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.connect();
+        }
     }
 
     public void unRegisterOnLocationChanged(OnLocationChangedCallback callback) {
         this.onLocationChangedCallbacks.remove(callback);
+        if (onLocationChangedCallbacks.size() == 0) {
+            mGoogleApiClient.disconnect();
+        }
     }
 
 

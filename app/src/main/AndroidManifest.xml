@@ -12,14 +12,33 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".views.StartActivity"
+            android:name=".views.ChooseProvider"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.ChooseProvider"/>
+        <activity
+            android:name=".views.StartActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".views.PairPhone"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".views.TextInputView"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".views.MonitoringActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+
+        <activity
+            android:name=".views.AfterTripActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+
+        <activity
+            android:name=".views.UploadingView"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
     </application>
 

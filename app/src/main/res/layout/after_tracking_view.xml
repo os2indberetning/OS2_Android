@@ -7,13 +7,23 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dato: 24/06-15"
-            android:id="@+id/start_tracking_layout_date_label"
+            android:id="@+id/after_tracking_view_date_label"
+            android:layout_gravity="center_horizontal"
+            android:textSize="18dp"
+            android:textColor="#000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bruger: swag jensen"
+            android:id="@+id/after_tracking_view_user_label"
             android:layout_gravity="center_horizontal"
             android:textSize="18dp"
             android:textColor="#000"
@@ -30,7 +40,7 @@
             android:layout_height="58dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:id="@+id/start_tracking_layout_purpose">
+            android:id="@+id/after_tracking_view_purpose">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,7 +85,7 @@
             android:layout_height="58dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:id="@+id/start_tracking_layout_org_location">
+            android:id="@+id/after_tracking_view_org_location">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +130,7 @@
             android:layout_height="58dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:id="@+id/start_tracking_layout_rate">
+            android:id="@+id/after_tracking_view_rate">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -165,7 +175,7 @@
             android:layout_height="58dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:id="@+id/start_tracking_layout_extra_desc">
+            android:id="@+id/after_tracking_view_extra_desc">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -205,11 +215,73 @@
             android:id="@+id/imageView5"
             android:background="#b4b4b4" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/after_tracking_view_km_container" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Antal Km"
+                android:id="@+id/textView"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xyz km"
+                android:id="@+id/after_tracking_view_km_text"
+                android:layout_below="@+id/textView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:textColor="#000" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/imageView13"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:id="@+id/imageView14"
+            android:background="#b4b4b4" />
+
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Starter du hjemme ?"
-            android:id="@+id/start_tracking_layout_start_at_home"
+            android:id="@+id/after_tracking_view_start_at_home"
+            android:elegantTextHeight="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:id="@+id/imageView12"
+            android:background="#b4b4b4"
+            android:layout_weight="4.72" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sluttede du hjemme?"
+            android:id="@+id/after_tracking_view_ended_at_home"
             android:elegantTextHeight="false"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -221,17 +293,39 @@
             android:id="@+id/imageView2"
             android:background="#b4b4b4" />
 
-        <Button
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start Kørsel"
-            android:id="@+id/start_tracking_layout_start_btn"
-            android:textColor="#fff"
-            android:background="#DB813C"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp" />
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Annuller og slet"
+                android:id="@+id/after_tracking_view_cancel_btn"
+                android:textColor="#DB813C"
+                android:background="#fff"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Indsend kørsel"
+                android:id="@+id/after_tracking_view_send_btn"
+                android:textColor="#fff"
+                android:background="#DB813C"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

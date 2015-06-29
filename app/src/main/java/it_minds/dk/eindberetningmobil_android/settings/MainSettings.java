@@ -3,8 +3,10 @@ package it_minds.dk.eindberetningmobil_android.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONObject;
 
 import it_minds.dk.eindberetningmobil_android.models.Provider;
+import it_minds.dk.eindberetningmobil_android.models.Token;
 
 /**
  * Created by kasper on 28-06-2015.
@@ -44,37 +46,82 @@ public class MainSettings {
     //</editor-fold>
 
     //<editor-fold desc="Provider">
+
+    /**
+     * haveProvider description here
+     *
+     * @return boolean
+     */
+    public boolean haveProvider() {
+        return getPrefs().getString(PROVIDER_INDEX, null) != null;
+    }
+
+    /**
+     * getProvider description here
+     *
+     * @return Provider
+     */
     public Provider getProvider() {
-        String json = getPrefs().getString(PROVIDER_INDEX, null);
-        if (json == null) {
+        String val = getPrefs().getString(PROVIDER_INDEX, null);
+        if (val == null) {
             return null;
         }
-        Provider prov = null; //TODO convert from json
-        return prov;
+        try {
+            return Provider.parseFromJson(new JSONObject(val));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public boolean haveProvider() {
-        return getPrefs().contains(PROVIDER_INDEX);
-    }
-
-    public void setProvider() {
-        //TODO here get it as a string (json).
-        String json = "";
-        getPrefs().edit().putString(PROVIDER_INDEX, json).commit();
+    /**
+     * setProvider description here
+     *
+     * @return void
+     */
+    public void setProvider(Provider newVal) {
+        getPrefs().edit().putString(PROVIDER_INDEX, newVal.saveToJson().toString()).commit();
     }
     //</editor-fold>
+
 
     //<editor-fold desc="token">
-    public String getToken() {
-        return getPrefs().getString(TOKEN_INDEX, null);
-    }
 
-    public void setToken(String token) {
-        getPrefs().edit().putString(TOKEN_INDEX, token).commit();
-    }
-
+    /**
+     * haveToken description here
+     *
+     * @return boolean
+     */
     public boolean haveToken() {
-        return getToken() != null;
+        return getPrefs().getString(TOKEN_INDEX, null) != null;
+    }
+
+    /**
+     * getToken description here
+     *
+     * @return Token
+     */
+    public Token getToken() {
+        String val = getPrefs().getString(TOKEN_INDEX, null);
+        if (val == null) {
+            return null;
+        }
+        try {
+            return Token.parseFromJson(new JSONObject(val));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * setToken description here
+     *
+     * @return void
+     */
+    public void setToken(Token newVal) {
+        getPrefs().edit().putString(TOKEN_INDEX, newVal.saveToJson().toString()).commit();
     }
     //</editor-fold>
+
 }

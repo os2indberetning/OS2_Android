@@ -2,7 +2,8 @@ package it_minds.dk.eindberetningmobil_android.server;
 
 import android.content.Context;
 
-import it_minds.dk.eindberetningmobil_android.interfaces.ServerCallback;
+import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
+import it_minds.dk.eindberetningmobil_android.models.Token;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
@@ -23,16 +24,16 @@ public class LoginHandler {
         return settings.haveToken();
     }
 
-    public void verifyToken(ServerCallback<Boolean> callback) {
+    public void verifyToken(ResultCallback<Boolean> callback) {
 
     }
 
 
-    public void saveToken(String token) {
+    public void saveToken(Token token) {
         settings.setToken(token);
     }
 
-    public String getToken() {
+    public Token getToken() {
         return settings.getToken();
     }
 }

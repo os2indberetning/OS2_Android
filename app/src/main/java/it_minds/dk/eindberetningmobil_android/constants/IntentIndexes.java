@@ -5,4 +5,5 @@ package it_minds.dk.eindberetningmobil_android.constants;
  */
 public class IntentIndexes {
     public static final String DATA_INDEX ="DATA_INDEX";
+    public static final String TITLE_INDEX = "TITLE_INDEX";
 }

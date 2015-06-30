@@ -9,12 +9,13 @@ import org.joda.time.DateTime;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TimeZone;
 
+import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnLocationChangedCallback;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.location.LocationMgr;
+import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.views.AfterTripActivity;
 import it_minds.dk.eindberetningmobil_android.views.MonitoringActivity;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationEndDrivingDialog;
@@ -31,7 +32,7 @@ public class MonitoringController implements OnLocationChangedCallback {
 
     private double currentDistance = 0.0d;
 
-    private List<Location> registeredPoints = new ArrayList<>();
+    private ArrayList<Location> registeredPoints = new ArrayList<>();
     private Location lastLocation;
     private View.OnClickListener onResumeClicked = new View.OnClickListener() {
         @Override
@@ -60,8 +61,15 @@ public class MonitoringController implements OnLocationChangedCallback {
             dialog.setCallback(new ResultCallback<Boolean>() {
                 @Override
                 public void onSuccess(Boolean endedAtHome) {
-                    ///TODO pass data here.
-                    view.startActivity(new Intent(view, AfterTripActivity.class));
+                    Intent intent = new Intent(view, AfterTripActivity.class);
+                    DrivingReport report = view.getReport();
+                    report.setgpsPoints(registeredPoints);
+                    report.setendedAtHome(endedAtHome);
+                    report.setdistanceInMeters(currentDistance);
+                    report.setstartTime(startTime);
+                    report.setendTime(new DateTime());
+                    intent.putExtra(IntentIndexes.DATA_INDEX, report);
+                    view.startActivity(intent);
                     view.finish();
                 }
 
@@ -77,7 +85,7 @@ public class MonitoringController implements OnLocationChangedCallback {
     };
     private boolean isStopped = false;
     private DecimalFormat decimalFormat = new DecimalFormat("0.00");
-    ;
+    private DateTime startTime;
 
 
     public MonitoringController(MonitoringActivity view) {
@@ -92,12 +100,13 @@ public class MonitoringController implements OnLocationChangedCallback {
         view.getStopButton().setOnClickListener(onStopClicked);
         registeredPoints.clear();//just in case.
         updateDisplay(0, 0, null);
-
+        startTime = new DateTime();
     }
 
 
-    public void stopListning() {
+    public void stopListening() {
         locMgr.unRegisterOnLocationChanged(this);
+
     }
 
 

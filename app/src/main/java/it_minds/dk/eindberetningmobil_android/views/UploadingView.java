@@ -2,7 +2,6 @@ package it_minds.dk.eindberetningmobil_android.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -12,6 +11,9 @@ import java.util.TimerTask;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
+import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
+import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
+import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
@@ -20,24 +22,46 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
  */
 public class UploadingView extends SimpleActivity {
 
+    private DrivingReport report;
     private TextView statusText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uploading_view);
+        report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
         statusText = getViewById(R.id.upload_view_status_text);
-        String url =  MainSettings.getInstance(this).getProvider().getImgUrl();
+        String url = MainSettings.getInstance(this).getProvider().getImgUrl();
         NetworkImageView img = getViewById(R.id.uploading_view_image);
         img.setImageUrl(url, ServerHandler.getInstance(this).getImageLoader());
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        final Timer timer = new Timer();//TODO have some real stuff here, when waiting.
+        ServerHandler.getInstance(this).sendReport(report, new ResultCallback<Boolean>() {
             @Override
-            public void run() {
-                startActivity(new Intent(UploadingView.this, StartActivity.class));
-                finish();
+            public void onSuccess(Boolean result) {
+                updateStatusText("success");
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        startActivity(new Intent(UploadingView.this, StartActivity.class));
+                        finish();
+                    }
+                }, 5000);
             }
-        }, 5000);
+
+            @Override
+            public void onError(Exception error) {
+                updateStatusText("fejl");
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        startActivity(new Intent(UploadingView.this, StartActivity.class));
+                        finish();
+                    }
+                }, 5000);
+            }
+        });
     }
 
     public void updateStatusText(String text) {

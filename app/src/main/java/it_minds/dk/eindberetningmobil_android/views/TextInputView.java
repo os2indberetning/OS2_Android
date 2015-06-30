@@ -18,12 +18,18 @@ public class TextInputView extends SimpleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.simple_text_input_view);
         field = getViewById(R.id.simple_text_input_view_field);
         String providedText = getIntent().getStringExtra(IntentIndexes.DATA_INDEX);
         if (providedText != null) {
             field.setText(providedText);
         }
+        String title =getIntent().getStringExtra(IntentIndexes.TITLE_INDEX);
+        if(title==null){
+            title ="";
+        }
+        setActionbarBackDisplay(title);
     }
 
     @Override

@@ -8,4 +8,9 @@
     <string name="confirmation_end_driving_dialog_end_home">Kørsel slutter hjemme</string>
     <string name="No">Nej</string>
     <string name="Ok">OK</string>
+    <string name="purpose_title_edit">Skriv dit formål</string>
+    <string name="extra_description_title_edit">Indtast din bemærkning</string>
+    <string name="rate_title_edit">Vælg taksten</string>
+    <string name="org_location_title_edit">Vælg placeringen</string>
+    <string name="distance_title_edit">Indtast antal Km</string>
 </resources>

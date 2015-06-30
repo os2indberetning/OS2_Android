@@ -1,13 +1,14 @@
 package it_minds.dk.eindberetningmobil_android.views;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
+import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.controllers.MonitoringController;
+import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 
 /**
  * Created by kasper on 28-06-2015.
@@ -16,10 +17,13 @@ public class MonitoringActivity extends SimpleActivity {
 
     private MonitoringController controller;
 
+    private DrivingReport report;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.monitoring_view);
+        report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
         controller = new MonitoringController(this);
         controller.startListing();
     }
@@ -47,6 +51,10 @@ public class MonitoringActivity extends SimpleActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        controller.stopListning();
+        controller.stopListening();
+    }
+
+    public DrivingReport getReport() {
+        return report;
     }
 }

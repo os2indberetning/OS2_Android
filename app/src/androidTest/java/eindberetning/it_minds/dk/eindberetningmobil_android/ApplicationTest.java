@@ -14,14 +14,5 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         super(Application.class);
     }
 
-    public void testTest() {
-//        throw new RuntimeException("i work");
-        Token token = new Token("1", "2", "3");
-        assertTrue(token.getguid().equals("1"));
 
-    }
-    public void testProviderTest(){
-        Provider prov = new Provider("myname", "","","","","");
-        assertTrue(prov.getName().equals("myname"));
-    }
 }

@@ -12,7 +12,6 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * Token
- *
  */
 public class Token {
     private String guid;

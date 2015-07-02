@@ -12,17 +12,18 @@ import android.widget.TextView;
 import org.joda.time.DateTime;
 
 import it_minds.dk.eindberetningmobil_android.R;
-import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
+import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnData;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 
 /**
  * Created by kasper on 28-06-2015.
+ * this view is the begining of a monitoring of a trip.
  */
-public class StartActivity extends SimpleActivity {
+public class StartActivity extends ProvidedSimpleActivity {
 
-    DrivingReport report = new DrivingReport();
+    private final DrivingReport report = new DrivingReport();
 
     private final static int TEXT_INPUT_CODE = 556;
 
@@ -86,7 +87,9 @@ public class StartActivity extends SimpleActivity {
                 report.setstartedAtHome(isChecked);
             }
         });
-        findViewById(R.id.start_tracking_layout_start_btn).setOnClickListener(onStartClicked);
+        TextView startBtn = getViewById(R.id.start_tracking_layout_start_btn);
+        startBtn.setOnClickListener(onStartClicked);
+        setColorForText(startBtn);
 
     }
 

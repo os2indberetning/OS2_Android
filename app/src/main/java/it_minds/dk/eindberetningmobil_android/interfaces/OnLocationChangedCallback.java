@@ -4,7 +4,9 @@ import android.location.Location;
 
 /**
  * Created by kasper on 28-06-2015.
+ * describes a callback event for listening for location updates.
+ * (Observer pattern)
  */
 public interface OnLocationChangedCallback {
-    public void onNewLocation(Location location);
+    void onNewLocation(Location location);
 }

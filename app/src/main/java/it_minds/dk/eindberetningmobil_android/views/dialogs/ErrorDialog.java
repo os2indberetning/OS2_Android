@@ -1,28 +1,25 @@
 package it_minds.dk.eindberetningmobil_android.views.dialogs;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import it_minds.dk.eindberetningmobil_android.R;
-import it_minds.dk.eindberetningmobil_android.interfaces.SimpleDialog;
+import it_minds.dk.eindberetningmobil_android.baseClasses.BaseProvidedDialog;
 
 /**
  * Created by kasper on 29-06-2015.
  */
-public class ErrorDialog implements SimpleDialog {
+public class ErrorDialog extends BaseProvidedDialog {
 
-    private Context context;
+    private final Context context;
     private final String message;
 
     public ErrorDialog(Context context, String message) {
+        super(context);
         this.context = context;
-
         this.message = message;
     }
 

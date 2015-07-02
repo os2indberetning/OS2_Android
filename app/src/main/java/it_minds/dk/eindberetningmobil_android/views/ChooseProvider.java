@@ -20,6 +20,7 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
  * Created by kasper on 28-06-2015.
+ * in this view we choose a provider to use.
  */
 public class ChooseProvider extends SimpleActivity {
     private MainSettings settings;

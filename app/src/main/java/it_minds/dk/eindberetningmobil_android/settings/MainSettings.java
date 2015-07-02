@@ -10,6 +10,7 @@ import it_minds.dk.eindberetningmobil_android.models.Token;
 
 /**
  * Created by kasper on 28-06-2015.
+ * handles all storage on the device, though sharedPrefs (a private one).
  */
 public class MainSettings {
 
@@ -24,7 +25,7 @@ public class MainSettings {
 
     private static MainSettings instance;
 
-    private Context context;
+    private final Context context;
 
     public MainSettings(Context context) {
         this.context = context;

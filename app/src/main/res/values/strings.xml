@@ -13,4 +13,6 @@
     <string name="rate_title_edit">Vælg taksten</string>
     <string name="org_location_title_edit">Vælg placeringen</string>
     <string name="distance_title_edit">Indtast antal Km</string>
+    <string name="pause_trip">Pause kørsel</string>
+    <string name="resume_trip">Genoptag kørsel</string>
 </resources>

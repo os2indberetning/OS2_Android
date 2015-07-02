@@ -22,7 +22,8 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 /**
  * DrivingReport
  *
- * @license see ..
+ * Describes a driving report.
+ * NOT DONE
  */
 public class DrivingReport implements Parcelable {
     private String rate;

@@ -9,7 +9,8 @@
         android:text="@string/confirmation_end_driving_dialog_title"
         android:background="#00665F"
         android:textColor="#fff"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:id="@+id/confirmation_end_driving_dialog_title" />
 
     <TextView
         android:layout_width="wrap_content"

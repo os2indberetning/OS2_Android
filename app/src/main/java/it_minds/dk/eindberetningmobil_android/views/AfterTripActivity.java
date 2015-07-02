@@ -7,23 +7,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-
-import java.lang.reflect.Field;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import android.widget.TextView;
 
 import it_minds.dk.eindberetningmobil_android.R;
-import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
+import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnData;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 
 /**
  * Created by kasper on 29-06-2015.
+ * the view after we have monitored a trip
  */
-public class AfterTripActivity extends SimpleActivity {
+public class AfterTripActivity extends ProvidedSimpleActivity {
 
-    DrivingReport report = new DrivingReport();
+    private DrivingReport report = new DrivingReport();
 
     private final static int TEXT_INPUT_CODE = 556;
 
@@ -34,7 +32,8 @@ public class AfterTripActivity extends SimpleActivity {
         super.onCreate(savedInstanceState);
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
         setContentView(R.layout.after_tracking_view);
-        findViewById(R.id.after_tracking_view_send_btn).setOnClickListener(new View.OnClickListener() {
+        TextView sendBtn =  getViewById(R.id.after_tracking_view_send_btn);
+        sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AfterTripActivity.this, UploadingView.class);
@@ -43,12 +42,16 @@ public class AfterTripActivity extends SimpleActivity {
                 finish();
             }
         });
-        findViewById(R.id.after_tracking_view_cancel_btn).setOnClickListener(new View.OnClickListener() {
+        setColorForText(sendBtn);
+        TextView cancelBtn = getViewById(R.id.after_tracking_view_cancel_btn);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navgateBack();
             }
         });
+        setReverseColorsForText(cancelBtn);
+
         CheckBox endedAtHome = getViewById(R.id.after_tracking_view_ended_at_home);
         endedAtHome.setChecked(report.getendedAtHome());
         endedAtHome.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -131,7 +134,6 @@ public class AfterTripActivity extends SimpleActivity {
             }
         });
     }
-
 
 
     @Override

@@ -18,15 +18,16 @@ import it_minds.dk.eindberetningmobil_android.interfaces.OnLocationChangedCallba
 /**
  * Created by kasper on 28-06-2015.
  * Handles the GPS interaction.
+ * it automatically listens for gps when there are listeners attached, otherwise it doest (save battery)
  */
 public class LocationMgr implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     //<editor-fold desc="variables">
     private static final String TAG = "LocationMgr";
-    private LocationRequest mLocationRequest;
-    private GoogleApiClient mGoogleApiClient;
+    private final LocationRequest mLocationRequest;
+    private final GoogleApiClient mGoogleApiClient;
 
-    private ArrayList<OnLocationChangedCallback> onLocationChangedCallbacks = new ArrayList<>();
+    private final ArrayList<OnLocationChangedCallback> onLocationChangedCallbacks = new ArrayList<>();
 
     //</editor-fold>
 
@@ -66,7 +67,6 @@ public class LocationMgr implements GoogleApiClient.ConnectionCallbacks, GoogleA
                 callback.onNewLocation(location);
             }
         }
-        Log.e(TAG, "new location");
     }
 
 

@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import it_minds.dk.eindberetningmobil_android.R;
-import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
+import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Token;
 import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
@@ -17,8 +18,9 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
  * Created by kasper on 28-06-2015.
+ * in this view we connect the user with the backend.
  */
-public class PairPhone extends SimpleActivity {
+public class PairPhone extends ProvidedSimpleActivity {
 
     private EditText pairPhoneField;
     private MainSettings settings;
@@ -62,7 +64,8 @@ public class PairPhone extends SimpleActivity {
     private void setupUI() {
         setContentView(R.layout.pair_phone_view);
         pairPhoneField = getViewById(R.id.pair_phone_view_pair_field);
-        findViewById(R.id.pair_phone_view_pair_btn).setOnClickListener(new View.OnClickListener() {
+        Button pair_btn = getViewById(R.id.pair_phone_view_pair_btn);
+        pair_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String code = pairPhoneField.getText().toString();
@@ -81,6 +84,7 @@ public class PairPhone extends SimpleActivity {
                 });
             }
         });
+        setColorForText(pair_btn);
     }
 
     private void useToken() {

@@ -6,14 +6,14 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;// note: Java v
+import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * Provider
  *
- * @license see ..
+ * Describes the various providers we can use / work with.
  */
 public class Provider {
     private final String name;

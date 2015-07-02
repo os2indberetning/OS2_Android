@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import it_minds.dk.eindberetningmobil_android.R;
-import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
+import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 
 /**
  * Created by kasper on 28-06-2015.
+ * a view that allows the user to have a fullscreen text input.
  */
-public class TextInputView extends SimpleActivity {
+public class TextInputView extends ProvidedSimpleActivity {
     private EditText field;
 
     @Override

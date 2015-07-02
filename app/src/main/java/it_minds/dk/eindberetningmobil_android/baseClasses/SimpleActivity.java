@@ -19,11 +19,14 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.inner.ViewUtilClass;
 /**
  * Created by kasper on 28-06-2015.
  */
-public class SimpleActivity extends AppCompatActivity {
+public abstract class SimpleActivity extends AppCompatActivity {
     public <T extends View> T getViewById(@IdRes int id) throws ClassCastException {
         return ViewUtilClass.getViewById(this, id);
     }
 
+    /**
+     * Shows a back button in the actionbar
+     */
     public void setActionbarBackDisplay() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -31,6 +34,11 @@ public class SimpleActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Shows a back button in the actionbar with the supplied title
+     *
+     * @param titleId
+     */
     public void setActionbarBackDisplay(@StringRes int titleId) {
         if (getSupportActionBar() != null) {
             setActionbarBackDisplay();
@@ -38,6 +46,11 @@ public class SimpleActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Shows a back button in the actionbar with the supplied title
+     *
+     * @param titleId
+     */
     public void setActionbarBackDisplay(String titleId) {
         if (getSupportActionBar() != null) {
             setActionbarBackDisplay();
@@ -64,7 +77,7 @@ public class SimpleActivity extends AppCompatActivity {
         }
     }
 
-    public void setListOfStringsToSpinner(List<String> data,@IdRes int spinnerId, ArrayAdapter<String> adapter) {
+    public void setListOfStringsToSpinner(List<String> data, @IdRes int spinnerId, ArrayAdapter<String> adapter) {
         Spinner spinner = getViewById(spinnerId);
         setListOfStringsToSpinner(data, spinner, adapter);
     }
@@ -77,7 +90,7 @@ public class SimpleActivity extends AppCompatActivity {
         return -1;
     }
 
-
+    //convinece function.
     public void hideSoftkeyboard() {
         ViewUtilClass.hideSoftkeyboard(this.getWindow());
     }
@@ -90,7 +103,7 @@ public class SimpleActivity extends AppCompatActivity {
         }
     }
 
-    public void setSpinnerIndex(int indexByValue,@IdRes int viewId) {
+    public void setSpinnerIndex(int indexByValue, @IdRes int viewId) {
         Spinner spin = getViewById(viewId);
         spin.setSelection(indexByValue);
     }

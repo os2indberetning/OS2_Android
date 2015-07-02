@@ -6,15 +6,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 
 /**
  * Created by kasper on 28-06-2015.
+ * handles displaying a list of providers.
  */
 public class ProviderAdapter extends ArrayAdapter<Provider> {
 

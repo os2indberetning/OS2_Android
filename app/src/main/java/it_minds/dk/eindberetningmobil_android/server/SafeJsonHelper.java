@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 /**
  * Created by kasper on 08-06-2015.
+ * a wrapper for jsonobject, that  doesnt throw exceptions.
  */
 public class SafeJsonHelper extends JSONObject {
 

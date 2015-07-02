@@ -10,7 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import it_minds.dk.eindberetningmobil_android.R;
-import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
+import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
@@ -19,8 +19,9 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
  * Created by kasper on 29-06-2015.
+ * the view handling sending the report, and displaying the providers logo
  */
-public class UploadingView extends SimpleActivity {
+public class UploadingView extends ProvidedSimpleActivity {
 
     private DrivingReport report;
     private TextView statusText;
@@ -34,7 +35,7 @@ public class UploadingView extends SimpleActivity {
         String url = MainSettings.getInstance(this).getProvider().getImgUrl();
         NetworkImageView img = getViewById(R.id.uploading_view_image);
         img.setImageUrl(url, ServerHandler.getInstance(this).getImageLoader());
-        final Timer timer = new Timer();//TODO have some real stuff here, when waiting.
+        final Timer timer = new Timer();//TODO have some real stuff here instead of waiting.
         ServerHandler.getInstance(this).sendReport(report, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {

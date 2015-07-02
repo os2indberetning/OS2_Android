@@ -6,7 +6,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:weightSum="1">
 
@@ -265,7 +265,6 @@
             android:layout_height="wrap_content"
             android:text="Starter du hjemme ?"
             android:id="@+id/after_tracking_view_start_at_home"
-            android:elegantTextHeight="false"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:textColor="#000" />
@@ -274,15 +273,13 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:id="@+id/imageView12"
-            android:background="#b4b4b4"
-            android:layout_weight="4.72" />
+            android:background="#b4b4b4" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sluttede du hjemme?"
             android:id="@+id/after_tracking_view_ended_at_home"
-            android:elegantTextHeight="false"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:textColor="#000" />

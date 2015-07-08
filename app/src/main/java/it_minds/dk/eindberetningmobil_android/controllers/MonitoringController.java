@@ -35,7 +35,7 @@ public class MonitoringController implements OnLocationChangedCallback {
     private double currentDistance = 0.0d;
 
     private final ArrayList<Location> registeredPoints = new ArrayList<>();
-    private  Location lastLocation;
+    private Location lastLocation;
     private boolean validateLocation = false;
     //</editor-fold>
 
@@ -184,10 +184,18 @@ public class MonitoringController implements OnLocationChangedCallback {
      */
     private void handleValidationOnResume(Location location) {
         Log.e("temp", "is validating location");
+
+        if (registeredPoints.size() == 0) {
+            validateLocation = false;
+            onNewLocation(location);//resume the function.
+            return;
+        }
+
         if (location.getAccuracy() <= 50) {
             Log.e("temp", "validation point is semi precise." + location.getAccuracy());
 
             validateLocation = false;
+
             Location lastLocation = registeredPoints.get(registeredPoints.size() - 1);
             Log.e("temp", "validation is within: " + lastLocation.distanceTo(location));
 

@@ -13,49 +13,23 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 /**
  * Provider
  *
- * Describes the various providers we can use / work with.
+ * @license see ..
  */
 public class Provider {
-    private final String name;
-    private final String apiUrl;
-    private final String imgUrl;
-    private final String textColor;
-    private final String primaryColor;
-    private final String secondaryColor;
-
+    private String Name;
+    private String APIUrl;
+    private String ImgUrl;
+    private String TextColor;
+    private String PrimaryColor;
+    private String SecondaryColor;
 
     public Provider(String name, String apiUrl, String imgUrl, String textColor, String primaryColor, String secondaryColor) {
-
-        this.name = name;
-        this.apiUrl = apiUrl;
-        this.imgUrl = imgUrl;
-        this.textColor = textColor;
-        this.primaryColor = primaryColor;
-        this.secondaryColor = secondaryColor;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getApiUrl() {
-        return apiUrl;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public String getTextColor() {
-        return textColor;
-    }
-
-    public String getPrimaryColor() {
-        return primaryColor;
-    }
-
-    public String getSecondaryColor() {
-        return secondaryColor;
+        Name = name;
+        APIUrl = apiUrl;
+        ImgUrl = imgUrl;
+        TextColor = textColor;
+        PrimaryColor = primaryColor;
+        SecondaryColor = secondaryColor;
     }
 
     /**
@@ -87,18 +61,102 @@ public class Provider {
     }
 
     /**
+     * @return String
+     */
+    public String getName() {
+        return this.Name;
+    }
+
+    /**
+     * @return String
+     */
+    public void setName(String newVal) {
+        this.Name = newVal;
+    }
+
+    /**
+     * @return String
+     */
+    public String getAPIUrl() {
+        return this.APIUrl;
+    }
+
+    /**
+     * @return String
+     */
+    public void setAPIUrl(String newVal) {
+        this.APIUrl = newVal;
+    }
+
+    /**
+     * @return String
+     */
+    public String getImgUrl() {
+        return this.ImgUrl;
+    }
+
+    /**
+     * @return String
+     */
+    public void setImgUrl(String newVal) {
+        this.ImgUrl = newVal;
+    }
+
+    /**
+     * @return String
+     */
+    public String getTextColor() {
+        return this.TextColor;
+    }
+
+    /**
+     * @return String
+     */
+    public void setTextColor(String newVal) {
+        this.TextColor = newVal;
+    }
+
+    /**
+     * @return String
+     */
+    public String getPrimaryColor() {
+        return this.PrimaryColor;
+    }
+
+    /**
+     * @return String
+     */
+    public void setPrimaryColor(String newVal) {
+        this.PrimaryColor = newVal;
+    }
+
+    /**
+     * @return String
+     */
+    public String getSecondaryColor() {
+        return this.SecondaryColor;
+    }
+
+    /**
+     * @return String
+     */
+    public void setSecondaryColor(String newVal) {
+        this.SecondaryColor = newVal;
+    }
+
+    /**
      * saveToJson description here
      *
      * @return JSONObject
      */
     public JSONObject saveToJson() {
         SafeJsonHelper result = new SafeJsonHelper();
-        result.put("Name", name);
-        result.put("APIUrl", apiUrl);
-        result.put("ImgUrl", imgUrl);
-        result.put("TextColor", textColor);
-        result.put("PrimaryColor", primaryColor);
-        result.put("SecondaryColor", secondaryColor);
+        result.put("Name", Name);
+        result.put("APIUrl", APIUrl);
+        result.put("ImgUrl", ImgUrl);
+        result.put("TextColor", TextColor);
+        result.put("PrimaryColor", PrimaryColor);
+        result.put("SecondaryColor", SecondaryColor);
         return result;
 
     }

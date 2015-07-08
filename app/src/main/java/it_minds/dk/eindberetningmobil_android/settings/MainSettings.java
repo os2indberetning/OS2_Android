@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import org.json.JSONObject;
 
 import it_minds.dk.eindberetningmobil_android.models.Provider;
-import it_minds.dk.eindberetningmobil_android.models.Token;
+import it_minds.dk.eindberetningmobil_android.models.Tokens;
 
 /**
  * Created by kasper on 28-06-2015.
@@ -100,15 +100,15 @@ public class MainSettings {
     /**
      * getToken description here
      *
-     * @return Token
+     * @return Tokens
      */
-    public Token getToken() {
+    public Tokens getToken() {
         String val = getPrefs().getString(TOKEN_INDEX, null);
         if (val == null) {
             return null;
         }
         try {
-            return Token.parseFromJson(new JSONObject(val));
+            return Tokens.parseFromJson(new JSONObject(val));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,7 +120,7 @@ public class MainSettings {
      *
      * @return void
      */
-    public void setToken(Token newVal) {
+    public void setToken(Tokens newVal) {
         getPrefs().edit().putString(TOKEN_INDEX, newVal.saveToJson().toString()).commit();
     }
     //</editor-fold>

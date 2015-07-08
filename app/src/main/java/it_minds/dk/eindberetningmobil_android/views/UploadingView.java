@@ -14,6 +14,7 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
+import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
@@ -36,9 +37,9 @@ public class UploadingView extends ProvidedSimpleActivity {
         NetworkImageView img = getViewById(R.id.uploading_view_image);
         img.setImageUrl(url, ServerHandler.getInstance(this).getImageLoader());
         final Timer timer = new Timer();//TODO have some real stuff here instead of waiting.
-        ServerHandler.getInstance(this).sendReport(report, new ResultCallback<Boolean>() {
+        ServerHandler.getInstance(this).sendReport(report, new ResultCallback<UserInfo>() {
             @Override
-            public void onSuccess(Boolean result) {
+            public void onSuccess(UserInfo result) {
                 updateStatusText("success");
                 timer.schedule(new TimerTask() {
                     @Override

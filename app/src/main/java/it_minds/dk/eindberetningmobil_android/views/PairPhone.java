@@ -12,7 +12,8 @@ import android.widget.Toast;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
-import it_minds.dk.eindberetningmobil_android.models.Token;
+import it_minds.dk.eindberetningmobil_android.models.Tokens;
+import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
@@ -35,16 +36,11 @@ public class PairPhone extends ProvidedSimpleActivity {
             spinner.setIndeterminate(true);
             spinner.setMessage("vent venligst");
             spinner.show();
-            ServerHandler.getInstance(this).validateToken(settings.getToken(), new ResultCallback<Boolean>() {
+            ServerHandler.getInstance(this).validateToken(settings.getToken(), new ResultCallback<UserInfo>() {
                 @Override
-                public void onSuccess(Boolean result) {
+                public void onSuccess(UserInfo result) {
                     spinner.dismiss();
-                    if (result) {
-                        useToken();
-                    } else {
-                        Toast.makeText(PairPhone.this, "ugyldigt token", Toast.LENGTH_SHORT).show();
-                        setupUI();
-                    }
+                    useToken();
                 }
 
                 @Override
@@ -69,10 +65,11 @@ public class PairPhone extends ProvidedSimpleActivity {
             @Override
             public void onClick(View v) {
                 String code = pairPhoneField.getText().toString();
-                ServerHandler.getInstance(PairPhone.this).pairPhone(code, new ResultCallback<Token>() {
+                ServerHandler.getInstance(PairPhone.this).pairPhone(code, new ResultCallback<UserInfo>() {
                     @Override
-                    public void onSuccess(Token result) {
-                        settings.setToken(result);
+                    public void onSuccess(UserInfo result) {
+//                        settings.setToken(result);
+                        //first find the correct token in the Tokens list, and then store that one.
                         Log.e("temp", "token saved");
                         useToken();
                     }

@@ -1,11 +1,6 @@
 package eindberetning.it_minds.dk.eindberetningmobil_android;
 
-import android.app.Application;
 import android.test.ApplicationTestCase;
-
-import org.json.JSONException;
-
-import java.net.MalformedURLException;
 
 import it_minds.dk.eindberetningmobil_android.MainApplication;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
@@ -24,7 +19,7 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
     public void testProvider() throws Exception {
         Provider provider = new Provider("name", "api", "imageurl", "textcolor", "primaryColor", "secoundaryColor");
         assertTrue("property should be set", provider.getName().equals("name"));
-        assertTrue("property should be set", provider.getApiUrl().equals("api"));
+        assertTrue("property should be set", provider.getAPIUrl().equals("api"));
         assertTrue("property should be set", provider.getImgUrl().equals("imageurl"));
         assertTrue("property should be set", provider.getTextColor().equals("textcolor"));
         assertTrue("property should be set", provider.getPrimaryColor().equals("primaryColor"));

@@ -21,11 +21,20 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * DrivingReport
- *
+ * <p/>
  * Describes a driving report.
  * NOT DONE
  */
 public class DrivingReport implements Parcelable {
+    public static final Parcelable.Creator<DrivingReport> CREATOR = new Parcelable.Creator<DrivingReport>() {
+        public DrivingReport createFromParcel(Parcel source) {
+            return new DrivingReport(source);
+        }
+
+        public DrivingReport[] newArray(int size) {
+            return new DrivingReport[size];
+        }
+    };
     private String rate;
     private String purpose;
     private String orgLocation;
@@ -55,6 +64,21 @@ public class DrivingReport implements Parcelable {
         this.startTime = startTime;
         this.endTime = endTime;
         this.distanceInMeters = distanceInMeters;
+    }
+
+    protected DrivingReport(Parcel in) {
+        this.rate = in.readString();
+        this.purpose = in.readString();
+        this.orgLocation = in.readString();
+        this.Rate = in.readString();
+        this.extraDescription = in.readString();
+        this.haveEditedDistance = in.readByte() != 0;
+        this.startedAtHome = in.readByte() != 0;
+        this.endedAtHome = in.readByte() != 0;
+        this.startTime = (DateTime) in.readSerializable();
+        this.endTime = (DateTime) in.readSerializable();
+        this.distanceInMeters = in.readDouble();
+        this.gpsPoints = in.createTypedArrayList(Location.CREATOR);
     }
 
     /**
@@ -266,7 +290,6 @@ public class DrivingReport implements Parcelable {
         return result;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -287,30 +310,5 @@ public class DrivingReport implements Parcelable {
         dest.writeDouble(this.distanceInMeters);
         dest.writeTypedList(gpsPoints);
     }
-
-    protected DrivingReport(Parcel in) {
-        this.rate = in.readString();
-        this.purpose = in.readString();
-        this.orgLocation = in.readString();
-        this.Rate = in.readString();
-        this.extraDescription = in.readString();
-        this.haveEditedDistance = in.readByte() != 0;
-        this.startedAtHome = in.readByte() != 0;
-        this.endedAtHome = in.readByte() != 0;
-        this.startTime = (DateTime) in.readSerializable();
-        this.endTime = (DateTime) in.readSerializable();
-        this.distanceInMeters = in.readDouble();
-        this.gpsPoints = in.createTypedArrayList(Location.CREATOR);
-    }
-
-    public static final Parcelable.Creator<DrivingReport> CREATOR = new Parcelable.Creator<DrivingReport>() {
-        public DrivingReport createFromParcel(Parcel source) {
-            return new DrivingReport(source);
-        }
-
-        public DrivingReport[] newArray(int size) {
-            return new DrivingReport[size];
-        }
-    };
 }
 

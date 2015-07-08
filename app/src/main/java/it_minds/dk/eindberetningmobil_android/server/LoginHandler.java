@@ -3,7 +3,7 @@ package it_minds.dk.eindberetningmobil_android.server;
 import android.content.Context;
 
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
-import it_minds.dk.eindberetningmobil_android.models.Token;
+import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
@@ -29,11 +29,11 @@ public class LoginHandler {
     }
 
 
-    public void saveToken(Token token) {
+    public void saveToken(Tokens token) {
         settings.setToken(token);
     }
 
-    public Token getToken() {
+    public Tokens getToken() {
         return settings.getToken();
     }
 }

@@ -173,9 +173,20 @@ public class Profile {
         result.put("Lastname", Lastname);
         result.put("HomeLatitude", HomeLatitude);
         result.put("HomeLongitude", HomeLongitude);
-        result.put("Employments", new JSONArray(Employments));
 
-        result.put("Tokens", new JSONArray(Tokens));
+        JSONArray emplouymentArr = new JSONArray();
+        for (it_minds.dk.eindberetningmobil_android.models.Employments emp : getEmployments()) {
+            emplouymentArr.put(emp.saveToJson());
+        }
+        result.put("Employments", emplouymentArr);
+
+
+        JSONArray tokenArray = new JSONArray();
+        for (it_minds.dk.eindberetningmobil_android.models.Tokens token : getTokens()) {
+            tokenArray.put(token.saveToJson());
+        }
+
+        result.put("Tokens", tokenArray);
 
         return result;
 

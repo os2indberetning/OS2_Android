@@ -26,9 +26,9 @@ public class TextInputView extends ProvidedSimpleActivity {
         if (providedText != null) {
             field.setText(providedText);
         }
-        String title =getIntent().getStringExtra(IntentIndexes.TITLE_INDEX);
-        if(title==null){
-            title ="";
+        String title = getIntent().getStringExtra(IntentIndexes.TITLE_INDEX);
+        if (title == null) {
+            title = "";
         }
         setActionbarBackDisplay(title);
     }

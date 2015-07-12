@@ -7,10 +7,10 @@ import android.view.View;
 
 import org.joda.time.DateTime;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.TimeZone;
 
+import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnLocationChangedCallback;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
@@ -103,7 +103,6 @@ public class MonitoringController implements OnLocationChangedCallback {
 
     //<editor-fold desc="handling listening and of display format">
     private boolean isStopped = false;
-    private DecimalFormat decimalFormat = new DecimalFormat("0.00");
     private DateTime startTime;
     //</editor-fold>
 
@@ -155,8 +154,17 @@ public class MonitoringController implements OnLocationChangedCallback {
             Log.e("temp", "discared location");
             return;
         }
-        //yes yes , so lets handle the new location (update the distance, and update the displays)
-        handleNewLocation(location);
+        view.getAccTextView().setText(location.getAccuracy() + " m"); //meter is an SI unit, so no translations is needed
+        if (location.getAccuracy() <= 50) {
+            if (!location.hasSpeed() || (location.hasSpeed() && location.getSpeed() > 0)) {
+                //yes yes , so lets handle the new location (update the distance, and update the displays)
+                handleNewLocation(location);
+            } else {
+                Log.e("temp", "not moving");
+            }
+        } else {
+            Log.e("temp", "current acc is to low, to be used");
+        }
     }
 
     /**
@@ -217,8 +225,8 @@ public class MonitoringController implements OnLocationChangedCallback {
      * @param time
      */
     private void updateDisplay(float acc, double distance, DateTime time) {
-        view.getAccTextView().setText(acc + " m"); //meter is an SI unit, so no translations is needed
-        String s = decimalFormat.format(distance / 1000.0d);
+
+        String s = DistanceDisplayer.formatDistance(distance);
         view.getCurrentDistanceTextView().setText(s + " Km");//kilometer is an SI unit, so no translations is needed
         if (time != null) {
             view.getLastFixTextView().setText(time.toString("HH:mm:ss"));

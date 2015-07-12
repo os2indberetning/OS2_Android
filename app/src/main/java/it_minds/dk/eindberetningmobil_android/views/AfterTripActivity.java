@@ -1,38 +1,35 @@
 package it_minds.dk.eindberetningmobil_android.views;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+
 import it_minds.dk.eindberetningmobil_android.R;
-import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
+import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
+import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnData;
-import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
+import it_minds.dk.eindberetningmobil_android.models.Profile;
+import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
  * Created by kasper on 29-06-2015.
  * the view after we have monitored a trip
  */
-public class AfterTripActivity extends ProvidedSimpleActivity {
+public class AfterTripActivity extends BaseReportActivity {
 
-    private DrivingReport report = new DrivingReport();
-
-    private final static int TEXT_INPUT_CODE = 556;
-
-    private OnData<String> afterEditCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
         setContentView(R.layout.after_tracking_view);
-        TextView sendBtn =  getViewById(R.id.after_tracking_view_send_btn);
+        TextView sendBtn = getViewById(R.id.after_tracking_view_send_btn);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,69 +67,67 @@ public class AfterTripActivity extends ProvidedSimpleActivity {
             }
         });
 
-        findViewById(R.id.after_tracking_view_extra_desc).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEdit(new OnData<String>() {
-                    @Override
-                    public void onData(String data) {
-                        report.setExtraDescription(data);
-                    }
-                }, getString(R.string.extra_description_title_edit), report.getExtraDescription());
-            }
-        });
-        findViewById(R.id.after_tracking_view_purpose).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEdit(new OnData<String>() {
-                    @Override
-                    public void onData(String data) {
-                        report.setPurpose(data);
-                    }
-                }, getString(R.string.purpose_title_edit), report.getPurpose());
-            }
-        });
-        findViewById(R.id.after_tracking_view_rate).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEdit(new OnData<String>() {
-                    @Override
-                    public void onData(String data) {
-                        report.setRate(data);
-                    }
-                }, getString(R.string.rate_title_edit), report.getRate());
-            }
-        });
 
-        findViewById(R.id.after_tracking_view_org_location).setOnClickListener(new View.OnClickListener() {
+        handleExtraDesc(R.id.after_tracking_view_extra_desc, R.id.after_tracking_view_extra_desc_desc);
+        handlePurpose(R.id.after_tracking_view_purpose, R.id.after_tracking_view_purpose_desc);
+        handleRate(R.id.after_tracking_view_rate, R.id.after_tracking_view_rate_desc);
+        handleOrgLocation(R.id.after_tracking_view_org_location, R.id.after_tracking_view_org_location_desc);
+        View kmView = findViewById(R.id.after_tracking_view_km_container);
+        kmView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final double prevVal = report.getdistanceInMeters();
                 showEdit(new OnData<String>() {
                     @Override
                     public void onData(String data) {
-                        report.setOrgLocation(data);
-                    }
-                }, getString(R.string.org_location_title_edit), report.getOrgLocation());
-            }
-        });
-
-        findViewById(R.id.after_tracking_view_km_container).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showEdit(new OnData<String>() {
-                    @Override
-                    public void onData(String data) {
-                        double meters = report.getdistanceInMeters();
-                        try {
-                            meters = Double.parseDouble(data);
-                            report.sethaveEditedDistance(true);
-                        } catch (Exception e) {
-                        }
+                        double meters = handleKmClick(data, prevVal);
                         report.setdistanceInMeters(meters);
                     }
                 }, getString(R.string.distance_title_edit), report.getdistanceInMeters() + "");
             }
         });
+
+
+        TextView kmDescView = (TextView) findViewById(R.id.after_tracking_view_km_container_desc);
+
+        kmDescView.setText(DistanceDisplayer.formatDistance(report.getdistanceInMeters()));
+
+        setDateLabel();
+        setUserLabel();
+
+    }
+
+    private void setDateLabel() {
+        TextView dateLabel = getViewById(R.id.after_tracking_view_date_label);
+        String dateString ;
+
+        if (report.getstartTime() != null) {
+            dateString = report.getstartTime().toString("dd/MM-YY");
+        }else{
+            dateString = new DateTime().toString("dd/MM-YY");
+        }
+        dateLabel.setText(dateString);
+    }
+
+    private void setUserLabel() {
+        TextView userLabel = getViewById(R.id.after_tracking_view_user_label);
+        Profile profile = MainSettings.getInstance(this).getProfile();
+        if (profile != null && profile.getFirstname() != null && profile.getLastname() != null) {
+            userLabel.setText(profile.getFirstname() + " " + profile.getLastname());
+        } else {
+            userLabel.setText("");
+        }
+    }
+
+    private double handleKmClick(String data, double prevVal) {
+        double meters = report.getdistanceInMeters();
+        try {
+            meters = Double.parseDouble(data);
+            report.sethaveEditedDistance(meters != prevVal);
+            setTextToView(R.id.after_tracking_view_km_container_desc, meters + "");
+        } catch (Exception e) {
+        }
+        return meters;
     }
 
 
@@ -148,23 +143,5 @@ public class AfterTripActivity extends ProvidedSimpleActivity {
         finish();
     }
 
-    private void showEdit(OnData<String> callback, String title, String currentValue) {
-        afterEditCallback = callback;
-        Intent intent = new Intent(AfterTripActivity.this, TextInputView.class);
-        intent.putExtra(IntentIndexes.DATA_INDEX, currentValue);
-        intent.putExtra(IntentIndexes.TITLE_INDEX, title);
-        startActivityForResult(intent, TEXT_INPUT_CODE);
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == TEXT_INPUT_CODE && data != null) {
-            if (afterEditCallback != null) {
-                afterEditCallback.onData(data.getStringExtra(IntentIndexes.DATA_INDEX));
-            } else {
-                Log.e("temp", "bug");
-            }
-        }
-    }
 }

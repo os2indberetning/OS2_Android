@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -105,5 +106,13 @@ public class Rates {
         result.put("Year", Year);
         return result;
 
+    }
+
+    public static JSONArray saveAllToJson(List<Rates> ratesList) {
+        JSONArray arr = new JSONArray();
+        for (Rates rate : ratesList) {
+            arr.put(rate.saveToJson());
+        }
+        return arr;
     }
 }

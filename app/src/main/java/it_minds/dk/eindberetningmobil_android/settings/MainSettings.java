@@ -3,9 +3,14 @@ package it_minds.dk.eindberetningmobil_android.settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
+import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
+import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
 
 /**
@@ -19,6 +24,8 @@ public class MainSettings {
     private static final String PREF_NAME = "settings";
     private static final String PROVIDER_INDEX = "PROVIDER_INDEX";
     private static final String TOKEN_INDEX = "TOKEN_INDEX";
+    private static final String RATES_INDEX = "RATES_INDEX";
+    private static final String PROFILES_INDEX = "PROFILES_INDEX";
     //</editor-fold>
 
     //<editor-fold desc="singleton">
@@ -104,13 +111,12 @@ public class MainSettings {
      */
     public Tokens getToken() {
         String val = getPrefs().getString(TOKEN_INDEX, null);
-        if (val == null) {
-            return null;
-        }
-        try {
-            return Tokens.parseFromJson(new JSONObject(val));
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (val != null) {
+            try {
+                return Tokens.parseFromJson(new JSONObject(val));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
@@ -123,6 +129,43 @@ public class MainSettings {
     public void setToken(Tokens newVal) {
         getPrefs().edit().putString(TOKEN_INDEX, newVal.saveToJson().toString()).commit();
     }
+
+
     //</editor-fold>
 
+    //<editor-fold desc="rates">
+    public void setRates(ArrayList<Rates> rates) {
+        JSONArray arr = Rates.saveAllToJson(rates);
+        getPrefs().edit().putString(RATES_INDEX, arr.toString()).commit();
+    }
+
+    public ArrayList<Rates> getRates() {
+        String val = getPrefs().getString(RATES_INDEX, null);
+        if (val != null) {
+            try {
+                return Rates.parseAllFromJson(new JSONArray(val));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public Profile getProfile() {
+        String val = getPrefs().getString(PROFILES_INDEX, null);
+        if (val != null) {
+            try {
+                return Profile.parseFromJson(new JSONObject(val));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+
+    public void setProfile(Profile profile){
+        getPrefs().edit().putString(PROFILES_INDEX, profile.saveToJson().toString()).commit();
+    }
+    //</editor-fold>
 }

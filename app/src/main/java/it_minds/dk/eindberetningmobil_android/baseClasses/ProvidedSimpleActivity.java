@@ -3,6 +3,7 @@ package it_minds.dk.eindberetningmobil_android.baseClasses;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.widget.TextView;
 
 import it_minds.dk.eindberetningmobil_android.models.Provider;
@@ -39,6 +40,13 @@ public abstract class ProvidedSimpleActivity extends SimpleActivity {
 
     public void setReverseColorsForText(TextView tv) {
         colorHandler.setReverseColorsForText(tv);
+    }
+
+    public void setTextToView(@IdRes int id, String val) {
+        TextView tv = getViewById(id);
+        if (tv != null) {
+            tv.setText(val);
+        }
     }
 
 }

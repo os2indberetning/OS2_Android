@@ -16,6 +16,7 @@
             android:id="@+id/pair_phone_view_pair_field"
             android:hint="Tast parringskode"
             android:layout_marginLeft="20dp"
+            android:singleLine="true"
             android:layout_marginRight="20dp" />
 
         <TextView

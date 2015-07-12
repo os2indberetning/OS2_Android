@@ -15,4 +15,5 @@
     <string name="distance_title_edit">Indtast antal Km</string>
     <string name="pause_trip">Pause kørsel</string>
     <string name="resume_trip">Genoptag kørsel</string>
+    <string name="unknown_token_error">Der skete en ukendt fejl, prøv at lave en ny token og prøv igen.</string>
 </resources>

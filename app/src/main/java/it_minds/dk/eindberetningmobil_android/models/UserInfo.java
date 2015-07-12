@@ -30,8 +30,8 @@ public class UserInfo {
      * @return UserInfo
      */
     public static UserInfo parseFromJson(JSONObject obj) throws JSONException, MalformedURLException {
-        Profile profile = Profile.parseFromJson(obj.optJSONObject("Profile"));
-        ArrayList<Rates> rates = Rates.parseAllFromJson(obj.optJSONArray("Rates"));
+        Profile profile = Profile.parseFromJson(obj.optJSONObject("profile"));
+        ArrayList<Rates> rates = Rates.parseAllFromJson(obj.optJSONArray("rates"));
         return new UserInfo(profile, rates);
     }
 

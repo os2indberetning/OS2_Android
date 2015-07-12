@@ -40,6 +40,10 @@
             android:name=".views.UploadingView"
             android:configChanges="keyboardHidden|orientation|screenSize" />
 
+        <activity
+            android:name=".views.input.RateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+
     </application>
 
 </manifest>

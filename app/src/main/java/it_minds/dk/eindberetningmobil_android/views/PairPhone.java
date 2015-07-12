@@ -9,6 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
@@ -40,7 +46,12 @@ public class PairPhone extends ProvidedSimpleActivity {
                 @Override
                 public void onSuccess(UserInfo result) {
                     spinner.dismiss();
-                    useToken();
+                    if (findTokenInUserInfo(result, MainSettings.getInstance(PairPhone.this).getToken().getTokenString())) {
+                        Log.e("temp", "updated token from validate, and found current token string");
+                    } else {
+                        Log.e("temp", "updated token from validate, BUT DID NOT FIND CURRENT TOKEN STRING!??!");
+                    }
+                    useInternalToken();
                 }
 
                 @Override
@@ -54,6 +65,7 @@ public class PairPhone extends ProvidedSimpleActivity {
             Log.e("temp", "dont have token");
             setupUI();
         }
+        hideSoftkeyboard();
 
     }
 
@@ -64,19 +76,37 @@ public class PairPhone extends ProvidedSimpleActivity {
         pair_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = pairPhoneField.getText().toString();
+                final String code = pairPhoneField.getText().toString();
                 ServerHandler.getInstance(PairPhone.this).pairPhone(code, new ResultCallback<UserInfo>() {
                     @Override
                     public void onSuccess(UserInfo result) {
 //                        settings.setToken(result);
                         //first find the correct token in the Tokens list, and then store that one.
                         Log.e("temp", "token saved");
-                        useToken();
+
+                        if (findTokenInUserInfo(result, code)) {
+                            useInternalToken();
+                        }
                     }
 
                     @Override
                     public void onError(Exception error) {
-                        Toast.makeText(PairPhone.this, "Der skete en fejl, " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Logger.getLogger("pairphone").log(Level.SEVERE, "", error);
+                        if (error instanceof VolleyError) {
+                            VolleyError verr = (VolleyError) error;
+                            if (verr.networkResponse.statusCode == 400) {
+                                //already used
+                                Toast.makeText(PairPhone.this, "Tokenet er allerede brugt", Toast.LENGTH_SHORT).show();
+
+                            } else if (verr.networkResponse.statusCode == 401) {
+                                //token not found
+                                Toast.makeText(PairPhone.this, "Tokenet blev ikke fundet", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(PairPhone.this, "Der skete en fejl, " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(PairPhone.this, "Der skete en fejl, " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
@@ -84,7 +114,25 @@ public class PairPhone extends ProvidedSimpleActivity {
         setColorForText(pair_btn);
     }
 
-    private void useToken() {
+    private boolean findTokenInUserInfo(UserInfo result, String code) {
+        if (result != null && result.getprofile() != null && result.getprofile().getTokens() != null) {
+            ArrayList<Tokens> tokens = result.getprofile().getTokens();
+            for (Tokens tok : tokens) {
+                if (tok.getTokenString().equals(code)) {
+                    MainSettings.getInstance(this).setToken(tok);
+                    MainSettings.getInstance(this).setRates(result.getrates());
+                    MainSettings.getInstance(this).setProfile(result.getprofile());
+                    return true;
+                }
+            }
+        } else {
+            //invalid token response ??
+            Toast.makeText(PairPhone.this, R.string.unknown_token_error, Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
+
+    private void useInternalToken() {
         startActivity(new Intent(PairPhone.this, StartActivity.class));
         finish();
     }

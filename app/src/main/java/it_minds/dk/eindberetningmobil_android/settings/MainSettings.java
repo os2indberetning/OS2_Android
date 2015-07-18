@@ -167,5 +167,9 @@ public class MainSettings {
     public void setProfile(Profile profile){
         getPrefs().edit().putString(PROFILES_INDEX, profile.saveToJson().toString()).commit();
     }
+
+    public void clear() {
+        getPrefs().edit().clear().commit();
+    }
     //</editor-fold>
 }

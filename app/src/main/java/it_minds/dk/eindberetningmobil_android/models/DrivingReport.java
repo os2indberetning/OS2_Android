@@ -310,5 +310,50 @@ public class DrivingReport implements Parcelable {
         dest.writeDouble(this.distanceInMeters);
         dest.writeTypedList(gpsPoints);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DrivingReport that = (DrivingReport) o;
+
+        if (haveEditedDistance != that.haveEditedDistance) return false;
+        if (startedAtHome != that.startedAtHome) return false;
+        if (endedAtHome != that.endedAtHome) return false;
+        if (Double.compare(that.distanceInMeters, distanceInMeters) != 0) return false;
+        if (rate != null ? !rate.equals(that.rate) : that.rate != null) return false;
+        if (purpose != null ? !purpose.equals(that.purpose) : that.purpose != null) return false;
+        if (orgLocation != null ? !orgLocation.equals(that.orgLocation) : that.orgLocation != null)
+            return false;
+        if (Rate != null ? !Rate.equals(that.Rate) : that.Rate != null) return false;
+        if (extraDescription != null ? !extraDescription.equals(that.extraDescription) : that.extraDescription != null)
+            return false;
+        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null)
+            return false;
+        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        return !(gpsPoints != null ? !gpsPoints.equals(that.gpsPoints) : that.gpsPoints != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = rate != null ? rate.hashCode() : 0;
+        result = 31 * result + (purpose != null ? purpose.hashCode() : 0);
+        result = 31 * result + (orgLocation != null ? orgLocation.hashCode() : 0);
+        result = 31 * result + (Rate != null ? Rate.hashCode() : 0);
+        result = 31 * result + (extraDescription != null ? extraDescription.hashCode() : 0);
+        result = 31 * result + (haveEditedDistance ? 1 : 0);
+        result = 31 * result + (startedAtHome ? 1 : 0);
+        result = 31 * result + (endedAtHome ? 1 : 0);
+        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
+        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        temp = Double.doubleToLongBits(distanceInMeters);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (gpsPoints != null ? gpsPoints.hashCode() : 0);
+        return result;
+    }
 }
 

@@ -33,6 +33,7 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
         TextView stopBtn = getViewById(R.id.monitoring_view_stop_btn);
         setColorForText(pauseResume);
         setColorForText(stopBtn);
+        getAccTextView().setText(R.string.waiting_for_gps);
     }
 
     public TextView getAccTextView() {

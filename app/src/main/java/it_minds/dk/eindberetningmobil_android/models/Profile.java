@@ -175,20 +175,55 @@ public class Profile {
         result.put("HomeLongitude", HomeLongitude);
 
         JSONArray emplouymentArr = new JSONArray();
-        for (it_minds.dk.eindberetningmobil_android.models.Employments emp : getEmployments()) {
-            emplouymentArr.put(emp.saveToJson());
+        if (getEmployments() != null) {
+            for (it_minds.dk.eindberetningmobil_android.models.Employments emp : getEmployments()) {
+                emplouymentArr.put(emp.saveToJson());
+            }
         }
         result.put("Employments", emplouymentArr);
 
 
         JSONArray tokenArray = new JSONArray();
-        for (it_minds.dk.eindberetningmobil_android.models.Tokens token : getTokens()) {
-            tokenArray.put(token.saveToJson());
+        if (getTokens() != null) {
+            for (it_minds.dk.eindberetningmobil_android.models.Tokens token : getTokens()) {
+                tokenArray.put(token.saveToJson());
+            }
         }
-
         result.put("Tokens", tokenArray);
-
         return result;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Profile profile = (Profile) o;
+
+        if (Id != profile.Id) return false;
+        if (Firstname != null ? !Firstname.equals(profile.Firstname) : profile.Firstname != null)
+            return false;
+        if (Lastname != null ? !Lastname.equals(profile.Lastname) : profile.Lastname != null)
+            return false;
+        if (HomeLatitude != null ? !HomeLatitude.equals(profile.HomeLatitude) : profile.HomeLatitude != null)
+            return false;
+        if (HomeLongitude != null ? !HomeLongitude.equals(profile.HomeLongitude) : profile.HomeLongitude != null)
+            return false;
+        if (Employments != null ? !Employments.equals(profile.Employments) : profile.Employments != null)
+            return false;
+        return !(Tokens != null ? !Tokens.equals(profile.Tokens) : profile.Tokens != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Id;
+        result = 31 * result + (Firstname != null ? Firstname.hashCode() : 0);
+        result = 31 * result + (Lastname != null ? Lastname.hashCode() : 0);
+        result = 31 * result + (HomeLatitude != null ? HomeLatitude.hashCode() : 0);
+        result = 31 * result + (HomeLongitude != null ? HomeLongitude.hashCode() : 0);
+        result = 31 * result + (Employments != null ? Employments.hashCode() : 0);
+        result = 31 * result + (Tokens != null ? Tokens.hashCode() : 0);
+        return result;
     }
 }

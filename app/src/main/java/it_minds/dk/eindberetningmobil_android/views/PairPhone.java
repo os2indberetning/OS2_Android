@@ -65,6 +65,7 @@ public class PairPhone extends ProvidedSimpleActivity {
             Log.e("temp", "dont have token");
             setupUI();
         }
+        setActionbarBackDisplay();
         hideSoftkeyboard();
 
     }
@@ -86,6 +87,8 @@ public class PairPhone extends ProvidedSimpleActivity {
 
                         if (findTokenInUserInfo(result, code)) {
                             useInternalToken();
+                        } else {
+                            Toast.makeText(PairPhone.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -100,12 +103,12 @@ public class PairPhone extends ProvidedSimpleActivity {
 
                             } else if (verr.networkResponse.statusCode == 401) {
                                 //token not found
-                                Toast.makeText(PairPhone.this, "Tokenet blev ikke fundet", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PairPhone.this, R.string.error_token_not_found, Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(PairPhone.this, "Der skete en fejl, " + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(PairPhone.this, "Der skete en fejl, " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PairPhone.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -130,6 +133,12 @@ public class PairPhone extends ProvidedSimpleActivity {
             Toast.makeText(PairPhone.this, R.string.unknown_token_error, Toast.LENGTH_SHORT).show();
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, ChooseProvider.class));
+        super.onBackPressed();
     }
 
     private void useInternalToken() {

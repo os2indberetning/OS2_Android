@@ -11,6 +11,7 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.controllers.MonitoringController;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
+import it_minds.dk.eindberetningmobil_android.service.NotificationHelper;
 
 /**
  * Created by kasper on 28-06-2015.
@@ -34,6 +35,7 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
         setColorForText(pauseResume);
         setColorForText(stopBtn);
         getAccTextView().setText(R.string.waiting_for_gps);
+        NotificationHelper.createNotification(this);
     }
 
     public TextView getAccTextView() {
@@ -60,6 +62,7 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
     protected void onDestroy() {
         super.onDestroy();
         controller.stopListening();
+        NotificationHelper.stopNotification(this);
     }
 
     public DrivingReport getReport() {

@@ -92,7 +92,7 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
 
     @Test
     public void testGpsModel() throws MalformedURLException, JSONException {
-        GPSCoordinateModel gps = new GPSCoordinateModel("", "", "");
+        GPSCoordinateModel gps = new GPSCoordinateModel("", "");
         assertNotNull(gps.saveToJson());
         GPSCoordinateModel model2 = GPSCoordinateModel.parseFromJson(gps.saveToJson());
         assertTrue(model2.hashCode() == gps.hashCode());

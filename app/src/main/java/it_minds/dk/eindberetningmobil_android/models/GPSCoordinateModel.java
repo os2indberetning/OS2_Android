@@ -17,12 +17,11 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 public class GPSCoordinateModel {
     private String Latitude;
     private String Longitude;
-    private String TimeStamp;
 
-    public GPSCoordinateModel(String latitude, String longitude, String timeStamp) {
+
+    public GPSCoordinateModel(String latitude, String longitude) {
         Latitude = latitude;
         Longitude = longitude;
-        TimeStamp = timeStamp;
     }
 
     /**
@@ -33,8 +32,7 @@ public class GPSCoordinateModel {
     public static GPSCoordinateModel parseFromJson(JSONObject obj) throws JSONException, MalformedURLException {
         String Latitude = obj.optString("Latitude");
         String Longitude = obj.optString("Longitude");
-        String TimeStamp = obj.optString("TimeStamp");
-        return new GPSCoordinateModel(Latitude, Longitude, TimeStamp);
+        return new GPSCoordinateModel(Latitude, Longitude);
     }
 
     /**
@@ -79,20 +77,6 @@ public class GPSCoordinateModel {
     }
 
     /**
-     * @return String
-     */
-    public String getTimeStamp() {
-        return this.TimeStamp;
-    }
-
-    /**
-     * @return String
-     */
-    public void setTimeStamp(String newVal) {
-        this.TimeStamp = newVal;
-    }
-
-    /**
      * saveToJson description here
      *
      * @return JSONObject
@@ -101,7 +85,6 @@ public class GPSCoordinateModel {
         SafeJsonHelper result = new SafeJsonHelper();
         result.put("Latitude", Latitude);
         result.put("Longitude", Longitude);
-        result.put("TimeStamp", TimeStamp);
         return result;
 
     }
@@ -117,7 +100,7 @@ public class GPSCoordinateModel {
             return false;
         if (Longitude != null ? !Longitude.equals(that.Longitude) : that.Longitude != null)
             return false;
-        return !(TimeStamp != null ? !TimeStamp.equals(that.TimeStamp) : that.TimeStamp != null);
+        return true;
 
     }
 
@@ -125,7 +108,6 @@ public class GPSCoordinateModel {
     public int hashCode() {
         int result = Latitude != null ? Latitude.hashCode() : 0;
         result = 31 * result + (Longitude != null ? Longitude.hashCode() : 0);
-        result = 31 * result + (TimeStamp != null ? TimeStamp.hashCode() : 0);
         return result;
     }
 }

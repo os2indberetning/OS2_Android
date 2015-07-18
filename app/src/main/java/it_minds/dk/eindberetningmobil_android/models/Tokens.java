@@ -106,4 +106,26 @@ public class Tokens {
         return result;
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tokens tokens = (Tokens) o;
+
+        if (Status != tokens.Status) return false;
+        if (GuId != null ? !GuId.equals(tokens.GuId) : tokens.GuId != null) return false;
+        return !(TokenString != null ? !TokenString.equals(tokens.TokenString) : tokens.TokenString != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = GuId != null ? GuId.hashCode() : 0;
+        result = 31 * result + (TokenString != null ? TokenString.hashCode() : 0);
+        result = 31 * result + Status;
+        return result;
+    }
 }

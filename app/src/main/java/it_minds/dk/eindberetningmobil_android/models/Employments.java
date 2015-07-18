@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -88,5 +87,25 @@ public class Employments {
         result.put("EmploymentPosition", EmploymentPosition);
         return result;
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employments that = (Employments) o;
+
+        if (Id != that.Id) return false;
+        return !(EmploymentPosition != null ? !EmploymentPosition.equals(that.EmploymentPosition) : that.EmploymentPosition != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Id;
+        result = 31 * result + (EmploymentPosition != null ? EmploymentPosition.hashCode() : 0);
+        return result;
     }
 }

@@ -105,4 +105,27 @@ public class GPSCoordinateModel {
         return result;
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GPSCoordinateModel that = (GPSCoordinateModel) o;
+
+        if (Latitude != null ? !Latitude.equals(that.Latitude) : that.Latitude != null)
+            return false;
+        if (Longitude != null ? !Longitude.equals(that.Longitude) : that.Longitude != null)
+            return false;
+        return !(TimeStamp != null ? !TimeStamp.equals(that.TimeStamp) : that.TimeStamp != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Latitude != null ? Latitude.hashCode() : 0;
+        result = 31 * result + (Longitude != null ? Longitude.hashCode() : 0);
+        result = 31 * result + (TimeStamp != null ? TimeStamp.hashCode() : 0);
+        return result;
+    }
 }

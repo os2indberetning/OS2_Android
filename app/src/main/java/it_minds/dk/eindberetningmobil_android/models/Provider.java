@@ -160,4 +160,35 @@ public class Provider {
         return result;
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Provider provider = (Provider) o;
+
+        if (Name != null ? !Name.equals(provider.Name) : provider.Name != null) return false;
+        if (APIUrl != null ? !APIUrl.equals(provider.APIUrl) : provider.APIUrl != null)
+            return false;
+        if (ImgUrl != null ? !ImgUrl.equals(provider.ImgUrl) : provider.ImgUrl != null)
+            return false;
+        if (TextColor != null ? !TextColor.equals(provider.TextColor) : provider.TextColor != null)
+            return false;
+        if (PrimaryColor != null ? !PrimaryColor.equals(provider.PrimaryColor) : provider.PrimaryColor != null)
+            return false;
+        return !(SecondaryColor != null ? !SecondaryColor.equals(provider.SecondaryColor) : provider.SecondaryColor != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Name != null ? Name.hashCode() : 0;
+        result = 31 * result + (APIUrl != null ? APIUrl.hashCode() : 0);
+        result = 31 * result + (ImgUrl != null ? ImgUrl.hashCode() : 0);
+        result = 31 * result + (TextColor != null ? TextColor.hashCode() : 0);
+        result = 31 * result + (PrimaryColor != null ? PrimaryColor.hashCode() : 0);
+        result = 31 * result + (SecondaryColor != null ? SecondaryColor.hashCode() : 0);
+        return result;
+    }
 }

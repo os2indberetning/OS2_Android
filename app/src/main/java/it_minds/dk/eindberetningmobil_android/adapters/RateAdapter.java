@@ -14,6 +14,7 @@ import it_minds.dk.eindberetningmobil_android.models.Rates;
 
 /**
  * Created by kasper on 12-07-2015.
+ * an adapter capable of displaying an rate item.
  */
 public class RateAdapter extends ArrayAdapter<Rates> {
 

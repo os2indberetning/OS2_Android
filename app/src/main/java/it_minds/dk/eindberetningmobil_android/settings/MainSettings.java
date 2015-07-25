@@ -56,7 +56,7 @@ public class MainSettings {
     //<editor-fold desc="Provider">
 
     /**
-     * haveProvider description here
+     * haveProvider
      *
      * @return boolean
      */
@@ -65,7 +65,7 @@ public class MainSettings {
     }
 
     /**
-     * getProvider description here
+     * getProvider
      *
      * @return Provider
      */
@@ -83,7 +83,7 @@ public class MainSettings {
     }
 
     /**
-     * setProvider description here
+     * setProvider
      *
      * @return void
      */
@@ -96,7 +96,7 @@ public class MainSettings {
     //<editor-fold desc="token">
 
     /**
-     * haveToken description here
+     * haveToken
      *
      * @return boolean
      */
@@ -105,7 +105,7 @@ public class MainSettings {
     }
 
     /**
-     * getToken description here
+     * getToken
      *
      * @return Tokens
      */
@@ -122,7 +122,7 @@ public class MainSettings {
     }
 
     /**
-     * setToken description here
+     * setToken
      *
      * @return void
      */
@@ -164,7 +164,7 @@ public class MainSettings {
     }
 
 
-    public void setProfile(Profile profile){
+    public void setProfile(Profile profile) {
         getPrefs().edit().putString(PROFILES_INDEX, profile.saveToJson().toString()).commit();
     }
 

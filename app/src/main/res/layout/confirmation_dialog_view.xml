@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="300dp"
+    android:padding="10dp"
     android:layout_height="wrap_content">
 
     <TextView
@@ -10,7 +11,8 @@
         android:background="#00665F"
         android:textColor="#fff"
         android:gravity="center_horizontal"
-        android:id="@+id/confirmation_end_driving_dialog_title" />
+        android:id="@+id/confirmation_end_driving_dialog_title"
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,7 +20,8 @@
         android:text="@string/confirmation_end_driving_dialog_message"
         android:textColor="#000"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/confirmation_dialog_view_message" />
 
     <CheckBox
         android:layout_width="wrap_content"

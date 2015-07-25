@@ -44,6 +44,9 @@
             android:name=".views.input.RateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
 
+        <service android:name=".service.MonitoringService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

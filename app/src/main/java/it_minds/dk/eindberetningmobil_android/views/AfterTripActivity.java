@@ -14,8 +14,10 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
 import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnData;
+import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
+import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 
 /**
  * Created by kasper on 29-06-2015.
@@ -33,10 +35,7 @@ public class AfterTripActivity extends BaseReportActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AfterTripActivity.this, UploadingView.class);
-                intent.putExtra(IntentIndexes.DATA_INDEX, report);
-                startActivity(intent);
-                finish();
+                showDialogBeforeSend();
             }
         });
         setColorForText(sendBtn);
@@ -99,11 +98,11 @@ public class AfterTripActivity extends BaseReportActivity {
 
     private void setDateLabel() {
         TextView dateLabel = getViewById(R.id.after_tracking_view_date_label);
-        String dateString ;
+        String dateString;
 
         if (report.getstartTime() != null) {
             dateString = report.getstartTime().toString("dd/MM-YY");
-        }else{
+        } else {
             dateString = new DateTime().toString("dd/MM-YY");
         }
         dateLabel.setText(dateString);
@@ -133,15 +132,40 @@ public class AfterTripActivity extends BaseReportActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         navgateBack();
     }
 
     private void navgateBack() {
         //show a confirmation dialog.
-        startActivity(new Intent(AfterTripActivity.this, StartActivity.class));
-        finish();
+        new ConfirmationDialog(this, getString(R.string.dialog_cancel_full_report), getString(R.string.cancel_full_report_message), getString(R.string.delete), getString(R.string.No), null, new ResultCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                startActivity(new Intent(AfterTripActivity.this, StartActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onError(Exception error) {
+
+            }
+        }).showDialog();
     }
 
+    private void showDialogBeforeSend() {
+        new ConfirmationDialog(this, getString(R.string.dialog_send_full_report), getString(R.string.dialog_send_full_report_message), getString(R.string.send), getString(R.string.No), null, new ResultCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+//                Intent intent = new Intent(AfterTripActivity.this, UploadingView.class);
+//                intent.putExtra(IntentIndexes.DATA_INDEX, report);
+//                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(Exception error) {
+
+            }
+        }).showDialog();
+    }
 
 }

@@ -49,7 +49,7 @@ public class DrivingReport implements Parcelable {
     private ArrayList<Location> gpsPoints;
 
     public DrivingReport() {
-
+        gpsPoints = new ArrayList<>();
     }
 
     public DrivingReport(String purpose, String orgLocation, String rate, String extraDescription, boolean haveEditedDistance, boolean startedAtHome, boolean endedAtHome, DateTime startTime, DateTime endTime, double distanceInMeters) {

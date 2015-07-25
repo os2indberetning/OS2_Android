@@ -20,6 +20,7 @@ import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 
 /**
  * Created by kasper on 12-07-2015.
+ * the base class for displaying and editing a report. This is used for both the pre phase, and the after phase.
  */
 public class BaseReportActivity extends ProvidedSimpleActivity {
 
@@ -28,11 +29,25 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
 
     private OnData<String> afterEditCallback;
 
-
+    /**
+     * helper function to show the regular text edit for a field
+     *
+     * @param callback
+     * @param title
+     * @param currentValue
+     */
     public void showEdit(OnData<String> callback, String title, String currentValue) {
         showEdit(callback, title, currentValue, TextInputView.class);
     }
 
+    /**
+     * helper function to show the regular text edit for a field
+     *
+     * @param callback
+     * @param title
+     * @param currentValue
+     * @param viewClass
+     */
     public void showEdit(OnData<String> callback, String title, String currentValue, Class<?> viewClass) {
         afterEditCallback = callback;
         Intent intent = new Intent(this, viewClass);
@@ -41,6 +56,13 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         startActivityForResult(intent, TEXT_INPUT_CODE);
     }
 
+    /**
+     * base handling of the edit.
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -54,6 +76,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
     }
 
 
+    //<editor-fold desc="Helpers function for various fields of driving report.">
     public void handlePurpose(@IdRes int purposeContainer, @IdRes final int purposeDesc) {
         findViewById(purposeContainer).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +149,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         }
     }
 
-    public void setRateText(String id,@IdRes int label) {
+    public void setRateText(String id, @IdRes int label) {
         TextView rateText = (TextView) findViewById(label);
         Rates rateById = findRateById(id);
         if (rateById != null) {
@@ -143,4 +166,5 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         }
         return null;
     }
+    //</editor-fold>
 }

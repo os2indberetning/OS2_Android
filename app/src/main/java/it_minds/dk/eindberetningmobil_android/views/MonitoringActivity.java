@@ -18,6 +18,7 @@ import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringReciver;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringService;
 import it_minds.dk.eindberetningmobil_android.service.UiStatusModel;
+import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationEndDrivingDialog;
 
 /**
@@ -61,11 +62,15 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
         getStopButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                justCanceled = true;
-                MonitoringService.pauseResumeListening(MonitoringActivity.this);
+                stopRide();
             }
         });
 
+    }
+
+    private void stopRide() {
+        justCanceled = true;
+        MonitoringService.pauseResumeListening(MonitoringActivity.this);
     }
 
     private void startService(DrivingReport report) {
@@ -153,6 +158,7 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
 
     /**
      * Simple helper function, updating the ui, given the current state.
+     *
      * @param newState
      */
     private void updateUi(UiStatusModel newState) {
@@ -163,6 +169,7 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
 
     /**
      * Updates the pause / resume button depending on the supplied state.
+     *
      * @param isListening
      */
     private void handlePauseResumeButton(boolean isListening) {
@@ -182,6 +189,18 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
     public void showInvalidLocation() {
         Toast.makeText(this, "Hey du er ikke hvor du stoppede, dette er ikke OK, ...", Toast.LENGTH_LONG).show();
         Log.e("temp", "LOCATION TO FAR AWAY");
+        new ConfirmationDialog(this, "fejl", "du er ikke indenfor rækkevide af din tidligere route. enten vend tilbage, eller start en ny.",
+                "prøv igen", "afslut nuværrende", null, new ResultCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                MonitoringService.pauseResumeListening(MonitoringActivity.this);
+            }
+
+            @Override
+            public void onError(Exception error) {
+                stopRide();
+            }
+        }).showDialog();
     }
 
     public void showResumed() {

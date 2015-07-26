@@ -33,9 +33,11 @@ public class UploadingView extends ProvidedSimpleActivity {
         setContentView(R.layout.uploading_view);
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
         statusText = getViewById(R.id.upload_view_status_text);
-        String url = MainSettings.getInstance(this).getProvider().getImgUrl();
-        NetworkImageView img = getViewById(R.id.uploading_view_image);
-        img.setImageUrl(url, ServerHandler.getInstance(this).getImageLoader());
+        if (MainSettings.getInstance(this).getProvider() != null) {
+            String url = MainSettings.getInstance(this).getProvider().getImgUrl();
+            NetworkImageView img = getViewById(R.id.uploading_view_image);
+            img.setImageUrl(url, ServerHandler.getInstance(this).getImageLoader());
+        }
         final Timer timer = new Timer();//TODO have some real stuff here instead of waiting.
         ServerHandler.getInstance(this).sendReport(report, new ResultCallback<UserInfo>() {
             @Override

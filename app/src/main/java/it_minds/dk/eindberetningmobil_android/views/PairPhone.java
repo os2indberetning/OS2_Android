@@ -137,6 +137,7 @@ public class PairPhone extends ProvidedSimpleActivity {
 
     @Override
     public void onBackPressed() {
+        settings.setProvider(null);
         startActivity(new Intent(this, ChooseProvider.class));
         super.onBackPressed();
     }

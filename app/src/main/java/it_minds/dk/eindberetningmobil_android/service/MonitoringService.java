@@ -22,7 +22,6 @@ import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 /**
  * Created by kasper on 25-07-2015.
  * background service handling the gps location calculations. This service is designed to run in the background, as a foreground service (with a notification).
- *
  */
 public class MonitoringService extends Service implements OnLocationChangedCallback {
 
@@ -154,6 +153,7 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
         if (locMgr != null) {
             locMgr.unRegisterOnLocationChanged(this);
         }
+        manager.pause();
         callback.send(Activity.RESULT_OK, manager.createNotificationBundle());
         isListening = false;
         sendStatus();
@@ -207,6 +207,17 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
         intent.putExtra(IntentIndexes.CALLBACK_INDEX, new MonitoringReciver(new Handler()).setReceiver(receiver));
         intent.putExtra(IntentIndexes.DATA_INDEX, report);
         context.startService(intent);
+    }
+
+    public boolean isListening() {
+        return isListening;
+    }
+
+    public void sendError() {
+        locMgr.registerOnLocationChanged(this);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IntentIndexes.ERROR_INDEX, true);
+        callback.send(Activity.RESULT_OK, bundle);
     }
     //</editor-fold>
 }

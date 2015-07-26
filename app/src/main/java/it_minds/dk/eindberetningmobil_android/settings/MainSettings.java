@@ -88,7 +88,11 @@ public class MainSettings {
      * @return void
      */
     public void setProvider(Provider newVal) {
-        getPrefs().edit().putString(PROVIDER_INDEX, newVal.saveToJson().toString()).commit();
+        String json = null;
+        if (newVal != null) {
+            json = newVal.saveToJson().toString();
+        }
+        getPrefs().edit().putString(PROVIDER_INDEX, json).commit();
     }
     //</editor-fold>
 

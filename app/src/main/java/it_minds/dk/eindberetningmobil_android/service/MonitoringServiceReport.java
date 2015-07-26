@@ -27,7 +27,7 @@ public class MonitoringServiceReport {
 
     //<editor-fold desc="report mangement">
     private DrivingReport report;
-    private boolean validateLocation = false;
+    private boolean validateOnResume = false;
     private Location lastLocation = null;
     //</editor-fold>
 
@@ -48,8 +48,7 @@ public class MonitoringServiceReport {
      * @param location
      */
     public void addLocation(Location location) {
-        report.setdistanceInMeters(report.getdistanceInMeters() + 20); //TODO remove debug.
-        if (validateLocation) {
+        if (validateOnResume) {
             handleValidationOnResume(location);
             return;
         }
@@ -69,15 +68,16 @@ public class MonitoringServiceReport {
      * @param location
      */
     private void handleNewLocation(Location location) {
-        report.getgpsPoints().add(location);
-        if (lastLocation == null) {
-            lastLocation = location;
-            return;
+        if (report != null && report.getgpsPoints() != null) {
+            report.getgpsPoints().add(location);
+            if (lastLocation == null) {
+                lastLocation = location;
+                return;
+            }
+            updateCurrentDistance(location);
+            long offset = TimeZone.getDefault().getOffset(location.getTime());
+            updateDisplay(location.getAccuracy(), report.getdistanceInMeters(), new DateTime(offset + location.getTime()));
         }
-
-        updateCurrentDistance(location);
-        long offset = TimeZone.getDefault().getOffset(location.getTime());
-        updateDisplay(location.getAccuracy(), report.getdistanceInMeters(), new DateTime(offset + location.getTime()));
     }
 
     /**
@@ -90,7 +90,7 @@ public class MonitoringServiceReport {
         Log.e("temp", "is validating location");
 
         if (report.getgpsPoints().size() == 0) {
-            validateLocation = false;
+            validateOnResume = false;
             handleNewLocation(location);//resume the function.
             return;
         }
@@ -98,7 +98,7 @@ public class MonitoringServiceReport {
         if (location.getAccuracy() <= MINIMUM_REQURIED_ACC_IN_METERS) {
             Log.e("temp", "validation point is semi precise." + location.getAccuracy());
 
-            validateLocation = false;
+            validateOnResume = false;
 
             Location lastLocation = report.getgpsPoints().get(report.getgpsPoints().size() - 1);
             Log.e("temp", "validation is within: " + lastLocation.distanceTo(location));
@@ -107,9 +107,11 @@ public class MonitoringServiceReport {
                 //ok to contine.
                 handleNewLocation(location);//resume the function.
             } else {
-                //TODO send an error to activity, and pause.
                 //Not allowed to continue
-//                view.showInvalidLocation();
+                if (monitoringService.isListening()) {
+                    MonitoringService.pauseResumeListening(monitoringService);
+                }
+                monitoringService.sendError();
             }
         }
     }
@@ -164,4 +166,7 @@ public class MonitoringServiceReport {
         return bundle;
     }
 
+    public void pause() {
+        validateOnResume = true;
+    }
 }

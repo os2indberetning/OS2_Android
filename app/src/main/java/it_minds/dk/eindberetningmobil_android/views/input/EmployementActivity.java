@@ -33,7 +33,7 @@ public class EmployementActivity extends ProvidedSimpleActivity {
         setActionbarBackDisplay(title);
         final ArrayList<Employments> employments = MainSettings.getInstance(this).getProfile().getEmployments();
         if (employments == null) {
-            Toast.makeText(this, "Der er ingen takster", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Der er organisatoriske placeringer tilgængelige.", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }

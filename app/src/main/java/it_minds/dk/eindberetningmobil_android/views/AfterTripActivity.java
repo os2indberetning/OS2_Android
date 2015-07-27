@@ -2,6 +2,7 @@ package it_minds.dk.eindberetningmobil_android.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -9,6 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.joda.time.DateTime;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
@@ -19,6 +24,7 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
+import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
 
 /**
  * Created by kasper on 29-06-2015.
@@ -84,7 +90,7 @@ public class AfterTripActivity extends BaseReportActivity {
                         double meters = handleKmClick(data, prevVal);
                         report.setdistanceInMeters(meters);
                     }
-                }, getString(R.string.distance_title_edit), report.getdistanceInMeters() + "");
+                }, getString(R.string.distance_title_edit), report.getdistanceInMeters() + "", KmActivity.class);
             }
         });
 
@@ -135,6 +141,7 @@ public class AfterTripActivity extends BaseReportActivity {
             report.sethaveEditedDistance(meters != prevVal);
             setTextToView(R.id.after_tracking_view_km_container_desc, meters + "");
         } catch (Exception e) {
+            Log.e("temp", "is not a decimal number", e);
         }
         return meters;
     }

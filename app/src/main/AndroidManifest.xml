@@ -47,6 +47,10 @@
             android:name=".views.input.EmployementActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
 
+        <activity
+            android:name=".views.input.KmActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+
         <service android:name=".service.MonitoringService"
             android:exported="false"/>
 

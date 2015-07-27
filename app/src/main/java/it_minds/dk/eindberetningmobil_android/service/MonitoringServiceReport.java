@@ -3,6 +3,7 @@ package it_minds.dk.eindberetningmobil_android.service;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.util.Log;
 
 import org.joda.time.DateTime;
@@ -150,8 +151,8 @@ public class MonitoringServiceReport {
     /**
      * @return the current Km we have moved
      */
-    public double getCurrentDistanceInKm() {
-        return report.getdistanceInMeters() / 1000.0d;
+    public String getCurrentDistanceInKm() {
+        return DistanceDisplayer.formatDistance(report.getdistanceInMeters());
     }
 
     /**

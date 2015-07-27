@@ -9,6 +9,11 @@ import java.text.DecimalFormat;
 public class DistanceDisplayer {
     private static DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
+    /**
+     * Converts the distance in meteres to km, and displays it nicly.
+     * @param distance
+     * @return
+     */
     public static String formatDistance(double distance) {
         return decimalFormat.format(distance / 1000.0d);
     }

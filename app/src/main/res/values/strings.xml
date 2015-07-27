@@ -35,4 +35,8 @@
     <string name="dialog_send_full_report_message">Er du sikker på at du vil sende rapporten som den er nu ?</string>
     <string name="send">Send</string>
     <string name="start_activity_validation_error">Udfyld venligst formål, organisatorisk placering, og takst inden du starter.</string>
+    <string name="km_edit_notice_title">Advarsel</string>
+    <string name="km_edit_notice_body">Hvis du redigere din distance, vil dette blive opgivet, er du sikker du vil fortsætte ?</string>
+    <string name="km_edit_notice_accept">Ja</string>
+    <string name="km_edit_notice_decline">Nej</string>
 </resources>

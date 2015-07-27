@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -75,7 +76,10 @@ public class StartActivity extends BaseReportActivity {
     private final View.OnClickListener onStartClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO Perform any required validation here. ?? is there any.
+            if (!validateCommonFields()) {
+                Toast.makeText(StartActivity.this, R.string.start_activity_validation_error,Toast.LENGTH_LONG).show();
+                return;
+            }
             Intent startIntent = new Intent(StartActivity.this, MonitoringActivity.class);
             startIntent.putExtra(IntentIndexes.DATA_INDEX, report);
             startActivity(startIntent);

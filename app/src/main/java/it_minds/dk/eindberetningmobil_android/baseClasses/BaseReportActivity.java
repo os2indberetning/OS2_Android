@@ -13,9 +13,11 @@ import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnData;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
+import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.TextInputView;
+import it_minds.dk.eindberetningmobil_android.views.input.EmployementActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 
 /**
@@ -103,13 +105,21 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                     @Override
                     public void onData(String data) {
                         report.setOrgLocation(data);
-                        setTextToView(label, data);
+                        setOrgText(data, label);
                     }
-                }, getString(R.string.org_location_title_edit), report.getOrgLocation());
+                }, getString(R.string.org_location_title_edit), report.getOrgLocation(), EmployementActivity.class);
             }
         });
         if (report.getOrgLocation() != null && report.getOrgLocation().length() > 0) {
-            setTextToView(label, report.getOrgLocation());
+            setOrgText(report.getOrgLocation(), label);
+        }
+    }
+
+    private void setOrgText(String orgId, int resId) {
+        TextView tv = getViewById(resId);
+        Employments emp = findEmployementById(orgId);
+        if (emp != null) {
+            tv.setText(emp.getEmploymentPosition());
         }
     }
 
@@ -149,6 +159,19 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         }
     }
 
+    public Employments findEmployementById(String id) {
+        if (MainSettings.getInstance(this).getProfile() == null || MainSettings.getInstance(this).getProfile().getEmployments() == null) {
+            return null;
+        }
+        ArrayList<Employments> employmentses = MainSettings.getInstance(this).getProfile().getEmployments();
+        for (Employments emp : employmentses) {
+            if (id.equals(emp.getId() + "")) {
+                return emp;
+            }
+        }
+        return null;
+    }
+
     public void setRateText(String id, @IdRes int label) {
         TextView rateText = (TextView) findViewById(label);
         Rates rateById = findRateById(id);
@@ -166,5 +189,17 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         }
         return null;
     }
+
+    /**
+     * validates that the required fields are set by the user.
+     *
+     * @return
+     */
+    public boolean validateCommonFields() {
+        return (report.getPurpose() != null && report.getPurpose().length() > 0
+                && report.getRate() != null && report.getRate().length() > 0
+                && report.getOrgLocation() != null && report.getOrgLocation().length() > 0);
+    }
+
     //</editor-fold>
 }

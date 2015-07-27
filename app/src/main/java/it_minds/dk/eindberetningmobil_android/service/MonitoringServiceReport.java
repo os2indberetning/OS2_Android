@@ -86,7 +86,7 @@ public class MonitoringServiceReport {
      *
      * @param location
      */
-    private void handleValidationOnResume(Location location) {
+    private synchronized void handleValidationOnResume(Location location) {
         Log.e("temp", "is validating location");
 
         if (report.getgpsPoints().size() == 0) {
@@ -97,22 +97,21 @@ public class MonitoringServiceReport {
 
         if (location.getAccuracy() <= MINIMUM_REQURIED_ACC_IN_METERS) {
             Log.e("temp", "validation point is semi precise." + location.getAccuracy());
-
-            validateOnResume = false;
-
             Location lastLocation = report.getgpsPoints().get(report.getgpsPoints().size() - 1);
             Log.e("temp", "validation is within: " + lastLocation.distanceTo(location));
-
             if (lastLocation.distanceTo(location) < MAX_DIST_RESUME_ALLOWED_IN_METERES) {
                 //ok to contine.
+                validateOnResume = false;
                 handleNewLocation(location);//resume the function.
             } else {
                 //Not allowed to continue
-                if (monitoringService.isListening()) {
+                if (monitoringService.isListening()) { //stop if listening, so we are "safe" :)
                     MonitoringService.pauseResumeListening(monitoringService);
                 }
                 monitoringService.sendError();
+                validateOnResume = false;
             }
+
         }
     }
 

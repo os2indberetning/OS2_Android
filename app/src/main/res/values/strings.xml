@@ -34,4 +34,5 @@
     <string name="dialog_send_full_report">Send rapporten</string>
     <string name="dialog_send_full_report_message">Er du sikker på at du vil sende rapporten som den er nu ?</string>
     <string name="send">Send</string>
+    <string name="start_activity_validation_error">Udfyld venligst formål, organisatorisk placering, og takst inden du starter.</string>
 </resources>

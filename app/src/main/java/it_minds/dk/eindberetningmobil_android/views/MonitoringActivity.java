@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -137,14 +136,7 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
             ConfirmationEndDrivingDialog dialog = new ConfirmationEndDrivingDialog(this, new ResultCallback<Boolean>() {
                 @Override
                 public void onSuccess(Boolean endedAtHome) {
-                    MonitoringService.stopService(MonitoringActivity.this);
-                    Intent intent = new Intent(MonitoringActivity.this, AfterTripActivity.class);
-                    DrivingReport report = localReport;
-                    report.setendedAtHome(endedAtHome);
-                    report.setendTime(new DateTime());
-                    intent.putExtra(IntentIndexes.DATA_INDEX, report);
-                    MonitoringActivity.this.startActivity(intent);
-                    MonitoringActivity.this.finish();
+                    finishDrive(endedAtHome);
                 }
 
                 @Override
@@ -154,6 +146,17 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
             });
             dialog.showDialog();
         }
+    }
+
+    private void finishDrive(Boolean endedAtHome) {
+        MonitoringService.stopService(MonitoringActivity.this);
+        Intent intent = new Intent(MonitoringActivity.this, AfterTripActivity.class);
+        DrivingReport report = localReport;
+        report.setendedAtHome(endedAtHome);
+        report.setendTime(new DateTime());
+        intent.putExtra(IntentIndexes.DATA_INDEX, report);
+        MonitoringActivity.this.startActivity(intent);
+        MonitoringActivity.this.finish();
     }
 
     /**
@@ -187,9 +190,8 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
 
 
     public void showInvalidLocation() {
-        Toast.makeText(this, "Hey du er ikke hvor du stoppede, dette er ikke OK, ...", Toast.LENGTH_LONG).show();
         Log.e("temp", "LOCATION TO FAR AWAY");
-        new ConfirmationDialog(this, "fejl", "du er ikke indenfor rækkevide af din tidligere route. enten vend tilbage, eller start en ny.",
+        new ConfirmationDialog(this, "Fejl", "du er ikke indenfor rækkevide af din tidligere route. enten vend tilbage, eller start en ny.",
                 "prøv igen", "afslut nuværrende", null, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
@@ -198,7 +200,7 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
 
             @Override
             public void onError(Exception error) {
-                stopRide();
+                finishDrive(false);
             }
         }).showDialog();
     }

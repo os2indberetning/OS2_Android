@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -32,10 +33,11 @@ public class AfterTripActivity extends BaseReportActivity {
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
         setContentView(R.layout.after_tracking_view);
         TextView sendBtn = getViewById(R.id.after_tracking_view_send_btn);
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogBeforeSend();
+                handleOnSend();
             }
         });
         setColorForText(sendBtn);
@@ -94,6 +96,14 @@ public class AfterTripActivity extends BaseReportActivity {
         setDateLabel();
         setUserLabel();
 
+    }
+
+    private void handleOnSend() {
+        if (!validateCommonFields()) {
+            Toast.makeText(this, R.string.start_activity_validation_error, Toast.LENGTH_LONG).show();
+        } else {
+            showDialogBeforeSend();
+        }
     }
 
     private void setDateLabel() {

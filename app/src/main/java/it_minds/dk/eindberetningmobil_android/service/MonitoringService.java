@@ -214,7 +214,6 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     }
 
     public void sendError() {
-        locMgr.registerOnLocationChanged(this);
         Bundle bundle = new Bundle();
         bundle.putBoolean(IntentIndexes.ERROR_INDEX, true);
         callback.send(Activity.RESULT_OK, bundle);

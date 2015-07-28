@@ -100,7 +100,7 @@ public class LocationMgr implements GoogleApiClient.ConnectionCallbacks, GoogleA
      */
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        Log.e("temp", "connection failed.");
     }
 
     public void registerOnLocationChanged(OnLocationChangedCallback callback) {

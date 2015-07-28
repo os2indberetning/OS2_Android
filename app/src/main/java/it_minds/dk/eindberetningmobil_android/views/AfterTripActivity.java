@@ -11,10 +11,6 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
 import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
@@ -37,6 +33,7 @@ public class AfterTripActivity extends BaseReportActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
+        report.setEndTime(new DateTime());
         setContentView(R.layout.after_tracking_view);
         TextView sendBtn = getViewById(R.id.after_tracking_view_send_btn);
 
@@ -138,8 +135,8 @@ public class AfterTripActivity extends BaseReportActivity {
         double meters = report.getdistanceInMeters();
         try {
             meters = Double.parseDouble(data);
-            report.sethaveEditedDistance(meters != prevVal);
-            setTextToView(R.id.after_tracking_view_km_container_desc, meters + "");
+            report.sethaveEditedDistance(meters != prevVal || report.gethaveEditedDistance());//if we have edited it, it stays that way.
+            setTextToView(R.id.after_tracking_view_km_container_desc, DistanceDisplayer.formatDistance(meters));
         } catch (Exception e) {
             Log.e("temp", "is not a decimal number", e);
         }
@@ -172,9 +169,9 @@ public class AfterTripActivity extends BaseReportActivity {
         new ConfirmationDialog(this, getString(R.string.dialog_send_full_report), getString(R.string.dialog_send_full_report_message), getString(R.string.send), getString(R.string.No), null, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
-//                Intent intent = new Intent(AfterTripActivity.this, UploadingView.class);
-//                intent.putExtra(IntentIndexes.DATA_INDEX, report);
-//                startActivity(intent);
+                Intent intent = new Intent(AfterTripActivity.this, UploadingView.class);
+                intent.putExtra(IntentIndexes.DATA_INDEX, report);
+                startActivity(intent);
                 finish();
             }
 

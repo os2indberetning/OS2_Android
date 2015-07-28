@@ -16,7 +16,7 @@ import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
-import it_minds.dk.eindberetningmobil_android.views.TextInputView;
+import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
 import it_minds.dk.eindberetningmobil_android.views.input.EmployementActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 

@@ -5,7 +5,6 @@ import android.support.annotation.IdRes;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Spinner;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,22 +18,6 @@ public class ViewUtilClass {
     public static void hideSoftkeyboard(Window win) {
         win.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
-
-    public static void hideSoftkeyboard(Activity act) {
-        hideSoftkeyboard(act.getWindow());
-    }
-    //</editor-fold>
-
-
-    //<editor-fold desc="Textview features">
-    public static String getTextFromSpinner(final View vg, @IdRes int spinnerId) {
-        Spinner spinner = getViewById(vg, spinnerId);
-        if (spinner != null) {
-            return spinner.getSelectedItem().toString();
-        }
-        return null;
-    }
-    //</editor-fold>
 
 
     //<editor-fold desc="util features">

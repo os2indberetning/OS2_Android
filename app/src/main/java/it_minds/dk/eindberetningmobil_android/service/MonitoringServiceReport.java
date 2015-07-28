@@ -3,7 +3,6 @@ package it_minds.dk.eindberetningmobil_android.service;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.util.Log;
 
 import org.joda.time.DateTime;
@@ -31,6 +30,8 @@ public class MonitoringServiceReport {
     private boolean validateOnResume = false;
     private Location lastLocation = null;
     //</editor-fold>
+
+    private UiStatusModel lastUiUpdate;
 
     public MonitoringServiceReport(Intent intent, MonitoringService monitoringService) {
         this.monitoringService = monitoringService;
@@ -130,8 +131,9 @@ public class MonitoringServiceReport {
         if (time != null) {
             timeText = (time.toString("HH:mm:ss"));
         }
-        String accText = acc + " m";
-        monitoringService.sendUiUpdate(new UiStatusModel(timeText, accText, distanceText));
+        String accText = DistanceDisplayer.formatAccuracy(acc) + " m";
+        lastUiUpdate = new UiStatusModel(timeText, accText, distanceText);
+        monitoringService.sendUiUpdate(lastUiUpdate);
     }
 
 
@@ -168,5 +170,9 @@ public class MonitoringServiceReport {
 
     public void pause() {
         validateOnResume = true;
+    }
+
+    public UiStatusModel createUiStatus() {
+        return lastUiUpdate;
     }
 }

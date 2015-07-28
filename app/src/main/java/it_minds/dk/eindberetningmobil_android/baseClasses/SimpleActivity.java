@@ -1,18 +1,10 @@
 package it_minds.dk.eindberetningmobil_android.baseClasses;
 
-import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-
-import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.baseClasses.inner.ViewUtilClass;
 
@@ -39,18 +31,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
      *
      * @param titleId
      */
-    public void setActionbarBackDisplay(@StringRes int titleId) {
-        if (getSupportActionBar() != null) {
-            setActionbarBackDisplay();
-            getSupportActionBar().setTitle(titleId);
-        }
-    }
-
-    /**
-     * Shows a back button in the actionbar with the supplied title
-     *
-     * @param titleId
-     */
     public void setActionbarBackDisplay(String titleId) {
         if (getSupportActionBar() != null) {
             setActionbarBackDisplay();
@@ -67,45 +47,10 @@ public abstract class SimpleActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setListOfStringsToSpinner(List<String> data, Spinner spinner, ArrayAdapter<String> adapter) {
-        adapter.clear();
-        adapter.addAll(data);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        if (spinner != null) {
-            spinner.setAdapter(adapter);
-        }
-    }
-
-    public void setListOfStringsToSpinner(List<String> data, @IdRes int spinnerId, ArrayAdapter<String> adapter) {
-        Spinner spinner = getViewById(spinnerId);
-        setListOfStringsToSpinner(data, spinner, adapter);
-    }
-
-    public int getSelectedIndexFromSpinner(@IdRes int viewId) {
-        Spinner spinner = getViewById(viewId);
-        if (spinner != null) {
-            return spinner.getSelectedItemPosition();
-        }
-        return -1;
-    }
-
     //convinece function.
     public void hideSoftkeyboard() {
         ViewUtilClass.hideSoftkeyboard(this.getWindow());
     }
 
-    public void showSoftKeyboard(EditText editText) {
-        if (editText.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-        }
-    }
-
-    public void setSpinnerIndex(int indexByValue, @IdRes int viewId) {
-        Spinner spin = getViewById(viewId);
-        spin.setSelection(indexByValue);
-    }
 
 }

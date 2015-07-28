@@ -54,7 +54,7 @@ public class ChooseProvider extends SimpleActivity {
 
             @Override
             public void onError(Exception error) {
-                Toast.makeText(ChooseProvider.this, "Der skete en fejl.... ", Toast.LENGTH_SHORT).show(); //TODO what should happen here.
+                Toast.makeText(ChooseProvider.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();
             }
         });
     }

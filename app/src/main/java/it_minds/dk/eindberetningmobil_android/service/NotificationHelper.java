@@ -21,6 +21,7 @@ public class NotificationHelper {
 
     /**
      * Creates a notification.
+     *
      * @param context
      * @param title
      * @param content
@@ -28,6 +29,7 @@ public class NotificationHelper {
      */
     public static Notification createNotification(Context context, String title, String content) {
         Intent intent = new Intent(context, MonitoringActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, ID, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setContentTitle(title);

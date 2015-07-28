@@ -14,6 +14,9 @@ import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
+import it_minds.dk.eindberetningmobil_android.location.GpsMonitor;
+import it_minds.dk.eindberetningmobil_android.service.MonitoringService;
+import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 
 /**
@@ -25,6 +28,13 @@ public class StartActivity extends BaseReportActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //if there are any ongoing trips, go to the monitoring class then.
+        if (!MainSettings.getInstance(this).getServiceClosed() && MonitoringService.isServiceActive()) {
+            startActivity(new Intent(this, MonitoringActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.start_tracking_layout);
 
         TextView dateLabel = getViewById(R.id.start_tracking_layout_date_label);
@@ -77,9 +87,14 @@ public class StartActivity extends BaseReportActivity {
         @Override
         public void onClick(View v) {
             if (!validateCommonFields()) {
-                Toast.makeText(StartActivity.this, R.string.start_activity_validation_error,Toast.LENGTH_LONG).show();
+                Toast.makeText(StartActivity.this, R.string.start_activity_validation_error, Toast.LENGTH_LONG).show();
                 return;
             }
+            if (!GpsMonitor.isGpsEnabled(StartActivity.this)) {
+                Toast.makeText(StartActivity.this, R.string.activate_gps, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            report.setstartTime(new DateTime());
             Intent startIntent = new Intent(StartActivity.this, MonitoringActivity.class);
             startIntent.putExtra(IntentIndexes.DATA_INDEX, report);
             startActivity(startIntent);

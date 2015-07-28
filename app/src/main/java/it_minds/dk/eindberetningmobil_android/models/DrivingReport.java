@@ -236,7 +236,7 @@ public class DrivingReport implements Parcelable {
     /**
      * @return DateTime
      */
-    public void setendTime(DateTime newVal) {
+    public void setEndTime(DateTime newVal) {
         this.endTime = newVal;
     }
 
@@ -273,19 +273,33 @@ public class DrivingReport implements Parcelable {
      *
      * @return JSONObject
      */
-    public JSONObject saveToJson() {
+    public JSONObject saveToJson(int profileId) {
         SafeJsonHelper result = new SafeJsonHelper();
-        result.put("purpose", purpose);
-        result.put("orgLocation", orgLocation);
-        result.put("Rate", Rate);
-        result.put("extraDescription", extraDescription);
-        result.put("haveEditedDistance", haveEditedDistance);
-        result.put("startedAtHome", startedAtHome);
-        result.put("endedAtHome", endedAtHome);
-        result.put("startTime", startTime.toString());
-        result.put("endTime", endTime.toString());
-        result.put("distanceInMeters", distanceInMeters);
-        result.put("", new JSONArray());
+        result.put("Purpose", purpose);
+        result.put("EmploymentId", Integer.parseInt(orgLocation));
+        result.put("RateId", Integer.parseInt(Rate));
+        result.put("ManualEntryRemark", extraDescription);
+
+        result.put("StartsAtHome", startedAtHome);
+        result.put("EndsAtHome", endedAtHome);
+        if (startTime != null) {
+            result.put("Date", startTime.toString());
+        } else if (endTime != null) {
+            result.put("Date", endTime.toString());
+        }
+        //the route data inside of the report.
+        SafeJsonHelper routeView = new SafeJsonHelper();
+        routeView.put("TotalDistance", distanceInMeters / 1000.0d);//THIS IS IN KM.
+        JSONArray gpsPointsArray = new JSONArray();
+        for (Location loc : gpsPoints) {
+            SafeJsonHelper gpsPoint = new SafeJsonHelper();
+            gpsPoint.put("Latitude", loc.getLatitude() + "");
+            gpsPoint.put("Longitude", loc.getLongitude() + "");
+            gpsPointsArray.put(gpsPoint);
+        }
+        routeView.put("GPSCoordinates", gpsPointsArray);
+        result.put("route", routeView);
+        result.put("ProfileId", profileId);
 
         return result;
     }

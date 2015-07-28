@@ -26,6 +26,7 @@ public class MainSettings {
     private static final String TOKEN_INDEX = "TOKEN_INDEX";
     private static final String RATES_INDEX = "RATES_INDEX";
     private static final String PROFILES_INDEX = "PROFILES_INDEX";
+    private static final String SERVICE_INDEX = "SERVICE_INDEX";
     //</editor-fold>
 
     //<editor-fold desc="singleton">
@@ -174,6 +175,14 @@ public class MainSettings {
 
     public void clear() {
         getPrefs().edit().clear().commit();
+    }
+
+    public void setServiceClosed(boolean serviceClosed) {
+        getPrefs().edit().putBoolean(SERVICE_INDEX, serviceClosed).commit();
+    }
+
+    public boolean getServiceClosed() {
+        return getPrefs().getBoolean(SERVICE_INDEX, true);
     }
     //</editor-fold>
 }

@@ -16,8 +16,10 @@ import android.util.Log;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnLocationChangedCallback;
+import it_minds.dk.eindberetningmobil_android.location.GpsMonitor;
 import it_minds.dk.eindberetningmobil_android.location.LocationMgr;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
+import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
  * Created by kasper on 25-07-2015.
@@ -36,9 +38,13 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     private boolean isListening = false;
     private LocationMgr locMgr;
 
+    private GpsMonitor gpsMonitor;
+
     private ResultReceiver callback;
 
     private MonitoringServiceReport manager;
+
+    private static boolean haveBeenStarted = false;
 
     /**
      * Gets called when we start.
@@ -55,7 +61,13 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
             updateNotification(getString(R.string.notification_active_title), getString(R.string.notification_active_message) + manager.getCurrentDistanceInKm() + " km");
         } else {
             callback = intent.getParcelableExtra(IntentIndexes.CALLBACK_INDEX);
+            if (manager.createUiStatus() != null) {
+                sendUiUpdate(manager.createUiStatus());
+            }
         }
+        gpsMonitor = new GpsMonitor(onGpsChanged);
+        gpsMonitor.startListening(this);
+        haveBeenStarted = true;
     }
 
     private void updateNotification(String title, String content) {
@@ -65,9 +77,14 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        haveBeenStarted = false;
+        MainSettings.getInstance(this).setServiceClosed(true);
         locMgr.unRegisterOnLocationChanged(this);
+        if (gpsMonitor != null) {
+            gpsMonitor.stopListening(this);
+        }
         Log.e("temp", "service killed");
+        super.onDestroy();
     }
 
     @Nullable
@@ -106,13 +123,18 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
                 if (isListening) {
                     pause();
                 } else {
-                    resume();
+                    if (gpsMonitor.isGpsActive()) {
+                        sendGpsWorking();
+                        resume();
+                    } else {
+                        sendGpsError();
+                    }
                 }
             } else if (intent.hasExtra(COMMAND_SEND_STATUS)) {
                 sendStatus();
             }
-
         }
+        MainSettings.getInstance(this).setServiceClosed(false);
         return START_STICKY;
 
     }
@@ -219,4 +241,37 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
         callback.send(Activity.RESULT_OK, bundle);
     }
     //</editor-fold>
+
+    private Runnable onGpsChanged = new Runnable() {
+        @Override
+        public void run() {
+            if (gpsMonitor.isGpsActive()) {//we just became active
+                sendGpsWorking();
+            } else { //we just stopped the gps !??!?
+                sendGpsError();
+                pause();
+            }
+        }
+    };
+
+    private void sendGpsWorking() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IntentIndexes.WORKING_GPS_INDEX, true);
+        callback.send(Activity.RESULT_OK, bundle);
+    }
+
+    private void sendGpsError() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IntentIndexes.ERROR_GPS_INDEX, true);
+        callback.send(Activity.RESULT_OK, bundle);
+    }
+
+    /**
+     * tells if the service itself belives it has been started (as a guard against middle crashes of the app , and the prefs not updated).
+     *
+     * @return
+     */
+    public static boolean isServiceActive() {
+        return haveBeenStarted;
+    }
 }

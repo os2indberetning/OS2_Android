@@ -11,4 +11,6 @@ public class IntentIndexes {
     public static final String STATUS_INDEX = "STATUS_INDEX";
     public static final String UI_INDEX ="UI_INDEX";
     public static final String ERROR_INDEX = "ERROR_INDEX";
+    public static final String ERROR_GPS_INDEX = "ERROR_GPS_INDEX";
+    public static final String WORKING_GPS_INDEX = "WORKING_GPS_INDEX";
 }

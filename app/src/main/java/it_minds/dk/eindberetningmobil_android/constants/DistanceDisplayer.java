@@ -11,11 +11,15 @@ public class DistanceDisplayer {
 
     /**
      * Converts the distance in meteres to km, and displays it nicly.
+     *
      * @param distance
      * @return
      */
     public static String formatDistance(double distance) {
-        return decimalFormat.format(distance / 1000.0d);
+        return decimalFormat.format(distance / 1000.0d).replace('.', ',');//danish style
     }
 
+    public static String formatAccuracy(double acc){
+        return decimalFormat.format(acc).replace('.', ',');//danish style
+    }
 }

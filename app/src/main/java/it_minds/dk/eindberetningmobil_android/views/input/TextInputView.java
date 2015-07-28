@@ -1,4 +1,4 @@
-package it_minds.dk.eindberetningmobil_android.views;
+package it_minds.dk.eindberetningmobil_android.views.input;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,6 +33,7 @@ public class TextInputView extends ProvidedSimpleActivity {
         setActionbarBackDisplay(title);
     }
 
+    //store result
     @Override
     public void onBackPressed() {
         Intent resultData = new Intent();

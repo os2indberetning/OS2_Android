@@ -29,7 +29,8 @@
                 android:layout_marginLeft="5dp"
 
                 android:textColor="#000"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:text="@string/waiting" />
         </LinearLayout>
 
         <TextView
@@ -51,7 +52,8 @@
             android:layout_gravity="center_horizontal"
             android:textColor="#000"
             android:textSize="28dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:text="@string/waiting" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -75,7 +77,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textColor="#000"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:text="@string/waiting" />
         </LinearLayout>
 
         <Button

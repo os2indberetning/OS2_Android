@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
@@ -33,6 +34,8 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
      * State used to show the "stop" dialog, since the events are unaware of eachother.
      */
     private boolean justCanceled = false;
+    private ConfirmationDialog invalidGpsDialog;
+    private boolean active;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,10 +125,59 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
                     updateUi(newState);
                 } else if (resultData.containsKey(IntentIndexes.ERROR_INDEX)) {
                     showInvalidLocation();
+                } else if (resultData.containsKey(IntentIndexes.ERROR_GPS_INDEX)) {
+                    showInvalidGps();
+                } else if (resultData.containsKey(IntentIndexes.WORKING_GPS_INDEX)) {
+                    removeInvalidGps();
                 }
             }
         }
     };
+
+    private void removeInvalidGps() {
+        if (invalidGpsDialog != null) {
+            //dismiss required here ?? i dont think so.
+            invalidGpsDialog = null;
+        }
+    }
+
+    private void showInvalidGps() {
+        if (invalidGpsDialog == null) {
+            invalidGpsDialog = new ConfirmationDialog(this, getString(R.string.error_no_gps_title),
+                    getString(R.string.error_no_gps_message),
+                    getString(R.string.error_gps_retry),
+                    getString(R.string.error_gps_stop), null, new ResultCallback<Boolean>() {
+                @Override
+                public void onSuccess(Boolean result) {
+                    MonitoringService.pauseResumeListening(MonitoringActivity.this);
+                }
+
+                @Override
+                public void onError(Exception error) {
+                    finishDrive(false);
+                }
+            });
+        }
+        if (active) {
+            invalidGpsDialog.showDialog();//can we do this, is the activity running?
+        } else {
+            //if not, then show a toast. they always gets displayed.
+            Toast.makeText(MonitoringActivity.this, R.string.stopped_trip_gps, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        active = true;
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+    }
 
     /**
      * Helper method to show a dialog confirming we want to end the drive, and if so moves us forward in the process.
@@ -148,12 +200,17 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
         }
     }
 
+    /**
+     * this methods just ends with the current report.
+     *
+     * @param endedAtHome
+     */
     private void finishDrive(Boolean endedAtHome) {
         MonitoringService.stopService(MonitoringActivity.this);
         Intent intent = new Intent(MonitoringActivity.this, AfterTripActivity.class);
         DrivingReport report = localReport;
         report.setendedAtHome(endedAtHome);
-        report.setendTime(new DateTime());
+        report.setEndTime(new DateTime());
         intent.putExtra(IntentIndexes.DATA_INDEX, report);
         MonitoringActivity.this.startActivity(intent);
         MonitoringActivity.this.finish();
@@ -191,8 +248,8 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
 
     public void showInvalidLocation() {
         Log.e("temp", "LOCATION TO FAR AWAY");
-        new ConfirmationDialog(this, "Fejl", "du er ikke indenfor rækkevide af din tidligere route. enten vend tilbage, eller start en ny.",
-                "prøv igen", "afslut nuværrende", null, new ResultCallback<Boolean>() {
+        new ConfirmationDialog(this, getString(R.string.error_dialog_title), getString(R.string.error_distance_resume),
+                getString(R.string.retry), getString(R.string.cancel_route), null, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 MonitoringService.pauseResumeListening(MonitoringActivity.this);

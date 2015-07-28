@@ -25,8 +25,6 @@ public class KmActivity extends ProvidedSimpleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.distance_picker_view);
-//        ListView lw = getViewById(R.id.rate_select_list_view);
-
         new ConfirmationDialog(this, getString(R.string.km_edit_notice_title),
                 getString(R.string.km_edit_notice_body), getString(R.string.km_edit_notice_accept),
                 getString(R.string.km_edit_notice_decline), null, new ResultCallback<Boolean>() {
@@ -55,6 +53,7 @@ public class KmActivity extends ProvidedSimpleActivity {
         commaPicker = getViewById(R.id.numberPicker);
         commaPicker.setMinValue(0);
         commaPicker.setMaxValue(9);
+        //start by parsing the string as a double.
         String value = getIntent().getStringExtra(IntentIndexes.DATA_INDEX);
         DecimalFormat df = new DecimalFormat();
         double toDisplay = 0;
@@ -63,32 +62,32 @@ public class KmActivity extends ProvidedSimpleActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        //now lets to some magic. we misuse the fact that int will not be rounded.
         mainCounter.setValue((int) toDisplay);
-        commaPicker.setValue(getComma(toDisplay));
+        commaPicker.setValue(getComma(toDisplay)); //and the rest is just math fun.
 
-
-//        lw.setAdapter(new RateAdapter(this, rates));
-//        lw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent i = new Intent();
-//                i.putExtra(IntentIndexes.DATA_INDEX, rates.get(position).getId()+"");
-//                setResult(Activity.RESULT_OK, i);
-//                finish();
-//            }
-//        });
 
     }
 
+    /**
+     * Gets the first decimal of a double number.
+     *
+     * @param toDisplay the whole double
+     * @return the first digit after "." (or in danish ",") in a double.
+     */
     private int getComma(double toDisplay) {
         int d1 = (int) toDisplay;
         return (int) ((toDisplay - d1) * 10);
     }
 
+    /**
+     * save result.
+     */
     @Override
     public void onBackPressed() {
         Intent i = new Intent();
-        String value = mainCounter.getValue() + "." + commaPicker.getValue();
+        //convert km (eg 2,1) to meters (2100). the math should be fairly simple
+        String value = (((mainCounter.getValue() * 10) + commaPicker.getValue()) * 100) + "";
         i.putExtra(IntentIndexes.DATA_INDEX, value);
         setResult(Activity.RESULT_OK, i);
         finish();

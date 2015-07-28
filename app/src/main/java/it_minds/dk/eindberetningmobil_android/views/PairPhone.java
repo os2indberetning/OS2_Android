@@ -36,11 +36,11 @@ public class PairPhone extends ProvidedSimpleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         settings = MainSettings.getInstance(this);
-        if (settings.haveToken()) {
+        if (settings.haveToken()) { //do we have a token. if so verify it.
             Log.e("temp", "have token");
             final ProgressDialog spinner = new ProgressDialog(this);
             spinner.setIndeterminate(true);
-            spinner.setMessage("vent venligst");
+            spinner.setMessage(getString(R.string.please_wait));
             spinner.show();
             ServerHandler.getInstance(this).validateToken(settings.getToken(), new ResultCallback<UserInfo>() {
                 @Override
@@ -57,16 +57,16 @@ public class PairPhone extends ProvidedSimpleActivity {
                 @Override
                 public void onError(Exception error) {
                     spinner.dismiss();
-                    Toast.makeText(PairPhone.this, "Fejl skete, " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PairPhone.this, getString(R.string.error_happend) + error.getMessage(), Toast.LENGTH_SHORT).show();
                     setupUI();
                 }
             });
-        } else {
+        } else {//if not, then allow the user to pair the phone.
             Log.e("temp", "dont have token");
             setupUI();
         }
         setActionbarBackDisplay();
-        hideSoftkeyboard();
+        hideSoftkeyboard(); //make sure he can actually read the text.
 
     }
 
@@ -74,17 +74,16 @@ public class PairPhone extends ProvidedSimpleActivity {
         setContentView(R.layout.pair_phone_view);
         pairPhoneField = getViewById(R.id.pair_phone_view_pair_field);
         Button pair_btn = getViewById(R.id.pair_phone_view_pair_btn);
+        //the on pair button clicked
         pair_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String code = pairPhoneField.getText().toString();
-                ServerHandler.getInstance(PairPhone.this).pairPhone(code, new ResultCallback<UserInfo>() {
+                ServerHandler.getInstance(PairPhone.this).pairPhone(code, new ResultCallback<UserInfo>() { //try pair the device
                     @Override
                     public void onSuccess(UserInfo result) {
-//                        settings.setToken(result);
                         //first find the correct token in the Tokens list, and then store that one.
                         Log.e("temp", "token saved");
-
                         if (findTokenInUserInfo(result, code)) {
                             useInternalToken();
                         } else {
@@ -94,18 +93,19 @@ public class PairPhone extends ProvidedSimpleActivity {
 
                     @Override
                     public void onError(Exception error) {
+                        //in here we have to handle the varrious cases. which defines the meaning of the error.
                         Logger.getLogger("pairphone").log(Level.SEVERE, "", error);
                         if (error instanceof VolleyError) {
                             VolleyError verr = (VolleyError) error;
                             if (verr.networkResponse.statusCode == 400) {
                                 //already used
-                                Toast.makeText(PairPhone.this, "Tokenet er allerede brugt", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PairPhone.this, R.string.token_already_used, Toast.LENGTH_SHORT).show();
 
                             } else if (verr.networkResponse.statusCode == 401) {
                                 //token not found
                                 Toast.makeText(PairPhone.this, R.string.error_token_not_found, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(PairPhone.this, "Der skete en fejl, " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PairPhone.this, getString(R.string.error_happend) + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(PairPhone.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();
@@ -117,6 +117,7 @@ public class PairPhone extends ProvidedSimpleActivity {
         setColorForText(pair_btn);
     }
 
+    //since we get a list of tokens, we must find the one we entered, as that is the primary token (and matching guid) we are going to use.
     private boolean findTokenInUserInfo(UserInfo result, String code) {
         if (result != null && result.getprofile() != null && result.getprofile().getTokens() != null) {
             ArrayList<Tokens> tokens = result.getprofile().getTokens();
@@ -141,7 +142,7 @@ public class PairPhone extends ProvidedSimpleActivity {
         startActivity(new Intent(this, ChooseProvider.class));
         super.onBackPressed();
     }
-
+    
     private void useInternalToken() {
         startActivity(new Intent(PairPhone.this, StartActivity.class));
         finish();

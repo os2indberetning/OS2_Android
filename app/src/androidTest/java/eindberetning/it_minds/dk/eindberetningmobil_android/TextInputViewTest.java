@@ -12,9 +12,9 @@ import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
 /**
  * Created by kasper on 18-07-2015.
  */
-public class TestTextInputView extends BaseTest<TextInputView> {
+public class TextInputViewTest extends BaseTest<TextInputView> {
 
-    public TestTextInputView() {
+    public TextInputViewTest() {
         super(TextInputView.class);
     }
 
@@ -26,6 +26,8 @@ public class TestTextInputView extends BaseTest<TextInputView> {
         solo.clearEditText(mainContainer);
         solo.enterText(mainContainer, "testmig");
         assertEquals(mainContainer.getText().toString(), "testmig");
+        solo.clickOnActionBarHomeButton();
+        solo.waitForEmptyActivityStack(5000);
     }
 
     @Test
@@ -33,6 +35,8 @@ public class TestTextInputView extends BaseTest<TextInputView> {
         solo.clickOnView(solo.getView(R.id.simple_text_input_view_field));
         EditText mainContainer = (EditText) solo.getView(R.id.simple_text_input_view_field);
         assertEquals(mainContainer.getText().toString(), "swag");
+        solo.clickOnActionBarHomeButton();
+        solo.waitForEmptyActivityStack(5000);
     }
 
     @Test
@@ -43,6 +47,7 @@ public class TestTextInputView extends BaseTest<TextInputView> {
                 getActivity().onBackPressed();
             }
         });
+        solo.waitForEmptyActivityStack(5000);
 
     }
 

@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -36,31 +35,12 @@ public class UserInfo {
     }
 
     /**
-     * parseAllFromJson description here
-     *
-     * @return List<UserInfo>
-     */
-    public static List<UserInfo> parseAllFromJson(JSONArray arr) throws JSONException, MalformedURLException {
-        ArrayList<UserInfo> result = new ArrayList<>();
-        for (int i = 0; i < arr.length(); i++) {
-            result.add(parseFromJson(arr.getJSONObject(i)));
-        }
-        return result;
-    }
-
-    /**
      * @return Profile
      */
     public Profile getprofile() {
         return this.profile;
     }
 
-    /**
-     * @return Profile
-     */
-    public void setprofile(Profile newVal) {
-        this.profile = newVal;
-    }
 
     /**
      * @return ArrayList<Rates>
@@ -69,12 +49,6 @@ public class UserInfo {
         return this.rates;
     }
 
-    /**
-     * @return ArrayList<Rates>
-     */
-    public void setrates(ArrayList<Rates> newVal) {
-        this.rates = newVal;
-    }
 
     /**
      * saveToJson description here

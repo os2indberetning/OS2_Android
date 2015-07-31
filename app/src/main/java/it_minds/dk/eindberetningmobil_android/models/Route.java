@@ -35,18 +35,6 @@ public class Route {
         return new Route(TotalDistance, GPSCoordinates);
     }
 
-    /**
-     * parseAllFromJson description here
-     *
-     * @return List<Route>
-     */
-    public static List<Route> parseAllFromJson(JSONArray arr) throws JSONException, MalformedURLException {
-        ArrayList<Route> result = new ArrayList<>();
-        for (int i = 0; i < arr.length(); i++) {
-            result.add(parseFromJson(arr.getJSONObject(i)));
-        }
-        return result;
-    }
 
     /**
      * @return double

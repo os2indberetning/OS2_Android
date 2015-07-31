@@ -31,9 +31,14 @@ public class EmployementActivity extends ProvidedSimpleActivity {
 
 
         setActionbarBackDisplay(title);
+        if (MainSettings.getInstance(this).getProfile() == null) {
+            Toast.makeText(this, R.string.error_employments_nothing_to_display, Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         final ArrayList<Employments> employments = MainSettings.getInstance(this).getProfile().getEmployments();
         if (employments == null) {
-            Toast.makeText(this, "Der er organisatoriske placeringer tilgængelige.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_employments_nothing_to_display, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }

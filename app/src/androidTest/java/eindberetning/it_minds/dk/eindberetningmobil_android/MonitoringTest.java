@@ -1,6 +1,8 @@
 package eindberetning.it_minds.dk.eindberetningmobil_android;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -38,6 +40,43 @@ public class MonitoringTest extends BaseTest<MonitoringActivity> {
         solo.waitForDialogToOpen();
         solo.clickOnView(solo.getView(R.id.confirmation_end_driving_dialog_ok));
         solo.waitForActivity(AfterTripActivity.class);
+    }
 
+    @Test
+    public void testCommandDistanceError() {
+        final Bundle b = new Bundle();
+        b.putBoolean(IntentIndexes.ERROR_INDEX, true);
+        sendCommand(b);
+        waitForDialogAndAccept();
+
+    }
+    @Test
+    public void testCommandGPSError() {
+        final Bundle b = new Bundle();
+        b.putBoolean(IntentIndexes.ERROR_GPS_INDEX, true);
+        sendCommand(b);
+        waitForDialogAndAccept();
+
+    }
+    @Test
+    public void testCommandGpsErrorWorking() {
+        final Bundle b = new Bundle();
+        b.putBoolean(IntentIndexes.WORKING_GPS_INDEX, true);
+        sendCommand(b);
+    }
+
+    private void waitForDialogAndAccept() {
+        solo.waitForDialogToOpen();
+        solo.waitForView(R.id.confirmation_end_driving_dialog_ok);
+        solo.clickOnView(solo.getView(R.id.confirmation_end_driving_dialog_ok));
+    }
+
+    private void sendCommand(final Bundle b) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().getMainReciver().onReceiveResult(Activity.RESULT_OK, b);
+            }
+        });
     }
 }

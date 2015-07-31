@@ -90,6 +90,9 @@ public class MonitoringServiceReport {
      */
     private synchronized void handleValidationOnResume(Location location) {
         Log.e("temp", "is validating location");
+        if (report == null || report.getgpsPoints() == null) {
+            return;//this is an issue. but lets not crash
+        }
 
         if (report.getgpsPoints().size() == 0) {
             validateOnResume = false;

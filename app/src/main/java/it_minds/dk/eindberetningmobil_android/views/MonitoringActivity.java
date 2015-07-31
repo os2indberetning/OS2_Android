@@ -134,6 +134,10 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
         }
     };
 
+    public MonitoringReciver.Receiver getMainReciver(){
+        return onUpdate;
+    }
+
     private void removeInvalidGps() {
         if (invalidGpsDialog != null) {
             //dismiss required here ?? i dont think so.

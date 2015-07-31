@@ -4,6 +4,7 @@ import android.test.ApplicationTestCase;
 
 import org.joda.time.DateTime;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +13,13 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import it_minds.dk.eindberetningmobil_android.MainApplication;
+import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
+import it_minds.dk.eindberetningmobil_android.models.Route;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
@@ -54,13 +57,20 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
         Provider deserialized = Provider.parseFromJson(provider.saveToJson());
         assertTrue("should be able to deserialize itself", deserialized != null);
         assertTrue("hashcode should be reflective", deserialized.hashCode() == provider.hashCode());
+        assertTrue(provider.equals(deserialized));
+
     }
 
     @Test
     public void testDrivingReport() throws MalformedURLException, JSONException {
-        DrivingReport report = new DrivingReport("", "", "", "", false, false, true, new DateTime(), new DateTime(), 200.0d);
-        assertTrue(DrivingReport.parseFromJson(report.saveToJson()).equals(report));
-        assertTrue(DrivingReport.parseFromJson(report.saveToJson()).hashCode() == (report.hashCode()));
+        DateTime dt = new DateTime();
+        DrivingReport report = new DrivingReport("", "1", "1", "", false, false, true, dt, dt, 200.0d);
+        DrivingReport report2 = new DrivingReport("", "1", "1", "", false, false, true, dt, dt, 200.0d);
+        report.saveToJson(0); //indirect assertion, it can serialize.
+        assertTrue(report.equals(report2));
+        assertTrue(report.hashCode() == report2.hashCode());
+
+
     }
 
     @Test
@@ -98,4 +108,23 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
         assertTrue(model2.hashCode() == gps.hashCode());
         assertTrue(model2.equals(gps));
     }
+
+    @Test
+    public void testDriveReportResult() {
+        DriveReport report = new DriveReport(new Tokens("222", "1111", 1),
+                new DrivingReport("", "1", "1", "", false, false, false, new DateTime(), new DateTime(), 1000), 1);
+        JSONObject json = report.saveAsJson();
+        assertNotNull(json);
+        assertTrue(json.toString().length() > 0);
+    }
+
+
+    @Test
+    public void testRoute() throws MalformedURLException, JSONException {
+        Route route = new Route(1000.2d, new ArrayList<GPSCoordinateModel>());
+        assertTrue(route.getTotalDistance() == 1000.2d);
+        assertTrue(route.getGPSCoordinates().size() == 0);
+        route.saveToJson();//indirect assert not throws
+    }
+
 }

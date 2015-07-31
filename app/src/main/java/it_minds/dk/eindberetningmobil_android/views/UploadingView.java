@@ -42,6 +42,10 @@ public class UploadingView extends ProvidedSimpleActivity {
             NetworkImageView img = getViewById(R.id.uploading_view_image);
             img.setImageUrl(url, ServerHandler.getInstance(this).getImageLoader()); //load logo.
         }
+        if (MainSettings.getInstance(this).getProfile() == null || report == null) {
+            updateStatusText(getString(R.string.invalid_user));
+            return;
+        }
         int profileId = MainSettings.getInstance(this).getProfile().getId();
         DriveReport toSend = new DriveReport(MainSettings.getInstance(this).getToken(), report, profileId);
         final String json = toSend.saveAsJson().toString();

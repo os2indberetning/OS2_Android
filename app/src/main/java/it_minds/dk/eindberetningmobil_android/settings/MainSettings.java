@@ -168,6 +168,9 @@ public class MainSettings {
         return null;
     }
 
+    public void clearProfile(){
+        getPrefs().edit().remove(PROFILES_INDEX).commit();
+    }
 
     public void setProfile(Profile profile) {
         getPrefs().edit().putString(PROFILES_INDEX, profile.saveToJson().toString()).commit();
@@ -183,6 +186,10 @@ public class MainSettings {
 
     public boolean getServiceClosed() {
         return getPrefs().getBoolean(SERVICE_INDEX, true);
+    }
+
+    public void clearToken() {
+        getPrefs().edit().remove(TOKEN_INDEX).commit();
     }
     //</editor-fold>
 }

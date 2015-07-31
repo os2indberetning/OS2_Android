@@ -6,12 +6,9 @@ import android.os.Parcelable;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -21,21 +18,12 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * DrivingReport
- * <p/>
+ * <p>
  * Describes a driving report.
  * NOT DONE
  */
 public class DrivingReport implements Parcelable {
-    public static final Parcelable.Creator<DrivingReport> CREATOR = new Parcelable.Creator<DrivingReport>() {
-        public DrivingReport createFromParcel(Parcel source) {
-            return new DrivingReport(source);
-        }
 
-        public DrivingReport[] newArray(int size) {
-            return new DrivingReport[size];
-        }
-    };
-    private String rate;
     private String purpose;
     private String orgLocation;
     private String Rate;
@@ -56,7 +44,7 @@ public class DrivingReport implements Parcelable {
 
         this.purpose = purpose;
         this.orgLocation = orgLocation;
-        this.rate = rate;
+        this.Rate = rate;
         this.extraDescription = extraDescription;
         this.haveEditedDistance = haveEditedDistance;
         this.startedAtHome = startedAtHome;
@@ -64,55 +52,9 @@ public class DrivingReport implements Parcelable {
         this.startTime = startTime;
         this.endTime = endTime;
         this.distanceInMeters = distanceInMeters;
+        this.gpsPoints = new ArrayList<>();
     }
 
-    protected DrivingReport(Parcel in) {
-        this.rate = in.readString();
-        this.purpose = in.readString();
-        this.orgLocation = in.readString();
-        this.Rate = in.readString();
-        this.extraDescription = in.readString();
-        this.haveEditedDistance = in.readByte() != 0;
-        this.startedAtHome = in.readByte() != 0;
-        this.endedAtHome = in.readByte() != 0;
-        this.startTime = (DateTime) in.readSerializable();
-        this.endTime = (DateTime) in.readSerializable();
-        this.distanceInMeters = in.readDouble();
-        this.gpsPoints = in.createTypedArrayList(Location.CREATOR);
-    }
-
-    /**
-     * parseFromJson description here
-     *
-     * @return DrivingReport
-     */
-    public static DrivingReport parseFromJson(JSONObject obj) throws JSONException, MalformedURLException {
-        String purpose = obj.optString("purpose");
-        String orgLocation = obj.optString("orgLocation");
-        String Rate = obj.optString("Rate");
-        String extraDescription = obj.optString("extraDescription");
-        boolean haveEditedDistance = obj.optBoolean("haveEditedDistance");
-        boolean startedAtHome = obj.optBoolean("startedAtHome");
-        boolean endedAtHome = obj.optBoolean("endedAtHome");
-        DateTime startTime = new DateTime(obj.optString("startTime"));
-        DateTime endTime = new DateTime(obj.optString("endTime"));
-        double distanceInMeters = obj.optDouble("distanceInMeters");
-
-        return new DrivingReport(purpose, orgLocation, Rate, extraDescription, haveEditedDistance, startedAtHome, endedAtHome, startTime, endTime, distanceInMeters);
-    }
-
-    /**
-     * parseAllFromJson description here
-     *
-     * @return List<DrivingReport>
-     */
-    public static List<DrivingReport> parseAllFromJson(JSONArray arr) throws JSONException, MalformedURLException {
-        ArrayList<DrivingReport> result = new ArrayList<>();
-        for (int i = 0; i < arr.length(); i++) {
-            result.add(parseFromJson(arr.getJSONObject(i)));
-        }
-        return result;
-    }
 
     /**
      * @return String
@@ -229,13 +171,6 @@ public class DrivingReport implements Parcelable {
     /**
      * @return DateTime
      */
-    public DateTime getendTime() {
-        return this.endTime;
-    }
-
-    /**
-     * @return DateTime
-     */
     public void setEndTime(DateTime newVal) {
         this.endTime = newVal;
     }
@@ -261,12 +196,6 @@ public class DrivingReport implements Parcelable {
         return this.gpsPoints;
     }
 
-    /**
-     * @return ArrayList<Location>
-     */
-    public void setgpsPoints(ArrayList<Location> newVal) {
-        this.gpsPoints = newVal;
-    }
 
     /**
      * saveToJson description here
@@ -289,7 +218,7 @@ public class DrivingReport implements Parcelable {
         }
         //the route data inside of the report.
         SafeJsonHelper routeView = new SafeJsonHelper();
-        routeView.put("TotalDistance", distanceInMeters / 1000.0d);//THIS IS IN KM.
+        routeView.put("TotalDistance", (int) distanceInMeters);//THIS IS IN KM. // "/ 1000.0d"
         JSONArray gpsPointsArray = new JSONArray();
         for (Location loc : gpsPoints) {
             SafeJsonHelper gpsPoint = new SafeJsonHelper();
@@ -304,26 +233,6 @@ public class DrivingReport implements Parcelable {
         return result;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.rate);
-        dest.writeString(this.purpose);
-        dest.writeString(this.orgLocation);
-        dest.writeString(this.Rate);
-        dest.writeString(this.extraDescription);
-        dest.writeByte(haveEditedDistance ? (byte) 1 : (byte) 0);
-        dest.writeByte(startedAtHome ? (byte) 1 : (byte) 0);
-        dest.writeByte(endedAtHome ? (byte) 1 : (byte) 0);
-        dest.writeSerializable(this.startTime);
-        dest.writeSerializable(this.endTime);
-        dest.writeDouble(this.distanceInMeters);
-        dest.writeTypedList(gpsPoints);
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -336,7 +245,6 @@ public class DrivingReport implements Parcelable {
         if (startedAtHome != that.startedAtHome) return false;
         if (endedAtHome != that.endedAtHome) return false;
         if (Double.compare(that.distanceInMeters, distanceInMeters) != 0) return false;
-        if (rate != null ? !rate.equals(that.rate) : that.rate != null) return false;
         if (purpose != null ? !purpose.equals(that.purpose) : that.purpose != null) return false;
         if (orgLocation != null ? !orgLocation.equals(that.orgLocation) : that.orgLocation != null)
             return false;
@@ -354,7 +262,7 @@ public class DrivingReport implements Parcelable {
     public int hashCode() {
         int result;
         long temp;
-        result = rate != null ? rate.hashCode() : 0;
+        result = 1;
         result = 31 * result + (purpose != null ? purpose.hashCode() : 0);
         result = 31 * result + (orgLocation != null ? orgLocation.hashCode() : 0);
         result = 31 * result + (Rate != null ? Rate.hashCode() : 0);
@@ -369,5 +277,49 @@ public class DrivingReport implements Parcelable {
         result = 31 * result + (gpsPoints != null ? gpsPoints.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.purpose);
+        dest.writeString(this.orgLocation);
+        dest.writeString(this.Rate);
+        dest.writeString(this.extraDescription);
+        dest.writeByte(haveEditedDistance ? (byte) 1 : (byte) 0);
+        dest.writeByte(startedAtHome ? (byte) 1 : (byte) 0);
+        dest.writeByte(endedAtHome ? (byte) 1 : (byte) 0);
+        dest.writeSerializable(this.startTime);
+        dest.writeSerializable(this.endTime);
+        dest.writeDouble(this.distanceInMeters);
+        dest.writeTypedList(gpsPoints);
+    }
+
+    protected DrivingReport(Parcel in) {
+        this.purpose = in.readString();
+        this.orgLocation = in.readString();
+        this.Rate = in.readString();
+        this.extraDescription = in.readString();
+        this.haveEditedDistance = in.readByte() != 0;
+        this.startedAtHome = in.readByte() != 0;
+        this.endedAtHome = in.readByte() != 0;
+        this.startTime = (DateTime) in.readSerializable();
+        this.endTime = (DateTime) in.readSerializable();
+        this.distanceInMeters = in.readDouble();
+        this.gpsPoints = in.createTypedArrayList(Location.CREATOR);
+    }
+
+    public static final Creator<DrivingReport> CREATOR = new Creator<DrivingReport>() {
+        public DrivingReport createFromParcel(Parcel source) {
+            return new DrivingReport(source);
+        }
+
+        public DrivingReport[] newArray(int size) {
+            return new DrivingReport[size];
+        }
+    };
 }
 

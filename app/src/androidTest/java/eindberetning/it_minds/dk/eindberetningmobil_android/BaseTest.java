@@ -7,8 +7,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
-
-import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
+import org.junit.Test;
 
 /**
  * Created by kasper on 18-07-2015.
@@ -29,6 +28,7 @@ public abstract class BaseTest<T extends Activity> extends ActivityInstrumentati
     }
 
     public abstract void runBeforeGetActivity();
+
 
 
 }

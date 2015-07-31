@@ -50,9 +50,11 @@
     <string name="retry">prøv igen</string>
     <string name="cancel_route">afslut nuværrende</string>
     <string name="please_wait">vent venligst</string>
-    <string name="error_happend">Fejl skete,</string>
+    <string name="error_happend">Der skete en fejl, du er nød til at parrer din enhed igen.</string>
     <string name="token_already_used">Tokenet er allerede brugt</string>
     <string name="send_report_error_cancel">Send ikke</string>
     <string name="send_report_error_retry">Prøv igen</string>
     <string name="send_report_error">Der skete en fejl ved afsendelsen af din rapport. ! Vil du prøve igen ?</string>
+    <string name="error_employments_nothing_to_display">Der er ingen organisatoriske placeringer tilgængelige.</string>
+    <string name="invalid_user">Ugyldig bruger oplysninger</string>
 </resources>

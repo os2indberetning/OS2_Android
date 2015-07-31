@@ -42,6 +42,8 @@ public class ConfirmationDialog extends BaseProvidedDialog {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmation_dialog_view);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         TextView titleView = (TextView) dialog.findViewById(R.id.confirmation_end_driving_dialog_title);
         setTitleColorForText(titleView);
         titleView.setText(title);

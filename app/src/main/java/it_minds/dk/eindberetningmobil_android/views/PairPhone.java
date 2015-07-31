@@ -57,8 +57,19 @@ public class PairPhone extends ProvidedSimpleActivity {
                 @Override
                 public void onError(Exception error) {
                     spinner.dismiss();
-                    Toast.makeText(PairPhone.this, getString(R.string.error_happend) + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    setupUI();
+                    if (error instanceof VolleyError) {
+                        VolleyError verr = (VolleyError) error;
+                        if (verr.networkResponse != null && verr.networkResponse.statusCode == 401) {
+                            Toast.makeText(PairPhone.this, getString(R.string.error_happend), Toast.LENGTH_LONG).show();
+                            MainSettings.getInstance(PairPhone.this).clearProfile(); //make sure we dont try it again.
+                            MainSettings.getInstance(PairPhone.this).clearToken(); //make sure we dont try it again.
+                            setupUI();
+                        } else {
+                            useInternalToken();
+                        }
+                    } else {
+                        useInternalToken();
+                    }
                 }
             });
         } else {//if not, then allow the user to pair the phone.
@@ -118,7 +129,7 @@ public class PairPhone extends ProvidedSimpleActivity {
     }
 
     //since we get a list of tokens, we must find the one we entered, as that is the primary token (and matching guid) we are going to use.
-    private boolean findTokenInUserInfo(UserInfo result, String code) {
+    public boolean findTokenInUserInfo(UserInfo result, String code) {
         if (result != null && result.getprofile() != null && result.getprofile().getTokens() != null) {
             ArrayList<Tokens> tokens = result.getprofile().getTokens();
             for (Tokens tok : tokens) {
@@ -142,7 +153,7 @@ public class PairPhone extends ProvidedSimpleActivity {
         startActivity(new Intent(this, ChooseProvider.class));
         super.onBackPressed();
     }
-    
+
     private void useInternalToken() {
         startActivity(new Intent(PairPhone.this, StartActivity.class));
         finish();

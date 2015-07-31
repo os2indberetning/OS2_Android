@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -50,18 +49,6 @@ public class Profile {
         return new Profile(Id, Firstname, Lastname, HomeLatitude, HomeLongitude, Employments, tokens);
     }
 
-    /**
-     * parseAllFromJson description here
-     *
-     * @return List<Profile>
-     */
-    public static List<Profile> parseAllFromJson(JSONArray arr) throws JSONException, MalformedURLException {
-        ArrayList<Profile> result = new ArrayList<>();
-        for (int i = 0; i < arr.length(); i++) {
-            result.add(parseFromJson(arr.getJSONObject(i)));
-        }
-        return result;
-    }
 
     /**
      * @return int
@@ -84,12 +71,6 @@ public class Profile {
         return this.Firstname;
     }
 
-    /**
-     * @return String
-     */
-    public void setFirstname(String newVal) {
-        this.Firstname = newVal;
-    }
 
     /**
      * @return String
@@ -98,12 +79,6 @@ public class Profile {
         return this.Lastname;
     }
 
-    /**
-     * @return String
-     */
-    public void setLastname(String newVal) {
-        this.Lastname = newVal;
-    }
 
     /**
      * @return String
@@ -115,22 +90,8 @@ public class Profile {
     /**
      * @return String
      */
-    public void setHomeLatitude(String newVal) {
-        this.HomeLatitude = newVal;
-    }
-
-    /**
-     * @return String
-     */
     public String getHomeLongitude() {
         return this.HomeLongitude;
-    }
-
-    /**
-     * @return String
-     */
-    public void setHomeLongitude(String newVal) {
-        this.HomeLongitude = newVal;
     }
 
     /**
@@ -140,12 +101,6 @@ public class Profile {
         return this.Employments;
     }
 
-    /**
-     * @return ArrayList<Employments>
-     */
-    public void setEmployments(ArrayList<Employments> newVal) {
-        this.Employments = newVal;
-    }
 
     /**
      * @return ArrayList<Tokens>

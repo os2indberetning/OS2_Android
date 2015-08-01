@@ -18,9 +18,6 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * DrivingReport
- * <p>
- * Describes a driving report.
- * NOT DONE
  */
 public class DrivingReport implements Parcelable {
 
@@ -218,7 +215,7 @@ public class DrivingReport implements Parcelable {
         }
         //the route data inside of the report.
         SafeJsonHelper routeView = new SafeJsonHelper();
-        routeView.put("TotalDistance", (int) distanceInMeters);//THIS IS IN KM. // "/ 1000.0d"
+        routeView.put("TotalDistance", distanceInMeters / 1000.d);//THIS IS IN KM.NOTICE IT GRACELY!!
         JSONArray gpsPointsArray = new JSONArray();
         for (Location loc : gpsPoints) {
             SafeJsonHelper gpsPoint = new SafeJsonHelper();

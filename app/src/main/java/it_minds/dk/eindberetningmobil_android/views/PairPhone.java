@@ -43,35 +43,35 @@ public class PairPhone extends ProvidedSimpleActivity {
             spinner.setMessage(getString(R.string.please_wait));
             spinner.show();
             ServerHandler.getInstance(this).validateToken(settings.getToken(), new ResultCallback<UserInfo>() {
-                @Override
-                public void onSuccess(UserInfo result) {
-                    spinner.dismiss();
-                    if (findTokenInUserInfo(result, MainSettings.getInstance(PairPhone.this).getToken().getTokenString())) {
-                        Log.e("temp", "updated token from validate, and found current token string");
-                    } else {
-                        Log.e("temp", "updated token from validate, BUT DID NOT FIND CURRENT TOKEN STRING!??!");
-                    }
-                    useInternalToken();
-                }
-
-                @Override
-                public void onError(Exception error) {
-                    spinner.dismiss();
-                    if (error instanceof VolleyError) {
-                        VolleyError verr = (VolleyError) error;
-                        if (verr.networkResponse != null && verr.networkResponse.statusCode == 401) {
-                            Toast.makeText(PairPhone.this, getString(R.string.error_happend), Toast.LENGTH_LONG).show();
-                            MainSettings.getInstance(PairPhone.this).clearProfile(); //make sure we dont try it again.
-                            MainSettings.getInstance(PairPhone.this).clearToken(); //make sure we dont try it again.
-                            setupUI();
-                        } else {
+                        @Override
+                        public void onSuccess(UserInfo result) {
+                            spinner.dismiss();
+                            if (findTokenInUserInfo(result, MainSettings.getInstance(PairPhone.this).getToken().getTokenString())) {
+                                Log.e("temp", "updated token from validate, and found current token string");
+                            } else {
+                                Log.e("temp", "updated token from validate, BUT DID NOT FIND CURRENT TOKEN STRING!??!");
+                            }
                             useInternalToken();
                         }
-                    } else {
-                        useInternalToken();
+
+                        @Override
+                        public void onError(Exception error) {
+                            spinner.dismiss();
+                            if (error instanceof VolleyError) {
+                                VolleyError verr = (VolleyError) error;
+                                if (verr.networkResponse != null && verr.networkResponse.statusCode == 401) {
+                                    Toast.makeText(PairPhone.this, getString(R.string.error_happend), Toast.LENGTH_LONG).show();
+                                    MainSettings.getInstance(PairPhone.this).clearProfile(); //make sure we dont try it again.
+                                    MainSettings.getInstance(PairPhone.this).clearToken(); //make sure we dont try it again.
+                                    setupUI();
+                                    return;
+                                }
+                            }
+                            Toast.makeText(PairPhone.this, R.string.no_verication_error, Toast.LENGTH_SHORT).show();
+                            useInternalToken();
+                        }
                     }
-                }
-            });
+            );
         } else {//if not, then allow the user to pair the phone.
             Log.e("temp", "dont have token");
             setupUI();

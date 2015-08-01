@@ -57,4 +57,5 @@
     <string name="send_report_error">Der skete en fejl ved afsendelsen af din rapport. ! Vil du prøve igen ?</string>
     <string name="error_employments_nothing_to_display">Der er ingen organisatoriske placeringer tilgængelige.</string>
     <string name="invalid_user">Ugyldig bruger oplysninger</string>
+    <string name="no_verication_error">Vi kunne ikke verificere at din enhed stadig er parret, tjek at du har internet</string>
 </resources>

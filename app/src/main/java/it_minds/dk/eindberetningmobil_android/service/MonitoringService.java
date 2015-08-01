@@ -193,6 +193,7 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
      */
     @Override
     public void onNewLocation(Location location) {
+        Log.e("temp", "got location (lat , lng):" + location.getLatitude() + "," + location.getLongitude());
         if (manager != null) {
             manager.addLocation(location);
             if (callback != null) {

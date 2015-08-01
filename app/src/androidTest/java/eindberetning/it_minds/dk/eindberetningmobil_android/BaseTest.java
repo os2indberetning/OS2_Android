@@ -7,7 +7,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
-import org.junit.Test;
+
 
 /**
  * Created by kasper on 18-07-2015.

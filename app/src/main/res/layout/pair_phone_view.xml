@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:orientation="vertical">
 
 
@@ -28,7 +29,7 @@
             android:layout_marginLeft="25dp"
             android:textColor="#000"
             android:layout_marginTop="20dp"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -39,6 +40,7 @@
             android:layout_marginRight="20dp"
             android:textColor="#fff"
             android:background="#DB813C"
-            android:layout_marginTop="40dp" />
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp" />
     </LinearLayout>
 </ScrollView>

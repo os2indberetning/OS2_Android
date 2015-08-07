@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
 
+import it_minds.dk.eindberetningmobil_android.BuildConfig;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.views.MonitoringActivity;
 
@@ -36,10 +37,16 @@ public class NotificationHelper {
         builder.setContentText(content);
         builder.setNumber(0);
         builder.setContentIntent(pendingIntent);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.mipmap.ic_launcher);
         builder.setLargeIcon(icon);
+        if((android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)){
+            //use siluhett icon
+            builder.setSmallIcon(R.drawable.ic_sil);
+        }else{
+            builder.setSmallIcon(R.mipmap.ic_launcher);
+        }
         builder.setAutoCancel(true);
         builder.setOngoing(true);
         Notification notification = builder.build();

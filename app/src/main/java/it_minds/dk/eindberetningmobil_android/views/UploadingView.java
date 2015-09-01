@@ -25,19 +25,21 @@ import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 /**
  * Created by kasper on 29-06-2015.
  * the view handling sending the report, and displaying the providers logo
+ * and storing the current report to handle errors.
  */
 public class UploadingView extends ProvidedSimpleActivity {
 
     private final static int WAIT_TIME_MS_SUCCESS_DISSAPEAR = 5000;
 
     private TextView statusText;
+    private SaveableReport saveableReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uploading_view);
         DrivingReport report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
-        MainSettings.getInstance(this).addReport(new SaveableReport(report));//TODO finish me.
+
         statusText = getViewById(R.id.upload_view_status_text);
         if (MainSettings.getInstance(this).getProvider() != null) { //just to be sure we have any data.
             String url = MainSettings.getInstance(this).getProvider().getImgUrl();
@@ -48,7 +50,10 @@ public class UploadingView extends ProvidedSimpleActivity {
             updateStatusText(getString(R.string.invalid_user));
             return;
         }
+
         int profileId = MainSettings.getInstance(this).getProfile().getId();
+        saveableReport = new SaveableReport(report, profileId);
+        MainSettings.getInstance(this).addReport(saveableReport);
         DriveReport toSend = new DriveReport(MainSettings.getInstance(this).getToken(), report, profileId);
         final String json = toSend.saveAsJson().toString();
         Log.e("temp", json);
@@ -60,7 +65,8 @@ public class UploadingView extends ProvidedSimpleActivity {
         ServerHandler.getInstance(this).sendReport(toSend, new ResultCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo result) {
-                updateStatusText("success");
+                updateStatusText(getString(R.string.success));
+                MainSettings.getInstance(UploadingView.this).removeSavedReport(saveableReport);
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -72,7 +78,7 @@ public class UploadingView extends ProvidedSimpleActivity {
 
             @Override
             public void onError(Exception error) {
-                updateStatusText("fejl");
+                updateStatusText(getString(R.string.error));
                 Log.e("temp", "error", error);
                 new ConfirmationDialog(UploadingView.this, getString(R.string.error_dialog_title), getString(R.string.send_report_error),
                         getString(R.string.send_report_error_retry), getString(R.string.send_report_error_cancel), null, new ResultCallback<Boolean>() {

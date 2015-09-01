@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
@@ -172,7 +172,7 @@ public class MainSettings {
         return null;
     }
 
-    public void clearProfile(){
+    public void clearProfile() {
         getPrefs().edit().remove(PROFILES_INDEX).commit();
     }
 
@@ -199,22 +199,28 @@ public class MainSettings {
 
     //drive report saving
 
-    public void addReport(SaveableReport report){
+    public void addReport(SaveableReport report) {
         List<SaveableReport> drivingReports = getDrivingReports();
         drivingReports.add(report);
         setSavedReports(drivingReports);
     }
 
-    public List<SaveableReport> getDrivingReports(){
-        ArrayList<SaveableReport> reports = new ArrayList<>();
+    public List<SaveableReport> getDrivingReports() {
+        List<SaveableReport> reports = new ArrayList<>();
         String json = getPrefs().getString(SAVED_REPORTS_INDEX, null);
-        if(json==null){
+        if (json == null) {
             return reports;
         }
         //try parse.
-
-        //and then use that
-        return reports; //TODO make me.
+        try {
+            JSONArray arr = new JSONArray(json);
+            reports = SaveableReport.parseAllFromJson(arr);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return reports;
     }
 
 
@@ -224,9 +230,16 @@ public class MainSettings {
         setSavedReports(drivingReports);
     }
 
-    private void setSavedReports(List<SaveableReport> reports){
+    private void setSavedReports(List<SaveableReport> reports) {
         //save to json
-        String json ="";
+        String json = "";
+        if (reports != null) {
+            ArrayList<JSONObject> lst = new ArrayList<>();
+            for (SaveableReport repo : reports) {
+                lst.add(repo.saveToJson());
+            }
+            json = new JSONArray(lst).toString();
+        }
         getPrefs().edit().putString(SAVED_REPORTS_INDEX, json).commit();
     }
 }

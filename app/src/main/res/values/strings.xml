@@ -59,10 +59,12 @@
     <string name="invalid_user">Ugyldig bruger oplysninger</string>
     <string name="no_verication_error">Vi kunne ikke verificere at din enhed stadig er parret, tjek at du har internet</string>
     <string name="see_not_send">Se ikke sendte</string>
-    <string name="not_sent_reports_description">Klik på en rapport for enten at sende den eller slette den. </string>
+    <string name="not_sent_reports_description">Klik på en rapport for enten at sende den eller slette den. Hvis du fortryder kan du klikke udenfor boksen  eller på tilbage knappen.</string>
     <string name="not_sent_reports_title">Ikke sendte rapporter</string>
     <string name="purpose_prefix">Formål</string>
     <string name="distance_prefix">Distance</string>
     <string name="rate_prefix">Takst</string>
     <string name="repport_prefix">Rapporteret den</string>
+    <string name="error">Fejl</string>
+    <string name="success">Success</string>
 </resources>

@@ -14,8 +14,7 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * SaveableReport
- *
-  */
+ */
 public class SaveableReport {
     private String jsonToSend;
     private String purpose;
@@ -32,8 +31,12 @@ public class SaveableReport {
         this.createdAt = createdAt;
     }
 
-    public SaveableReport(DrivingReport report) {
-
+    public SaveableReport(DrivingReport report, int profileId) {
+        jsonToSend = report.saveToJson(profileId).toString();
+        purpose = report.getPurpose();
+        rateid = report.getRate();
+        totalDistance = report.getdistanceInMeters();
+        createdAt = report.getstartTime();
     }
 
     /**
@@ -152,5 +155,32 @@ public class SaveableReport {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        SaveableReport that = (SaveableReport) o;
+
+        if (Double.compare(that.totalDistance, totalDistance) != 0) return false;
+        if (jsonToSend != null ? !jsonToSend.equals(that.jsonToSend) : that.jsonToSend != null)
+            return false;
+        if (purpose != null ? !purpose.equals(that.purpose) : that.purpose != null) return false;
+        if (rateid != null ? !rateid.equals(that.rateid) : that.rateid != null) return false;
+        return !(createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = jsonToSend != null ? jsonToSend.hashCode() : 0;
+        result = 31 * result + (purpose != null ? purpose.hashCode() : 0);
+        result = 31 * result + (rateid != null ? rateid.hashCode() : 0);
+        temp = Double.doubleToLongBits(totalDistance);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
+        return result;
+    }
 }

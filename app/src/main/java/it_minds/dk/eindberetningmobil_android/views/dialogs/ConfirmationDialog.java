@@ -22,6 +22,7 @@ public class ConfirmationDialog extends BaseProvidedDialog {
     private final String noText;
     private String optionalCheckboxText;
     private final ResultCallback<Boolean> callback;
+    private boolean canCancel = false;
 
 
     public ConfirmationDialog(Context context, String title, String message, String yesText, String noText,
@@ -42,8 +43,8 @@ public class ConfirmationDialog extends BaseProvidedDialog {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.confirmation_dialog_view);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(canCancel);
+        dialog.setCanceledOnTouchOutside(canCancel);
         TextView titleView = (TextView) dialog.findViewById(R.id.confirmation_end_driving_dialog_title);
         setTitleColorForText(titleView);
         titleView.setText(title);
@@ -90,5 +91,9 @@ public class ConfirmationDialog extends BaseProvidedDialog {
             }
         });
         dialog.show();
+    }
+
+    public void setCanCancel(boolean b) {
+        this.canCancel = b;
     }
 }

@@ -194,6 +194,35 @@ public class DrivingReport implements Parcelable {
     }
 
 
+
+    public String serializeToJson(){
+        SafeJsonHelper result = new SafeJsonHelper();
+        result.put("purpose", purpose);
+        result.put("distanceInMeters", distanceInMeters);
+        result.put("endedAtHome", endedAtHome);
+        result.put("endTime", endTime.toString());
+        result.put("startedAtHome", startedAtHome);
+        result.put("startTime", startTime.toString());
+        result.put("extraDescription", extraDescription);
+        result.put("haveEditedDistance",haveEditedDistance );
+        result.put("Rate", Rate);
+        result.put("orgLocation", orgLocation);
+        
+        //result.put("gpsPoints",GPSCoordinateModel.saveAllToJson(gpsPoints)); // TODO: 31-08-2015 find a way to serialize the location smarter..
+
+
+
+
+        return result.toString();
+    }
+
+
+
+
+
+
+
+
     /**
      * saveToJson description here
      *

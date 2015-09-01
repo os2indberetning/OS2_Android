@@ -2,6 +2,9 @@ package it_minds.dk.eindberetningmobil_android.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -103,4 +106,20 @@ public class StartActivity extends BaseReportActivity {
     };
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.startactivity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.see_not_send) {
+            //show activity
+            startActivity(new Intent(this, MissingTripActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

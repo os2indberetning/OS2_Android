@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -87,6 +88,14 @@ public class GPSCoordinateModel {
         result.put("Longitude", Longitude);
         return result;
 
+    }
+
+    public static JSONArray saveAllToJson(List<GPSCoordinateModel> models) {
+        ArrayList<JSONObject> list = new ArrayList<>();
+        for (GPSCoordinateModel mod : models) {
+            list.add(mod.saveToJson());
+        }
+        return new JSONArray(list);
     }
 
     @Override

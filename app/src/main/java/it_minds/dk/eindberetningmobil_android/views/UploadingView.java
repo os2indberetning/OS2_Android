@@ -17,6 +17,7 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
+import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
@@ -36,6 +37,7 @@ public class UploadingView extends ProvidedSimpleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uploading_view);
         DrivingReport report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
+        MainSettings.getInstance(this).addReport(new SaveableReport(report));//TODO finish me.
         statusText = getViewById(R.id.upload_view_status_text);
         if (MainSettings.getInstance(this).getProvider() != null) { //just to be sure we have any data.
             String url = MainSettings.getInstance(this).getProvider().getImgUrl();
@@ -62,7 +64,6 @@ public class UploadingView extends ProvidedSimpleActivity {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-
                         startActivity(new Intent(UploadingView.this, StartActivity.class));
                         finish();
                     }

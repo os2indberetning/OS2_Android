@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mobil indberetning</string>
+    <string name="app_name">OS2Indberetning</string>
     <string name="pair_phone_description">For at bruge appen skal du parre din telefon med din bruger på eIndberetning.\n\nFor at parre telefonen skal du bruge et token.\n\nEt token er unikt nummer der forbinder din bruger på eIndberetning  med din telefon.\n\nDu laver et token ved at gå ind under "Min eIndberetning" og trykke "Mine Tokens".\n\nHerefter kan du se dit token, som du bare skal indtaste i feltet ovenfor, og derefter trykke på "Par Telefon".
     </string>
     <string name="error_dialog_title">Fejl</string>
@@ -36,7 +36,7 @@
     <string name="send">Send</string>
     <string name="start_activity_validation_error">Udfyld venligst formål, organisatorisk placering, og takst inden du starter.</string>
     <string name="km_edit_notice_title">Advarsel</string>
-    <string name="km_edit_notice_body">Hvis du redigere din distance, vil dette blive opgivet, er du sikker du vil fortsætte ?</string>
+    <string name="km_edit_notice_body">Hvis du redigerer din distance, vil dette blive opgivet, er du sikker du vil fortsætte ?</string>
     <string name="km_edit_notice_accept">Ja</string>
     <string name="km_edit_notice_decline">Nej</string>
     <string name="waiting">venter</string>
@@ -44,7 +44,7 @@
     <string name="error_no_gps_message">Din gps er deaktivteret, og vi kan ikke fortsætte uden. Hvis du aktivere gps\'en igen skal du selv klikke på genoptage, for at fortsætte din rute.</string>
     <string name="error_gps_retry">Prøv igen</string>
     <string name="error_gps_stop">Afslut kørsel</string>
-    <string name="stopped_trip_gps">Mobil indberetning er stoppet, eftersom du har slukket for gps\'en.  åben notifikationen for at genoptage din rute.</string>
+    <string name="stopped_trip_gps">OS2Indberetning er stoppet, eftersom du har slukket for gps\'en.  åben notifikationen for at genoptage din rute.</string>
     <string name="activate_gps">Aktiviere GPS\'en inden du kører.</string>
     <string name="error_distance_resume">du er ikke indenfor rækkevide af din tidligere route. enten vend tilbage, eller start en ny.</string>
     <string name="retry">prøv igen</string>
@@ -58,4 +58,11 @@
     <string name="error_employments_nothing_to_display">Der er ingen organisatoriske placeringer tilgængelige.</string>
     <string name="invalid_user">Ugyldig bruger oplysninger</string>
     <string name="no_verication_error">Vi kunne ikke verificere at din enhed stadig er parret, tjek at du har internet</string>
+    <string name="see_not_send">Se ikke sendte</string>
+    <string name="not_sent_reports_description">Klik på en rapport for enten at sende den eller slette den. </string>
+    <string name="not_sent_reports_title">Ikke sendte rapporter</string>
+    <string name="purpose_prefix">Formål</string>
+    <string name="distance_prefix">Distance</string>
+    <string name="rate_prefix">Takst</string>
+    <string name="repport_prefix">Rapporteret den</string>
 </resources>

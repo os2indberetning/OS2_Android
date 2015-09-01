@@ -6,12 +6,16 @@ import android.content.SharedPreferences;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
+import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
+import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 
 /**
  * Created by kasper on 28-06-2015.
@@ -27,6 +31,7 @@ public class MainSettings {
     private static final String RATES_INDEX = "RATES_INDEX";
     private static final String PROFILES_INDEX = "PROFILES_INDEX";
     private static final String SERVICE_INDEX = "SERVICE_INDEX";
+    private static final String SAVED_REPORTS_INDEX = "SAVED_REPORTS_INDEX";
     //</editor-fold>
 
     //<editor-fold desc="singleton">
@@ -96,7 +101,6 @@ public class MainSettings {
         getPrefs().edit().putString(PROVIDER_INDEX, json).commit();
     }
     //</editor-fold>
-
 
     //<editor-fold desc="token">
 
@@ -192,4 +196,37 @@ public class MainSettings {
         getPrefs().edit().remove(TOKEN_INDEX).commit();
     }
     //</editor-fold>
+
+    //drive report saving
+
+    public void addReport(SaveableReport report){
+        List<SaveableReport> drivingReports = getDrivingReports();
+        drivingReports.add(report);
+        setSavedReports(drivingReports);
+    }
+
+    public List<SaveableReport> getDrivingReports(){
+        ArrayList<SaveableReport> reports = new ArrayList<>();
+        String json = getPrefs().getString(SAVED_REPORTS_INDEX, null);
+        if(json==null){
+            return reports;
+        }
+        //try parse.
+
+        //and then use that
+        return reports; //TODO make me.
+    }
+
+
+    public void removeSavedReport(SaveableReport report) {
+        List<SaveableReport> drivingReports = getDrivingReports();
+        drivingReports.remove(report);
+        setSavedReports(drivingReports);
+    }
+
+    private void setSavedReports(List<SaveableReport> reports){
+        //save to json
+        String json ="";
+        getPrefs().edit().putString(SAVED_REPORTS_INDEX, json).commit();
+    }
 }

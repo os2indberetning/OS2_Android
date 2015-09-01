@@ -57,12 +57,6 @@ public class Route {
         return this.GPSCoordinates;
     }
 
-    /**
-     * @return ArrayList<GPSCoordinateModel>
-     */
-    public void setGPSCoordinates(ArrayList<GPSCoordinateModel> newVal) {
-        this.GPSCoordinates = newVal;
-    }
 
     /**
      * saveToJson description here
@@ -73,8 +67,14 @@ public class Route {
         SafeJsonHelper result = new SafeJsonHelper();
         result.put("TotalDistance", TotalDistance);
         result.put("", new JSONArray());
-
         return result;
+    }
 
+    public static String serializeListToJson(List<Route> route) {
+        ArrayList<String> arr = new ArrayList<>();
+        for (Route r : route) {
+            arr.add(r.saveToJson().toString());
+        }
+        return new JSONArray(arr).toString();
     }
 }

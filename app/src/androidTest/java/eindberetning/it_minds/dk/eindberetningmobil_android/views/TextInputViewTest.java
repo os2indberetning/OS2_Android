@@ -1,10 +1,11 @@
-package eindberetning.it_minds.dk.eindberetningmobil_android;
+package eindberetning.it_minds.dk.eindberetningmobil_android.views;
 
 import android.content.Intent;
 import android.widget.EditText;
 
 import org.junit.Test;
 
+import eindberetning.it_minds.dk.eindberetningmobil_android.BaseTest;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;

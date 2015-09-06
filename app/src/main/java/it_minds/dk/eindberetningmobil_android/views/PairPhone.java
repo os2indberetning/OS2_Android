@@ -20,6 +20,7 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
+import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
@@ -42,7 +43,7 @@ public class PairPhone extends ProvidedSimpleActivity {
             spinner.setIndeterminate(true);
             spinner.setMessage(getString(R.string.please_wait));
             spinner.show();
-            ServerHandler.getInstance(this).validateToken(settings.getToken(), new ResultCallback<UserInfo>() {
+            ServerFactory.getInstance(this).validateToken(settings.getToken(), new ResultCallback<UserInfo>() {
                         @Override
                         public void onSuccess(UserInfo result) {
                             spinner.dismiss();
@@ -90,7 +91,7 @@ public class PairPhone extends ProvidedSimpleActivity {
             @Override
             public void onClick(View v) {
                 final String code = pairPhoneField.getText().toString();
-                ServerHandler.getInstance(PairPhone.this).pairPhone(code, new ResultCallback<UserInfo>() { //try pair the device
+                ServerFactory.getInstance(PairPhone.this).pairPhone(code, new ResultCallback<UserInfo>() { //try pair the device
                     @Override
                     public void onSuccess(UserInfo result) {
                         //first find the correct token in the Tokens list, and then store that one.

@@ -1,5 +1,8 @@
 package it_minds.dk.eindberetningmobil_android.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,14 +18,21 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
  *
  * @license see ..
  */
-public class GPSCoordinateModel {
-    private String Latitude;
-    private String Longitude;
+public class GPSCoordinateModel implements Parcelable {
+    private double Latitude;
+    private double Longitude;
+    private boolean IsViaPoint;
 
 
-    public GPSCoordinateModel(String latitude, String longitude) {
+    public GPSCoordinateModel(double latitude, double longitude) {
         Latitude = latitude;
         Longitude = longitude;
+        IsViaPoint = false;
+    }
+
+    public GPSCoordinateModel(double lat, double longitude, boolean isvia) {
+        this(lat, longitude);
+        this.IsViaPoint = isvia;
     }
 
     /**
@@ -31,9 +41,10 @@ public class GPSCoordinateModel {
      * @return GPSCoordinateModel
      */
     public static GPSCoordinateModel parseFromJson(JSONObject obj) throws JSONException, MalformedURLException {
-        String Latitude = obj.optString("Latitude");
-        String Longitude = obj.optString("Longitude");
-        return new GPSCoordinateModel(Latitude, Longitude);
+        double Latitude = obj.optDouble("Latitude");
+        double Longitude = obj.optDouble("Longitude");
+        boolean isVia = obj.optBoolean("IsViaPoint", false);
+        return new GPSCoordinateModel(Latitude, Longitude, isVia);
     }
 
     /**
@@ -52,29 +63,33 @@ public class GPSCoordinateModel {
     /**
      * @return String
      */
-    public String getLatitude() {
+    public double getLatitude() {
         return this.Latitude;
     }
 
     /**
      * @return String
      */
-    public void setLatitude(String newVal) {
+    public void setLatitude(double newVal) {
         this.Latitude = newVal;
     }
 
     /**
      * @return String
      */
-    public String getLongitude() {
+    public double getLongitude() {
         return this.Longitude;
     }
 
     /**
-     * @return String
+     *
      */
-    public void setLongitude(String newVal) {
+    public void setLongitude(double newVal) {
         this.Longitude = newVal;
+    }
+
+    public boolean isViaPoint() {
+        return IsViaPoint;
     }
 
     /**
@@ -86,6 +101,7 @@ public class GPSCoordinateModel {
         SafeJsonHelper result = new SafeJsonHelper();
         result.put("Latitude", Latitude);
         result.put("Longitude", Longitude);
+        result.put("IsViaPoint", IsViaPoint);
         return result;
 
     }
@@ -98,6 +114,7 @@ public class GPSCoordinateModel {
         return new JSONArray(list);
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,18 +122,53 @@ public class GPSCoordinateModel {
 
         GPSCoordinateModel that = (GPSCoordinateModel) o;
 
-        if (Latitude != null ? !Latitude.equals(that.Latitude) : that.Latitude != null)
-            return false;
-        if (Longitude != null ? !Longitude.equals(that.Longitude) : that.Longitude != null)
-            return false;
-        return true;
+        if (Double.compare(that.Latitude, Latitude) != 0) return false;
+        if (Double.compare(that.Longitude, Longitude) != 0) return false;
+        return IsViaPoint == that.IsViaPoint;
 
     }
 
     @Override
     public int hashCode() {
-        int result = Latitude != null ? Latitude.hashCode() : 0;
-        result = 31 * result + (Longitude != null ? Longitude.hashCode() : 0);
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(Latitude);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(Longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (IsViaPoint ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(this.Latitude);
+        dest.writeDouble(this.Longitude);
+        dest.writeByte(IsViaPoint ? (byte) 1 : (byte) 0);
+    }
+
+    protected GPSCoordinateModel(Parcel in) {
+        this.Latitude = in.readDouble();
+        this.Longitude = in.readDouble();
+        this.IsViaPoint = in.readByte() != 0;
+    }
+
+    public static final Creator<GPSCoordinateModel> CREATOR = new Creator<GPSCoordinateModel>() {
+        public GPSCoordinateModel createFromParcel(Parcel source) {
+            return new GPSCoordinateModel(source);
+        }
+
+        public GPSCoordinateModel[] newArray(int size) {
+            return new GPSCoordinateModel[size];
+        }
+    };
+
+    public void setIsViaPoint(boolean isViaPoint) {
+        this.IsViaPoint = isViaPoint;
     }
 }

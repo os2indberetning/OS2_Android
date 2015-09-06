@@ -8,6 +8,7 @@ import it_minds.dk.eindberetningmobil_android.MainApplication;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
+import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
 
 /**
@@ -20,8 +21,9 @@ public class ServerTest extends ApplicationTestCase<MainApplication> {
 
     @Test
     public void testValidate(){
-        ServerHandler.getInstance(mContext).setBaseUrl("https://ework.favrskov.dk/FavrskovMobilityAPI/api/");
-        ServerHandler.getInstance(mContext).validateToken(new Tokens("", "", 1), new ResultCallback<UserInfo>() {
+        ServerFactory.resetToDefault(mContext);
+        ServerFactory.getInstance(mContext).setBaseUrl("https://ework.favrskov.dk/FavrskovMobilityAPI/api/");
+        ServerFactory.getInstance(mContext).validateToken(new Tokens("", "", 1), new ResultCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo result) {
 
@@ -32,7 +34,7 @@ public class ServerTest extends ApplicationTestCase<MainApplication> {
 
             }
         });
-        ServerHandler.getInstance(mContext).validateToken(null, new ResultCallback<UserInfo>() {
+        ServerFactory.getInstance(mContext).validateToken(null, new ResultCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo result) {
                 assertTrue("should call error case",false );

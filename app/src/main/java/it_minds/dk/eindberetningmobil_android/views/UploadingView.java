@@ -18,7 +18,7 @@ import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
-import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
+import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 
@@ -34,35 +34,49 @@ public class UploadingView extends ProvidedSimpleActivity {
     private TextView statusText;
     private SaveableReport saveableReport;
 
+    private DrivingReport report;
+    private boolean haveSend = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.uploading_view);
-        DrivingReport report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
+
+        report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
 
         statusText = getViewById(R.id.upload_view_status_text);
         if (MainSettings.getInstance(this).getProvider() != null) { //just to be sure we have any data.
             String url = MainSettings.getInstance(this).getProvider().getImgUrl();
             NetworkImageView img = getViewById(R.id.uploading_view_image);
-            img.setImageUrl(url, ServerHandler.getInstance(this).getImageLoader()); //load logo.
-        }
-        if (MainSettings.getInstance(this).getProfile() == null || report == null) {
-            updateStatusText(getString(R.string.invalid_user));
-            return;
+            img.setImageUrl(url, ServerFactory.getInstance(this).getImageLoader()); //load logo.
         }
 
-        int profileId = MainSettings.getInstance(this).getProfile().getId();
-        saveableReport = new SaveableReport(report, profileId);
-        MainSettings.getInstance(this).addReport(saveableReport);
-        DriveReport toSend = new DriveReport(MainSettings.getInstance(this).getToken(), report, profileId);
-        final String json = toSend.saveAsJson().toString();
-        Log.e("temp", json);
-        TrySendReport(toSend);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!haveSend) {
+            if (MainSettings.getInstance(this).getProfile() == null || report == null || MainSettings.getInstance(this).getToken() == null) {
+                updateStatusText(getString(R.string.invalid_user));
+                return;
+            }
+            haveSend = true;
+            int profileId = MainSettings.getInstance(this).getProfile().getId();
+            saveableReport = new SaveableReport(report, profileId);
+            MainSettings.getInstance(this).addReport(saveableReport);
+            DriveReport toSend = new DriveReport(MainSettings.getInstance(this).getToken(), report, profileId);
+            final String json = toSend.saveAsJson().toString();
+            Log.e("temp", json);
+            TrySendReport(toSend);
+        }
+
     }
 
     private void TrySendReport(final DriveReport toSend) {
         final Timer timer = new Timer();
-        ServerHandler.getInstance(this).sendReport(toSend, new ResultCallback<UserInfo>() {
+        ServerFactory.getInstance(this).sendReport(toSend, new ResultCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo result) {
                 updateStatusText(getString(R.string.success));
@@ -77,7 +91,7 @@ public class UploadingView extends ProvidedSimpleActivity {
             }
 
             @Override
-            public void onError(Exception error) {
+            public void onError(final Exception error) {
                 updateStatusText(getString(R.string.error));
                 Log.e("temp", "error", error);
                 new ConfirmationDialog(UploadingView.this, getString(R.string.error_dialog_title), getString(R.string.send_report_error),

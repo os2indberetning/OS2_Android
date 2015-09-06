@@ -1,9 +1,10 @@
-package eindberetning.it_minds.dk.eindberetningmobil_android;
+package eindberetning.it_minds.dk.eindberetningmobil_android.views;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 
+import eindberetning.it_minds.dk.eindberetningmobil_android.BaseTest;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
@@ -30,14 +31,8 @@ public class PairPhoneFailedTokenTest extends BaseTest<PairPhone> {
     }
 
     @Test
-    public void testShowingSpinner() {
-        solo.waitForDialogToOpen();
-        solo.waitForDialogToClose();
-
-    }
-
-    @Test
     public void testEnteringToken() {
+        solo.waitForView(solo.getView(R.id.pair_phone_view_pair_btn));
         solo.waitForDialogToOpen();
         solo.waitForDialogToClose();
         solo.enterText(solo.getEditText(0), "8353707760");

@@ -17,8 +17,16 @@ public class SaveableDriveReport {
 
     public SafeJsonHelper saveAsJson() {
         SafeJsonHelper result = new SafeJsonHelper();
-        result.put("DriveReport", this.report.getJsonToSend());
-        result.put("Token", token.saveToJson());
+        if(report!=null){
+            result.put("DriveReport", this.report.getJsonToSend());
+        }else{
+            result.put("DriveReport", "");
+        }
+        if(token!=null){
+            result.put("Token", token.saveToJson());
+        }else{
+            result.put("Token","");
+        }
         return result;
     }
 }

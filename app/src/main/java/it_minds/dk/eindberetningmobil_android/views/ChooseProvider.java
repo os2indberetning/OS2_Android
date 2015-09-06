@@ -15,7 +15,7 @@ import it_minds.dk.eindberetningmobil_android.adapters.ProviderAdapter;
 import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
-import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
+import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
@@ -38,7 +38,7 @@ public class ChooseProvider extends SimpleActivity {
         setContentView(R.layout.choose_provider_view);
         //set content to the list.
         final ListView lw = getViewById(R.id.choose_provider_view_list);
-        ServerHandler.getInstance(this).getProviders(new ResultCallback<List<Provider>>() {
+        ServerFactory.getInstance(this).getProviders(new ResultCallback<List<Provider>>() {
             @Override
             public void onSuccess(final List<Provider> result) {
                 lw.setAdapter(new ProviderAdapter(ChooseProvider.this, result));
@@ -62,7 +62,7 @@ public class ChooseProvider extends SimpleActivity {
     private synchronized void useProvider(Provider provider) {
         Log.e("temp", "chose provider" + provider.getName());
         settings.setProvider(provider);
-        ServerHandler.getInstance(this).setBaseUrl(provider.getAPIUrl());
+        ServerFactory.getInstance(this).setBaseUrl(provider.getAPIUrl());
         startActivity(new Intent(this, PairPhone.class));
         finish();
     }

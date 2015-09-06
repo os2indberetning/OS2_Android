@@ -41,7 +41,11 @@ public class MissingTripsAdapter extends ArrayAdapter<SaveableReport> {
         //get rate here
         TextView rateText = (TextView) viewToUse.findViewById(R.id.missing_trip_item_rateText);
         rateText.setText(getContext().getString(R.string.rate_prefix)+" : "+"");
-        reportLabel.setText(getContext().getString(R.string.repport_prefix)+" "+report.getCreatedAt().toString("dd/MM - yyyy"));
+        if(report.getCreatedAt()!=null) {
+            reportLabel.setText(getContext().getString(R.string.repport_prefix) + " " + report.getCreatedAt().toString("dd/MM - yyyy"));
+        }else{
+            reportLabel.setText("");
+        }
 
         return viewToUse;
     }

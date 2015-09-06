@@ -67,4 +67,8 @@
     <string name="repport_prefix">Rapporteret den</string>
     <string name="error">Fejl</string>
     <string name="success">Success</string>
+    <string name="send_and_recived">Din rapport blev sendt og er modtaget</string>
+    <string name="error_sending_retry_later">Kunne ikke sende rapporten, prøv igen senere.</string>
+    <string name="report_title">Rapportering</string>
+    <string name="missing_report_dialog_message">Du har ikke sendt denne rapport, hvad vil du ?</string>
 </resources>

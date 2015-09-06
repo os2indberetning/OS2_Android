@@ -65,7 +65,12 @@ public class SaveableReport {
         String purpose = obj.optString("purpose");
         String rateid = obj.optString("rateid");
         double totalDistance = obj.optDouble("totalDistance");
-        DateTime createdAt = new DateTime(obj.optString("createdAt"));
+        DateTime createdAt = null;
+        try {
+            createdAt = new DateTime(obj.optString("createdAt"));
+        } catch (Exception e) {
+            
+        }
         return new SaveableReport(jsonToSend, purpose, rateid, totalDistance, createdAt);
     }
 
@@ -150,7 +155,12 @@ public class SaveableReport {
         result.put("purpose", purpose);
         result.put("rateid", rateid);
         result.put("totalDistance", totalDistance);
-        result.put("createdAt", createdAt.toString());
+        if (createdAt != null) {
+            result.put("createdAt", createdAt.toString());
+        } else {
+            result.put("createdAt", "");
+        }
+
         return result;
 
     }

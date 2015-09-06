@@ -8,6 +8,8 @@ import com.robotium.solo.Solo;
 
 import org.junit.Before;
 
+import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
+
 
 /**
  * Created by kasper on 18-07-2015.
@@ -29,6 +31,13 @@ public abstract class BaseTest<T extends Activity> extends ActivityInstrumentati
 
     public abstract void runBeforeGetActivity();
 
+    /**
+     * This will work like expected.
+     * @return
+     */
+    public MainSettings getSettings() {
+        return MainSettings.getInstance(getInstrumentation().getTargetContext());
+    }
 
 
 }

@@ -242,4 +242,8 @@ public class MainSettings {
         }
         getPrefs().edit().putString(SAVED_REPORTS_INDEX, json).commit();
     }
+
+    public void clearReports() {
+        getPrefs().edit().remove(SAVED_REPORTS_INDEX).commit();
+    }
 }

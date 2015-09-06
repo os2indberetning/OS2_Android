@@ -1,9 +1,11 @@
-package eindberetning.it_minds.dk.eindberetningmobil_android;
+package eindberetning.it_minds.dk.eindberetningmobil_android.views;
 
 import android.widget.TextView;
 
 import org.junit.Test;
 
+import eindberetning.it_minds.dk.eindberetningmobil_android.BaseTest;
+import eindberetning.it_minds.dk.eindberetningmobil_android.data.StaticData;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.views.UploadingView;
 
@@ -13,7 +15,8 @@ import it_minds.dk.eindberetningmobil_android.views.UploadingView;
 public class UploadingViewTest extends BaseTest<UploadingView> {
     @Override
     public void runBeforeGetActivity() {
-
+        getSettings().setToken(StaticData.createSimpleToken());
+        getSettings().setProfile(StaticData.createSimpleProfile());
     }
 
     public UploadingViewTest() {

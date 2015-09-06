@@ -1,26 +1,4 @@
 apply plugin: 'jacoco'
-// Define coverage source.
-def coverageSourceDirs = [
-        'src/main/java',
-]
-
-task jacocoTestReport(type: JacocoReport, dependsOn: "testDebug") {
-    description = "Generate Jacoco coverage reports after running tests."
-    reports {
-        html.enabled = true
-    }
-    classDirectories = fileTree(
-            dir: './build/intermediates/classes/debug/com',
-            excludes: ['**/R$*.class',
-                       '**/R.class',
-                       '**/BuildConfig.class',
-                       '**/*$InjectAdapter.class',
-                       '**/*$ModuleAdapter.class',
-                       '**/*$ViewInjector*.class'
-            ])
-    sourceDirectories = files(coverageSourceDirs)
-    executionData = files('build/jacoco/testDebug.exec')
-}
 
 task showReport(type:Exec, dependsOn: "createDebugCoverageReport") {
     workingDir './build/reports/coverage/debug/'

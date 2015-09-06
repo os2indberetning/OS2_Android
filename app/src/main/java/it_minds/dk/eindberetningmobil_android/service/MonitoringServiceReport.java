@@ -12,6 +12,7 @@ import java.util.TimeZone;
 import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
+import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
 
 /**
  * Created by kasper on 25-07-2015.
@@ -29,13 +30,16 @@ public class MonitoringServiceReport {
     private DrivingReport report;
     private boolean validateOnResume = false;
     private Location lastLocation = null;
+
+    private boolean haveInsertedViaPoints = false;
+
     //</editor-fold>
 
     private UiStatusModel lastUiUpdate;
 
     public MonitoringServiceReport(Intent intent, MonitoringService monitoringService) {
         this.monitoringService = monitoringService;
-        if (intent.hasExtra(IntentIndexes.DATA_INDEX)) {
+        if (intent != null && intent.hasExtra(IntentIndexes.DATA_INDEX)) {
             report = intent.getParcelableExtra(IntentIndexes.DATA_INDEX);
         } else {
             report = new DrivingReport();
@@ -57,7 +61,7 @@ public class MonitoringServiceReport {
         if (location.getAccuracy() <= MINIMUM_REQURIED_ACC_IN_METERS) {
             if (!location.hasSpeed() || (location.hasSpeed() && location.getSpeed() > 0)) {
                 //yes yes , so lets handle the new location (update the distance, and update the displays)
-                handleNewLocation(location);
+                handleNewLocation(location, false);
             } else {
                 Log.e("temp", "not moving");
             }
@@ -69,9 +73,9 @@ public class MonitoringServiceReport {
      *
      * @param location
      */
-    private void handleNewLocation(Location location) {
+    private void handleNewLocation(Location location, boolean isViaPoint) {
         if (report != null && report.getgpsPoints() != null) {
-            report.getgpsPoints().add(location);
+            report.getgpsPoints().add(new GPSCoordinateModel(location.getLatitude(), location.getLongitude(), isViaPoint));
             if (lastLocation == null) {
                 lastLocation = location;
                 return;
@@ -94,20 +98,23 @@ public class MonitoringServiceReport {
             return;//this is an issue. but lets not crash
         }
 
-        if (report.getgpsPoints().size() == 0) {
+        if (report.getgpsPoints().size() == 0) { //special case, if we do not have anything...
             validateOnResume = false;
-            handleNewLocation(location);//resume the function.
+            handleNewLocation(location, false);//resume the function.
             return;
         }
 
         if (location.getAccuracy() <= MINIMUM_REQURIED_ACC_IN_METERS) {
             Log.e("temp", "validation point is semi precise." + location.getAccuracy());
-            Location lastLocation = report.getgpsPoints().get(report.getgpsPoints().size() - 1);
-            Log.e("temp", "validation is within: " + lastLocation.distanceTo(location));
-            if (lastLocation.distanceTo(location) < MAX_DIST_RESUME_ALLOWED_IN_METERES) {
+            GPSCoordinateModel lastLocation = report.getgpsPoints().get(report.getgpsPoints().size() - 1);
+            float result[] = new float[5];
+            Location.distanceBetween(lastLocation.getLatitude(), lastLocation.getLongitude(), location.getLatitude(), location.getLongitude(), result);
+            Log.e("temp", "validation is within: " + result[0]);
+            float distance = result[0];
+            if (distance < MAX_DIST_RESUME_ALLOWED_IN_METERES) {
                 //ok to contine.
+                handleNewLocation(location, true);//resume the function.
                 validateOnResume = false;
-                handleNewLocation(location);//resume the function.
             } else {
                 //Not allowed to continue
                 if (monitoringService.isListening()) { //stop if listening, so we are "safe" :)
@@ -173,6 +180,9 @@ public class MonitoringServiceReport {
 
     public void pause() {
         validateOnResume = true;
+        if (report.getgpsPoints() != null && report.getgpsPoints().size() > 1) {
+            report.getgpsPoints().get(report.getgpsPoints().size()-1).setIsViaPoint(true);
+        }
     }
 
     public UiStatusModel createUiStatus() {

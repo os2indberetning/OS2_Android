@@ -31,7 +31,7 @@ public class DrivingReport implements Parcelable {
     private DateTime startTime;
     private DateTime endTime;
     private double distanceInMeters;
-    private ArrayList<Location> gpsPoints;
+    private ArrayList<GPSCoordinateModel> gpsPoints;
 
     public DrivingReport() {
         gpsPoints = new ArrayList<>();
@@ -189,39 +189,9 @@ public class DrivingReport implements Parcelable {
     /**
      * @return ArrayList<Location>
      */
-    public ArrayList<Location> getgpsPoints() {
+    public ArrayList<GPSCoordinateModel> getgpsPoints() {
         return this.gpsPoints;
     }
-
-
-
-    public String serializeToJson(){
-        SafeJsonHelper result = new SafeJsonHelper();
-        result.put("purpose", purpose);
-        result.put("distanceInMeters", distanceInMeters);
-        result.put("endedAtHome", endedAtHome);
-        result.put("endTime", endTime.toString());
-        result.put("startedAtHome", startedAtHome);
-        result.put("startTime", startTime.toString());
-        result.put("extraDescription", extraDescription);
-        result.put("haveEditedDistance",haveEditedDistance );
-        result.put("Rate", Rate);
-        result.put("orgLocation", orgLocation);
-        
-        //result.put("gpsPoints",GPSCoordinateModel.saveAllToJson(gpsPoints)); // TODO: 31-08-2015 find a way to serialize the location smarter..
-
-
-
-
-        return result.toString();
-    }
-
-
-
-
-
-
-
 
     /**
      * saveToJson description here
@@ -246,10 +216,11 @@ public class DrivingReport implements Parcelable {
         SafeJsonHelper routeView = new SafeJsonHelper();
         routeView.put("TotalDistance", distanceInMeters / 1000.d);//THIS IS IN KM.NOTICE IT GRACELY!!
         JSONArray gpsPointsArray = new JSONArray();
-        for (Location loc : gpsPoints) {
+        for (GPSCoordinateModel loc : gpsPoints) {
             SafeJsonHelper gpsPoint = new SafeJsonHelper();
             gpsPoint.put("Latitude", loc.getLatitude() + "");
             gpsPoint.put("Longitude", loc.getLongitude() + "");
+            gpsPoint.put("IsViaPoint",loc.isViaPoint());
             gpsPointsArray.put(gpsPoint);
         }
         routeView.put("GPSCoordinates", gpsPointsArray);
@@ -335,7 +306,7 @@ public class DrivingReport implements Parcelable {
         this.startTime = (DateTime) in.readSerializable();
         this.endTime = (DateTime) in.readSerializable();
         this.distanceInMeters = in.readDouble();
-        this.gpsPoints = in.createTypedArrayList(Location.CREATOR);
+        this.gpsPoints = in.createTypedArrayList(GPSCoordinateModel.CREATOR);
     }
 
     public static final Creator<DrivingReport> CREATOR = new Creator<DrivingReport>() {

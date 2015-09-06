@@ -2,8 +2,8 @@ package it_minds.dk.eindberetningmobil_android.views.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.StringRes;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 import it_minds.dk.eindberetningmobil_android.R;
@@ -23,14 +23,11 @@ public class ErrorDialog extends BaseProvidedDialog {
         this.message = message;
     }
 
-    private String lookText(@StringRes int resId) {
-        return context.getResources().getString(resId);
-    }
 
     @Override
     public void showDialog() {
         final Dialog dialog = new Dialog(context);
-        //dialog.setTitle(lookText(R.string.error_dialog_title));
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.error_dialog_view);
         TextView errorMsg = (TextView) dialog.findViewById(R.id.error_dialog_view_error_message);
         errorMsg.setText(message);
@@ -42,5 +39,6 @@ public class ErrorDialog extends BaseProvidedDialog {
                 dialog.dismiss();
             }
         });
+        dialog.show();
     }
 }

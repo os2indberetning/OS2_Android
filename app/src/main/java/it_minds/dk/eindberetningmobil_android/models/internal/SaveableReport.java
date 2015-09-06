@@ -77,8 +77,8 @@ public class SaveableReport {
     /**
      * @return String
      */
-    public String getJsonToSend() {
-        return this.jsonToSend;
+    public JSONObject getJsonToSend() throws JSONException {
+        return new JSONObject(this.jsonToSend);
     }
 
     /**

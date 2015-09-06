@@ -1,5 +1,9 @@
 package it_minds.dk.eindberetningmobil_android.models;
 
+import android.util.Log;
+
+import org.json.JSONException;
+
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -18,7 +22,12 @@ public class SaveableDriveReport {
     public SafeJsonHelper saveAsJson() {
         SafeJsonHelper result = new SafeJsonHelper();
         if(report!=null){
-            result.put("DriveReport", this.report.getJsonToSend());
+            try {
+                result.put("DriveReport", this.report.getJsonToSend());
+            } catch (JSONException e) {
+                Log.e("Saved drive report","preparing for send failed;", e);
+                e.printStackTrace();
+            }
         }else{
             result.put("DriveReport", "");
         }

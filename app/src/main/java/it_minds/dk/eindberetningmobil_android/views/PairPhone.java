@@ -21,7 +21,6 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
-import it_minds.dk.eindberetningmobil_android.server.ServerHandler;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
@@ -90,10 +89,15 @@ public class PairPhone extends ProvidedSimpleActivity {
         pair_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ProgressDialog spinner = new ProgressDialog(PairPhone.this);
+                spinner.setIndeterminate(true);
+                spinner.setMessage(getString(R.string.please_wait));
+                spinner.show();
                 final String code = pairPhoneField.getText().toString();
                 ServerFactory.getInstance(PairPhone.this).pairPhone(code, new ResultCallback<UserInfo>() { //try pair the device
                     @Override
                     public void onSuccess(UserInfo result) {
+                        spinner.dismiss();
                         //first find the correct token in the Tokens list, and then store that one.
                         Log.e("temp", "token saved");
                         if (findTokenInUserInfo(result, code)) {
@@ -105,6 +109,7 @@ public class PairPhone extends ProvidedSimpleActivity {
 
                     @Override
                     public void onError(Exception error) {
+                        spinner.dismiss();
                         //in here we have to handle the varrious cases. which defines the meaning of the error.
                         Logger.getLogger("pairphone").log(Level.SEVERE, "", error);
                         if (error instanceof VolleyError) {

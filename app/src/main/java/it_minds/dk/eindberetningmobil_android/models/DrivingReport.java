@@ -217,10 +217,7 @@ public class DrivingReport implements Parcelable {
         routeView.put("TotalDistance", distanceInMeters / 1000.d);//THIS IS IN KM.NOTICE IT GRACELY!!
         JSONArray gpsPointsArray = new JSONArray();
         for (GPSCoordinateModel loc : gpsPoints) {
-            SafeJsonHelper gpsPoint = new SafeJsonHelper();
-            gpsPoint.put("Latitude", loc.getLatitude() + "");
-            gpsPoint.put("Longitude", loc.getLongitude() + "");
-            gpsPoint.put("IsViaPoint",loc.isViaPoint());
+            JSONObject gpsPoint =loc.saveToJson();
             gpsPointsArray.put(gpsPoint);
         }
         routeView.put("GPSCoordinates", gpsPointsArray);

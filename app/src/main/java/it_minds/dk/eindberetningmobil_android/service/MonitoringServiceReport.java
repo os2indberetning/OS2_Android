@@ -113,7 +113,7 @@ public class MonitoringServiceReport {
             float distance = result[0];
             if (distance < MAX_DIST_RESUME_ALLOWED_IN_METERES) {
                 //ok to contine.
-                handleNewLocation(location, true);//resume the function.
+                handleNewLocation(location, false);//resume the function.
                 validateOnResume = false;
             } else {
                 //Not allowed to continue

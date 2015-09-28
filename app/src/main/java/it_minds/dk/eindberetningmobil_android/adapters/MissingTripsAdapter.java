@@ -7,9 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
+import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
+import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
  * Created by kasper on 01-09-2015.
@@ -18,9 +23,19 @@ public class MissingTripsAdapter extends ArrayAdapter<SaveableReport> {
 
     private LayoutInflater inflator;
 
+    private HashMap<String, Rates> lookupMap = new HashMap<>();
+
     public MissingTripsAdapter(Context context) {
         super(context, 0);
-        inflator = inflator.from(context);
+        inflator = LayoutInflater.from(context);
+        createLookupMap();
+    }
+
+    private void createLookupMap() {
+        ArrayList<Rates> rates = MainSettings.getInstance(getContext()).getRates();
+        for (Rates r : rates) {
+            lookupMap.put(r.getId() + "", r);
+        }
     }
 
     @Override
@@ -31,22 +46,30 @@ public class MissingTripsAdapter extends ArrayAdapter<SaveableReport> {
         }
         SaveableReport report = getItem(position);
         TextView purporse = (TextView) viewToUse.findViewById(R.id.missing_trip_item_purposeText);
-        purporse.setText(getContext().getString(R.string.purpose_prefix)+" : "+report.getPurpose());
+        purporse.setText(getContext().getString(R.string.purpose_prefix) + " : " + report.getPurpose());
 
         TextView distanceText = (TextView) viewToUse.findViewById(R.id.missing_trip_item_distanceText);
 
         TextView reportLabel = (TextView) viewToUse.findViewById(R.id.missing_trip_item_reportLabel);
 
-        distanceText.setText(getContext().getString(R.string.distance_prefix)+" : "+DistanceDisplayer.formatDistance(report.getTotalDistance())+" km");
-        //get rate here
+        distanceText.setText(getContext().getString(R.string.distance_prefix) + " : " + DistanceDisplayer.formatDistance(report.getTotalDistance()) + " km");
+
         TextView rateText = (TextView) viewToUse.findViewById(R.id.missing_trip_item_rateText);
-        rateText.setText(getContext().getString(R.string.rate_prefix)+" : "+"");
-        if(report.getCreatedAt()!=null) {
+        rateText.setText(getContext().getString(R.string.rate_prefix) + " : " + getRateText(report.getRateid()));
+        if (report.getCreatedAt() != null) {
             reportLabel.setText(getContext().getString(R.string.repport_prefix) + " " + report.getCreatedAt().toString("dd/MM - yyyy"));
-        }else{
+        } else {
             reportLabel.setText("");
         }
 
         return viewToUse;
+    }
+
+    private String getRateText(String rateId) {
+        if (lookupMap.containsKey(rateId)) {
+            return lookupMap.get(rateId).getDescription();
+        } else {
+            return "";
+        }
     }
 }

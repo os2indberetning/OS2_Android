@@ -15,6 +15,7 @@ import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
+import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 
 /**
@@ -32,6 +33,7 @@ public class MainSettings {
     private static final String PROFILES_INDEX = "PROFILES_INDEX";
     private static final String SERVICE_INDEX = "SERVICE_INDEX";
     private static final String SAVED_REPORTS_INDEX = "SAVED_REPORTS_INDEX";
+    private static final String PREFILLEDDATA_INDEX = "PREFILLEDDATA_INDEX";
     //</editor-fold>
 
     //<editor-fold desc="singleton">
@@ -246,4 +248,42 @@ public class MainSettings {
     public void clearReports() {
         getPrefs().edit().remove(SAVED_REPORTS_INDEX).commit();
     }
+
+
+    /**
+     * havePrefilledData description here
+     *
+     * @return boolean
+     */
+    public boolean havePrefilledData() {
+        return getPrefs().getString(PREFILLEDDATA_INDEX, null) != null;
+    }
+
+    /**
+     * setPrefilledData description here
+     *
+     * @return void
+     */
+    public void setPrefilledData(PrefilledData newVal) {
+        getPrefs().edit().putString(PREFILLEDDATA_INDEX, newVal.saveToJson().toString()).commit();
+    }
+
+    /**
+     * getPrefilledData description here
+     *
+     * @return PrefilledData
+     */
+    public PrefilledData getPrefilledData() {
+        String val = getPrefs().getString(PREFILLEDDATA_INDEX, null);
+        if (val == null) {
+            return null;
+        }
+        try {
+            return PrefilledData.parseFromJson(new JSONObject(val));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

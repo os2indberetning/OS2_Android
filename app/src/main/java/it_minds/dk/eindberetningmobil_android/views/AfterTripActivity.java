@@ -18,6 +18,7 @@ import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnData;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
+import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
@@ -98,7 +99,18 @@ public class AfterTripActivity extends BaseReportActivity {
 
         setDateLabel();
         setUserLabel();
+        savePrefilledData();
 
+    }
+
+    private void savePrefilledData() {
+
+        String purpose = report.getPurpose();
+        String rateId = report.getRate();
+        String orgId = report.getOrgLocation();
+
+        PrefilledData data = new PrefilledData(purpose, rateId, orgId);
+        MainSettings.getInstance(this).setPrefilledData(data);
     }
 
     private void handleOnSend() {

@@ -18,6 +18,7 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.location.GpsMonitor;
+import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringService;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
@@ -61,6 +62,22 @@ public class StartActivity extends BaseReportActivity {
         startBtn.setOnClickListener(onStartClicked);
         setColorForText(startBtn);
 
+        loadPreFilledData();
+
+    }
+
+
+    private void loadPreFilledData() {
+        PrefilledData prefilledData = MainSettings.getInstance(this).getPrefilledData();
+        if (prefilledData == null) {
+            return;
+        }
+        report.setOrgLocation(prefilledData.getOrgId());
+        report.setRate(prefilledData.getRateId());
+        report.setPurpose(prefilledData.getPurposeText());
+        setOrgText(prefilledData.getOrgId(), R.id.start_tracking_layout_org_location_description);
+        setRateText(prefilledData.getRateId(), R.id.start_tracking_layout_rate_desc);
+        setTextToView(R.id.start_tracking_layout_purpose_description, prefilledData.getPurposeText());
     }
 
     @Override

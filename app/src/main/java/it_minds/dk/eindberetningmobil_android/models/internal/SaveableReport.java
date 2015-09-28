@@ -69,7 +69,7 @@ public class SaveableReport {
         try {
             createdAt = new DateTime(obj.optString("createdAt"));
         } catch (Exception e) {
-            
+
         }
         return new SaveableReport(jsonToSend, purpose, rateid, totalDistance, createdAt);
     }

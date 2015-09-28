@@ -115,7 +115,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         }
     }
 
-    private void setOrgText(String orgId, int resId) {
+    public void setOrgText(String orgId, int resId) {
         TextView tv = getViewById(resId);
         Employments emp = findEmployementById(orgId);
         if (emp != null) {

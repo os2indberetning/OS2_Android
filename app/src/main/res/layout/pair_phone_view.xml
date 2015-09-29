@@ -18,7 +18,8 @@
             android:hint="Tast parringskode"
             android:layout_marginLeft="20dp"
             android:singleLine="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:inputType="number" />
 
         <TextView
             android:layout_width="match_parent"

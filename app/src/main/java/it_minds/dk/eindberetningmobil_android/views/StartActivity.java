@@ -74,10 +74,10 @@ public class StartActivity extends BaseReportActivity {
         }
         report.setOrgLocation(prefilledData.getOrgId());
         report.setRate(prefilledData.getRateId());
-        report.setPurpose(prefilledData.getPurposeText());
+//        report.setPurpose(prefilledData.getPurposeText());
         setOrgText(prefilledData.getOrgId(), R.id.start_tracking_layout_org_location_description);
         setRateText(prefilledData.getRateId(), R.id.start_tracking_layout_rate_desc);
-        setTextToView(R.id.start_tracking_layout_purpose_description, prefilledData.getPurposeText());
+//        setTextToView(R.id.start_tracking_layout_purpose_description, prefilledData.getPurposeText());
     }
 
     @Override

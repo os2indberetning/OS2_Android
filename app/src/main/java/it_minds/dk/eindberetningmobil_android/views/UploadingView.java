@@ -84,8 +84,14 @@ public class UploadingView extends ProvidedSimpleActivity {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(UploadingView.this, StartActivity.class));
-                        finish();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(new Intent(UploadingView.this, StartActivity.class));
+                                finish();
+                            }
+                        });
+
                     }
                 }, WAIT_TIME_MS_SUCCESS_DISSAPEAR);
             }

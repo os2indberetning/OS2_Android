@@ -17,7 +17,7 @@
     <string name="resume_trip">Genoptag kørsel</string>
     <string name="unknown_token_error">Der skete en ukendt fejl, prøv at lave en ny token og prøv igen.</string>
     <string name="waiting_for_gps">Venter på placering</string>
-    <string name="error_token_not_found">Tokenet blev ikke fundet</string>
+    <string name="error_token_not_found">Det token blev desværre ikke fundet - tjek venligst nummeret og prøv igen. </string>
     <string name="generic_error_message">Der skete en fejl</string>
     <string name="notification_active_message">"Du har indtil videre kørt "</string>
     <string name="notification_active_title">Kørsel aktiv</string>
@@ -50,7 +50,7 @@
     <string name="retry">prøv igen</string>
     <string name="cancel_route">afslut nuværende</string>
     <string name="please_wait">Vent venligst</string>
-    <string name="error_happend">Der skete en fejl, du er nød til at parrer din enhed igen.</string>
+    <string name="error_happend">Der skete en fejl, du er nød til at parre din enhed igen.</string>
     <string name="token_already_used">Tokenet er allerede brugt</string>
     <string name="send_report_error_cancel">Send ikke</string>
     <string name="send_report_error_retry">Prøv igen</string>

@@ -122,7 +122,7 @@ public class PairPhone extends ProvidedSimpleActivity {
                                 //token not found
                                 Toast.makeText(PairPhone.this, R.string.error_token_not_found, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(PairPhone.this, getString(R.string.error_happend) + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PairPhone.this, getString(R.string.error_happend), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(PairPhone.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();

@@ -52,9 +52,9 @@
     <string name="please_wait">Vent venligst</string>
     <string name="error_happend">Der skete en fejl, du er nød til at parre din enhed igen.</string>
     <string name="token_already_used">Tokenet er allerede brugt</string>
-    <string name="send_report_error_cancel">Send ikke</string>
+    <string name="send_report_error_cancel">Gem</string>
     <string name="send_report_error_retry">Prøv igen</string>
-    <string name="send_report_error">Der skete en fejl ved afsendelsen af din rapport! Vil du prøve igen?</string>
+    <string name="send_report_error">Der skete en fejl ved afsendelsen af din rapport! Prøv igen eller tryk på 'Gem' og send rapporten fra hovedmenuen på et andet tidspunkt.</string>
     <string name="error_employments_nothing_to_display">Der er ingen organisatoriske placeringer tilgængelige.</string>
     <string name="invalid_user">Ugyldige bruger oplysninger</string>
     <string name="no_verication_error">Vi kunne ikke verificere at din enhed stadig er parret, tjek at du har internet</string>

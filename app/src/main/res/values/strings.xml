@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">OS2Indberetning</string>
-    <string name="pair_phone_description">For at bruge appen skal du parre din telefon med din bruger på eIndberetning.\n\nFor at parre telefonen skal du bruge et token.\n\nEt token er unikt nummer der forbinder din bruger på eIndberetning  med din telefon.\n\nDu laver et token ved at gå ind under "Min eIndberetning" og trykke "Mine Tokens".\n\nHerefter kan du se dit token, som du bare skal indtaste i feltet ovenfor, og derefter trykke på "Par Telefon".
+    <string name="pair_phone_description">For at bruge appen skal du parre din telefon med din bruger på OS2Indberetning.\n\nFor at parre telefonen skal du bruge et token.\n\nEt token er unikt nummer der forbinder din bruger på OS2Indberetning med din telefon.\n\nDu laver et token ved at gå ind under "Personlige Indstillinger" på hjemmesiden og trykke "Mine Tokens".\n\nHerefter kan du se dit token, som du bare skal indtaste i feltet ovenfor, og derefter trykke på "Par Telefon".
     </string>
     <string name="error_dialog_title">Fejl</string>
     <string name="confirmation_end_driving_dialog_title">Afslut kørsel?</string>
@@ -54,12 +54,12 @@
     <string name="token_already_used">Tokenet er allerede brugt</string>
     <string name="send_report_error_cancel">Send ikke</string>
     <string name="send_report_error_retry">Prøv igen</string>
-    <string name="send_report_error">Der skete en fejl ved afsendelsen af din rapport. ! Vil du prøve igen?</string>
+    <string name="send_report_error">Der skete en fejl ved afsendelsen af din rapport! Vil du prøve igen?</string>
     <string name="error_employments_nothing_to_display">Der er ingen organisatoriske placeringer tilgængelige.</string>
-    <string name="invalid_user">Ugyldig bruger oplysninger</string>
+    <string name="invalid_user">Ugyldige bruger oplysninger</string>
     <string name="no_verication_error">Vi kunne ikke verificere at din enhed stadig er parret, tjek at du har internet</string>
     <string name="see_not_send">Se ikke sendte</string>
-    <string name="not_sent_reports_description">Klik på en rapport for enten at sende den eller slette den. Hvis du fortryder kan du klikke udenfor boksen  eller på tilbage knappen.</string>
+    <string name="not_sent_reports_description">Klik på en rapport for enten at sende den eller slette den. Hvis du fortryder kan du klikke udenfor boksen eller på tilbage knappen.</string>
     <string name="not_sent_reports_title">Ikke sendte rapporter</string>
     <string name="purpose_prefix">Formål</string>
     <string name="distance_prefix">Distance</string>

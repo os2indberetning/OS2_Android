@@ -78,7 +78,6 @@ public class PairPhone extends ProvidedSimpleActivity {
         }
         setActionbarBackDisplay();
         hideSoftkeyboard(); //make sure he can actually read the text.
-
     }
 
     private void setupUI() {

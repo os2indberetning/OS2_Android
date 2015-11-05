@@ -28,6 +28,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".views.input.TextInputView"
+            android:windowSoftInputMode="stateVisible"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".views.MonitoringActivity"

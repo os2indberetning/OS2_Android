@@ -2,6 +2,7 @@ package it_minds.dk.eindberetningmobil_android.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -146,6 +147,14 @@ public class MainSettings {
 
     //<editor-fold desc="rates">
     public void setRates(ArrayList<Rates> rates) {
+
+        //Remove unwanted rates
+        for (Rates r : rates){
+            if (r.getId() == 8){
+                rates.remove(r);
+                Log.d("MainSettings - setRates","Removed rate with id: " + r.getId() + " desc: " + r.getDescription());
+            }
+        }
         JSONArray arr = Rates.saveAllToJson(rates);
         getPrefs().edit().putString(RATES_INDEX, arr.toString()).commit();
     }

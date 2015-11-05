@@ -30,7 +30,10 @@ public class TextInputView extends ProvidedSimpleActivity {
         if (title == null) {
             title = "";
         }
+
         setActionbarBackDisplay(title);
+
+
     }
 
     //store result

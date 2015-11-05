@@ -148,7 +148,7 @@ public class MainSettings {
     //<editor-fold desc="rates">
     public void setRates(ArrayList<Rates> rates) {
 
-        //Remove unwanted rates
+        //Remove rates that are not used on mobile reporting
         for (Rates r : rates){
             if (r.getId() == 8){
                 rates.remove(r);

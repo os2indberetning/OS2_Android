@@ -174,14 +174,14 @@ public class DrivingReport implements Parcelable {
     /**
      * @return double
      */
-    public double getdistanceInMeters() {
+    public double getDistanceInMeters() {
         return this.distanceInMeters;
     }
 
     /**
      * @return double
      */
-    public void setdistanceInMeters(double newVal) {
+    public void setDistanceInMeters(double newVal) {
         this.distanceInMeters = newVal;
     }
 

@@ -80,21 +80,21 @@ public class AfterTripActivity extends BaseReportActivity {
         kmView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final double prevVal = report.getdistanceInMeters();
+                final double prevVal = report.getDistanceInMeters();
                 showEdit(new OnData<String>() {
                     @Override
                     public void onData(String data) {
                         double meters = handleKmClick(data, prevVal);
-                        report.setdistanceInMeters(meters);
+                        report.setDistanceInMeters(meters);
                     }
-                }, getString(R.string.distance_title_edit), report.getdistanceInMeters() + "", KmActivity.class);
+                }, getString(R.string.distance_title_edit), report.getDistanceInMeters() + "", KmActivity.class);
             }
         });
 
 
         TextView kmDescView = (TextView) findViewById(R.id.after_tracking_view_km_container_desc);
 
-        kmDescView.setText(DistanceDisplayer.formatDistance(report.getdistanceInMeters()));
+        kmDescView.setText(DistanceDisplayer.formatDistance(report.getDistanceInMeters()));
 
         setDateLabel();
         setUserLabel();
@@ -143,7 +143,7 @@ public class AfterTripActivity extends BaseReportActivity {
     }
 
     private double handleKmClick(String data, double prevVal) {
-        double meters = report.getdistanceInMeters();
+        double meters = report.getDistanceInMeters();
         try {
             meters = Double.parseDouble(data);
             report.sethaveEditedDistance(meters != prevVal || report.getHaveEditedDistance());//if we have edited it, it stays that way.

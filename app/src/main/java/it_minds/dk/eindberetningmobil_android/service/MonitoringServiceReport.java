@@ -82,7 +82,7 @@ public class MonitoringServiceReport {
             }
             updateCurrentDistance(location);
             long offset = TimeZone.getDefault().getOffset(location.getTime());
-            updateDisplay(location.getAccuracy(), report.getdistanceInMeters(), new DateTime(offset + location.getTime()));
+            updateDisplay(location.getAccuracy(), report.getDistanceInMeters(), new DateTime(offset + location.getTime()));
         }
     }
 
@@ -154,8 +154,8 @@ public class MonitoringServiceReport {
      */
     private void updateCurrentDistance(Location location) {
         if (location.getSpeed() > 0) {
-            double currentDistance = report.getdistanceInMeters();
-            report.setdistanceInMeters(currentDistance + Math.abs(location.distanceTo(lastLocation)));
+            double currentDistance = report.getDistanceInMeters();
+            report.setDistanceInMeters(currentDistance + Math.abs(location.distanceTo(lastLocation)));
             lastLocation = location;
         }
     }
@@ -164,7 +164,7 @@ public class MonitoringServiceReport {
      * @return the current Km we have moved
      */
     public String getCurrentDistanceInKm() {
-        return DistanceDisplayer.formatDistance(report.getdistanceInMeters());
+        return DistanceDisplayer.formatDistance(report.getDistanceInMeters());
     }
 
     /**

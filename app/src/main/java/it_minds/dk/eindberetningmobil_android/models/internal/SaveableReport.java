@@ -35,7 +35,7 @@ public class SaveableReport {
         jsonToSend = report.saveToJson(profileId).toString();
         purpose = report.getPurpose();
         rateid = report.getRate();
-        totalDistance = report.getdistanceInMeters();
+        totalDistance = report.getDistanceInMeters();
         createdAt = report.getstartTime();
     }
 

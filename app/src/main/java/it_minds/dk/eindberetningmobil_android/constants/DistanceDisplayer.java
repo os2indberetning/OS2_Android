@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
  * A helper to convert a meter to km, and only use 2 decimals precission
  */
 public class DistanceDisplayer {
-    private static DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private static DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
     /**
      * Converts the distance in meteres to km, and displays it nicly.

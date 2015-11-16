@@ -81,7 +81,7 @@ public class UploadingView extends ProvidedSimpleActivity {
     }
 
     private void checkForEmptyComment(DrivingReport report) {
-        if(report.getExtraDescription() == null){
+        if(report.getExtraDescription() == null || report.getExtraDescription().equals("")){
             report.setExtraDescription("Ingen kommentar indtastet");
         }
     }

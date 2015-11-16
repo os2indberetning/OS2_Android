@@ -2,7 +2,6 @@ package it_minds.dk.eindberetningmobil_android.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,6 +9,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.models.Profile;
@@ -148,13 +148,17 @@ public class MainSettings {
     //<editor-fold desc="rates">
     public void setRates(ArrayList<Rates> rates) {
 
+        Iterator<Rates> ratesIterator = rates.iterator();
+
         //Remove rates that are not used on mobile reporting
-        for (Rates r : rates){
+        while (ratesIterator.hasNext()) {
+            Rates r = ratesIterator.next();
             if (r.getId() == 8){
                 rates.remove(r);
-                Log.d("MainSettings - setRates","Removed rate with id: " + r.getId() + " desc: " + r.getDescription());
+                break;
             }
         }
+
         JSONArray arr = Rates.saveAllToJson(rates);
         getPrefs().edit().putString(RATES_INDEX, arr.toString()).commit();
     }

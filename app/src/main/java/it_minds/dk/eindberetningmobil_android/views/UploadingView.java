@@ -45,6 +45,11 @@ public class UploadingView extends ProvidedSimpleActivity {
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
 
         checkForEmptyComment(report);
+        if(!checkForManualKilometerEdit(report)){
+            //Only check for single GPS point if user hasn't edited KM
+            checkForOnlySingleGPSPoint(report);
+        }
+
 
         statusText = getViewById(R.id.upload_view_status_text);
         if (MainSettings.getInstance(this).getProvider() != null) { //just to be sure we have any data.
@@ -56,11 +61,28 @@ public class UploadingView extends ProvidedSimpleActivity {
 
     }
 
+    private boolean checkForManualKilometerEdit(DrivingReport report) {
+        if(report.getHaveEditedDistance()){
+            //Empty coordinates array
+            report.getgpsPoints().clear();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void checkForOnlySingleGPSPoint(DrivingReport report) {
+
+        //Bit of an edge case
+        if(report.getgpsPoints().size() == 1) {
+            //If only 1 GPSPoint duplicate it, to make route from 2 identical points
+            report.getgpsPoints().add(report.getgpsPoints().get(0));
+        }
+    }
+
     private void checkForEmptyComment(DrivingReport report) {
         if(report.getExtraDescription() == null){
             report.setExtraDescription("Ingen kommentar indtastet");
-        }else{
-            Log.d("DEBUG", "DEBUG");
         }
     }
 

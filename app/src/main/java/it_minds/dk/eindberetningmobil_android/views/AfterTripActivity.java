@@ -29,7 +29,6 @@ import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
  */
 public class AfterTripActivity extends BaseReportActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,7 +146,7 @@ public class AfterTripActivity extends BaseReportActivity {
         double meters = report.getdistanceInMeters();
         try {
             meters = Double.parseDouble(data);
-            report.sethaveEditedDistance(meters != prevVal || report.gethaveEditedDistance());//if we have edited it, it stays that way.
+            report.sethaveEditedDistance(meters != prevVal || report.getHaveEditedDistance());//if we have edited it, it stays that way.
             setTextToView(R.id.after_tracking_view_km_container_desc, DistanceDisplayer.formatDistance(meters));
         } catch (Exception e) {
             Log.e("temp", "is not a decimal number", e);

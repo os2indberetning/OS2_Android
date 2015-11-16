@@ -1,6 +1,5 @@
 package it_minds.dk.eindberetningmobil_android.models;
 
-import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -112,7 +111,7 @@ public class DrivingReport implements Parcelable {
     /**
      * @return boolean
      */
-    public boolean gethaveEditedDistance() {
+    public boolean getHaveEditedDistance() {
         return this.haveEditedDistance;
     }
 

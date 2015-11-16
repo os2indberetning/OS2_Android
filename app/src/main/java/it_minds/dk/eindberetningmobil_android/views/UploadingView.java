@@ -44,6 +44,8 @@ public class UploadingView extends ProvidedSimpleActivity {
 
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
 
+        checkForEmptyComment(report);
+
         statusText = getViewById(R.id.upload_view_status_text);
         if (MainSettings.getInstance(this).getProvider() != null) { //just to be sure we have any data.
             String url = MainSettings.getInstance(this).getProvider().getImgUrl();
@@ -52,6 +54,14 @@ public class UploadingView extends ProvidedSimpleActivity {
         }
 
 
+    }
+
+    private void checkForEmptyComment(DrivingReport report) {
+        if(report.getExtraDescription() == null){
+            report.setExtraDescription("Ingen kommentar indtastet");
+        }else{
+            Log.d("DEBUG", "DEBUG");
+        }
     }
 
     @Override
@@ -76,6 +86,7 @@ public class UploadingView extends ProvidedSimpleActivity {
 
     private void TrySendReport(final DriveReport toSend) {
         final Timer timer = new Timer();
+
         ServerFactory.getInstance(this).sendReport(toSend, new ResultCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo result) {

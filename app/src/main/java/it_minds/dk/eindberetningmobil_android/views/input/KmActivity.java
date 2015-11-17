@@ -3,7 +3,6 @@ package it_minds.dk.eindberetningmobil_android.views.input;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.NumberPicker;
 
 import it_minds.dk.eindberetningmobil_android.R;
@@ -55,10 +54,6 @@ public class KmActivity extends ProvidedSimpleActivity {
         String value = getIntent().getStringExtra(IntentIndexes.DATA_INDEX);
 
         double toDisplay = Double.parseDouble(value)/1000.0;
-
-        Log.d("DEBUG toDisplay", "toDisplay = " + toDisplay);
-        Log.d("DEBUG toDisplay", "toDisplay (int) = " + toDisplay);
-        Log.d("DEBUG toDisplay", "toDisplay getComma()= " + getComma(toDisplay));
 
         //now lets to some magic. we misuse the fact that int will not be rounded.
         mainCounter.setValue((int) toDisplay);

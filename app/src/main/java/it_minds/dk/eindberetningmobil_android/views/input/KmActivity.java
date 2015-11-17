@@ -3,10 +3,10 @@ package it_minds.dk.eindberetningmobil_android.views.input;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.NumberPicker;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
@@ -56,12 +56,18 @@ public class KmActivity extends ProvidedSimpleActivity {
         //start by parsing the string as a double.
         String value = getIntent().getStringExtra(IntentIndexes.DATA_INDEX);
         DecimalFormat df = new DecimalFormat();
+
         double toDisplay = 0;
-        try {
-            toDisplay = df.parse(value).doubleValue();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+            toDisplay = Double.parseDouble(value);
+
+//            toDisplay = df.parse(value).doubleValue();
+            Log.d("DEBUG toDisplay", "toDisplay = " + toDisplay);
+            Log.d("DEBUG toDisplay", "toDisplay (int) = " + toDisplay);
+            Log.d("DEBUG toDisplay", "toDisplay getComma()= " + getComma(toDisplay));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         //now lets to some magic. we misuse the fact that int will not be rounded.
         mainCounter.setValue((int) toDisplay);
         commaPicker.setValue(getComma(toDisplay)); //and the rest is just math fun.

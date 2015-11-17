@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.NumberPicker;
 
-import java.text.DecimalFormat;
-
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
@@ -55,19 +53,13 @@ public class KmActivity extends ProvidedSimpleActivity {
         commaPicker.setMaxValue(9);
         //start by parsing the string as a double.
         String value = getIntent().getStringExtra(IntentIndexes.DATA_INDEX);
-        DecimalFormat df = new DecimalFormat();
 
-        double toDisplay = 0;
-//        try {
-            toDisplay = Double.parseDouble(value);
+        double toDisplay = Double.parseDouble(value)/1000.0;
 
-//            toDisplay = df.parse(value).doubleValue();
-            Log.d("DEBUG toDisplay", "toDisplay = " + toDisplay);
-            Log.d("DEBUG toDisplay", "toDisplay (int) = " + toDisplay);
-            Log.d("DEBUG toDisplay", "toDisplay getComma()= " + getComma(toDisplay));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+        Log.d("DEBUG toDisplay", "toDisplay = " + toDisplay);
+        Log.d("DEBUG toDisplay", "toDisplay (int) = " + toDisplay);
+        Log.d("DEBUG toDisplay", "toDisplay getComma()= " + getComma(toDisplay));
+
         //now lets to some magic. we misuse the fact that int will not be rounded.
         mainCounter.setValue((int) toDisplay);
         commaPicker.setValue(getComma(toDisplay)); //and the rest is just math fun.

@@ -99,7 +99,6 @@ public class AfterTripActivity extends BaseReportActivity {
         setDateLabel();
         setUserLabel();
         savePrefilledData();
-
     }
 
     private void savePrefilledData() {

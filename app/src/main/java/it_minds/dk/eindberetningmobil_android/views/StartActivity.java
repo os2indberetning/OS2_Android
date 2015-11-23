@@ -11,6 +11,10 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import org.joda.time.DateTime;
 
 import it_minds.dk.eindberetningmobil_android.R;
@@ -110,10 +114,22 @@ public class StartActivity extends BaseReportActivity {
                 Toast.makeText(StartActivity.this, R.string.start_activity_validation_error, Toast.LENGTH_LONG).show();
                 return;
             }
+
             if (!GpsMonitor.isGpsEnabled(StartActivity.this)) {
                 Toast.makeText(StartActivity.this, R.string.activate_gps, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            //Check if GooglePlayServices is available and up to date
+
+            //https://developers.google.com/android/reference/com/google/android/gms/common/GoogleApiAvailability
+            int result = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
+            //https://developers.google.com/android/reference/com/google/android/gms/common/ConnectionResult
+            if(result != ConnectionResult.SUCCESS){
+                GooglePlayServicesUtil.getErrorDialog(result, StartActivity.this, 1).show();
+                return;
+            }
+
             report.setstartTime(new DateTime());
             Intent startIntent = new Intent(StartActivity.this, MonitoringActivity.class);
             startIntent.putExtra(IntentIndexes.DATA_INDEX, report);

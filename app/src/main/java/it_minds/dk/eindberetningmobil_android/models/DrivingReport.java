@@ -214,7 +214,7 @@ public class DrivingReport implements Parcelable {
         }
         //the route data inside of the report.
         SafeJsonHelper routeView = new SafeJsonHelper();
-        routeView.put("TotalDistance", DistanceDisplayer.formatDistance(distanceInMeters)); //THIS IS IN KM.NOTICE IT GRACELY!!
+        routeView.put("TotalDistance", DistanceDisplayer.formatDisanceForUpload(distanceInMeters)); //THIS IS IN KM.NOTICE IT GRACELY!!
         JSONArray gpsPointsArray = new JSONArray();
         for (GPSCoordinateModel loc : gpsPoints) {
             JSONObject gpsPoint =loc.saveToJson();

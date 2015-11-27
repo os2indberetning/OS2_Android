@@ -50,7 +50,6 @@ public class UploadingView extends ProvidedSimpleActivity {
             checkForOnlySingleGPSPoint(report);
         }
 
-
         statusText = getViewById(R.id.upload_view_status_text);
         if (MainSettings.getInstance(this).getProvider() != null) { //just to be sure we have any data.
             String url = MainSettings.getInstance(this).getProvider().getImgUrl();

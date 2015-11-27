@@ -19,6 +19,10 @@ public class DistanceDisplayer {
         return decimalFormat.format(distance / 1000.0d).replace('.', ',');//danish style
     }
 
+    public static String formatDisanceForUpload(double distance){
+        return decimalFormat.format(distance / 1000.0d);//english style (With '.' as seperator)
+    }
+
     public static String formatAccuracy(double acc){
         return decimalFormat.format(acc).replace('.', ',');//danish style
     }

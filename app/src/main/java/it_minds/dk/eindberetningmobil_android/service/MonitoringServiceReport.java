@@ -25,7 +25,6 @@ public class MonitoringServiceReport {
     public static final int MAX_DIST_RESUME_ALLOWED_IN_METERES = 200;
     private MonitoringService monitoringService;
 
-
     //<editor-fold desc="report mangement">
     private DrivingReport report;
     private boolean validateOnResume = false;

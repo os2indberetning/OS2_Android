@@ -29,7 +29,7 @@ import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
  */
 public class UploadingView extends ProvidedSimpleActivity {
 
-    private final static int WAIT_TIME_MS_SUCCESS_DISSAPEAR = 5000;
+    private final static int WAIT_TIME_MS_SUCCESS_DISSAPEAR = 1500;
 
     private TextView statusText;
     private SaveableReport saveableReport;

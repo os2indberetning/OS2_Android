@@ -60,10 +60,8 @@ public class MonitoringServiceReport {
         
         if (location.getAccuracy() <= MINIMUM_REQURIED_ACC_IN_METERS) {
             if(lastLocation == null ||
-                    calculateDistanceBetweenPoints(lastLocation, location) >= location.getAccuracy()){ // Removes jitter in reports
-                // Location should not be added
-                Log.e("temp", "Avoiding jitter");
-            } else {
+                    (calculateDistanceBetweenPoints(lastLocation, location) >= location.getAccuracy())){ // Removes jitter in reports
+
                 if (!location.hasSpeed() || (location.hasSpeed() && location.getSpeed() > 0)) {
                     //yes yes , so lets handle the new location (update the distance, and update the displays)
                     handleNewLocation(location, false);

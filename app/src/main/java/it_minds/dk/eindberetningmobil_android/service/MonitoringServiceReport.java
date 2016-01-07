@@ -21,7 +21,7 @@ import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
 public class MonitoringServiceReport {
 
 
-    public static final int MINIMUM_REQURIED_ACC_IN_METERS = 50;
+    public static final int MINIMUM_REQURIED_ACC_IN_METERS = 100;
     public static final int MAX_DIST_RESUME_ALLOWED_IN_METERES = 200;
     private MonitoringService monitoringService;
 
@@ -57,13 +57,21 @@ public class MonitoringServiceReport {
             handleValidationOnResume(location);
             return;
         }
+        
         if (location.getAccuracy() <= MINIMUM_REQURIED_ACC_IN_METERS) {
-            if (!location.hasSpeed() || (location.hasSpeed() && location.getSpeed() > 0)) {
-                //yes yes , so lets handle the new location (update the distance, and update the displays)
-                handleNewLocation(location, false);
+            if(lastLocation == null ||
+                    calculateDistanceBetweenPoints(lastLocation, location) >= location.getAccuracy()){ // Removes jitter in reports
+                // Location should not be added
+                Log.e("temp", "Avoiding jitter");
             } else {
-                Log.e("temp", "not moving");
+                if (!location.hasSpeed() || (location.hasSpeed() && location.getSpeed() > 0)) {
+                    //yes yes , so lets handle the new location (update the distance, and update the displays)
+                    handleNewLocation(location, false);
+                } else {
+                    Log.e("temp", "not moving");
+                }
             }
+
         }
     }
 
@@ -183,6 +191,15 @@ public class MonitoringServiceReport {
             report.getgpsPoints().get(report.getgpsPoints().size()-1).setIsViaPoint(true);
         }
     }
+
+    private float calculateDistanceBetweenPoints(Location firstLocation, Location secondLocation){
+        float result[] = new float[5];
+        Location.distanceBetween(firstLocation.getLatitude(), firstLocation.getLongitude(), secondLocation.getLatitude(), secondLocation.getLongitude(), result);
+        float distance = result[0];
+        return distance;
+    }
+
+
 
     public UiStatusModel createUiStatus() {
         return lastUiUpdate;

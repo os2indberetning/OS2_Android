@@ -37,6 +37,11 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
     private ConfirmationDialog invalidGpsDialog;
     private boolean active;
 
+    /**
+     * Boolean to determine if the user has lost his signal for a signifcant period of time. If so, he should be warned in the result activity
+     */
+    private boolean shouldWarnUserOfPossibleInaccuracy = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,7 +134,10 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
                     showInvalidGps();
                 } else if (resultData.containsKey(IntentIndexes.WORKING_GPS_INDEX)) {
                     removeInvalidGps();
+                } else if (resultData.containsKey(IntentIndexes.POSSIBLE_INACCURACY_WARNING_INDEX)) {
+                    shouldWarnUserOfPossibleInaccuracy = true;
                 }
+
             }
         }
     };
@@ -215,6 +223,7 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
         DrivingReport report = localReport;
         report.setendedAtHome(endedAtHome);
         report.setEndTime(new DateTime());
+        intent.putExtra(IntentIndexes.POSSIBLE_INACCURACY_WARNING_INDEX, shouldWarnUserOfPossibleInaccuracy);
         intent.putExtra(IntentIndexes.DATA_INDEX, report);
         MonitoringActivity.this.startActivity(intent);
         MonitoringActivity.this.finish();

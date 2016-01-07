@@ -3,6 +3,8 @@
     <string name="pair_phone_description">For at bruge appen skal du parre din telefon med din bruger på OS2Indberetning.\n\nFor at parre telefonen skal du bruge et token.\n\nEt token er unikt nummer der forbinder din bruger på OS2Indberetning med din telefon.\n\nDu laver et token ved at gå ind under "Personlige Indstillinger" på hjemmesiden og trykke "Mine Tokens".\n\nHerefter kan du se dit token, som du bare skal indtaste i feltet ovenfor, og derefter trykke på "Par Telefon".
     </string>
     <string name="error_dialog_title">Fejl</string>
+    <string name="inaccuracy_dialog_title">OBS</string>
+    <string name="inaccuracy_dialog_message">Under turen har der været et eller flere udfald i GPS-forbindelsen. Vær derfor særligt opmærksom på om afstanden og ruten passer med det forventede.</string>
     <string name="confirmation_end_driving_dialog_title">Afslut kørsel?</string>
     <string name="confirmation_end_driving_dialog_message">Er du sikker på du vil afslutte kørselen?</string>
     <string name="confirmation_end_driving_dialog_end_home">Kørsel slutter hjemme</string>

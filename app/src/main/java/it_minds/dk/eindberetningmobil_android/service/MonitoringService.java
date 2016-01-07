@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.ResultReceiver;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -45,6 +46,10 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     private MonitoringServiceReport manager;
 
     private static boolean haveBeenStarted = false;
+
+    private long mLastLocationFixTime = 0;
+    private final long maxAllowedIntervalBetweenGpsUpdatesInMillis = 30000; // 30 seconds
+    private boolean userShouldBeWarnedOfInaccuracy = false;
 
     /**
      * Gets called when we start.
@@ -196,9 +201,20 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
         Log.e("temp", "got location (lat , lng):" + location.getLatitude() + "," + location.getLongitude());
         if (manager != null) {
             manager.addLocation(location);
+
+            if (mLastLocationFixTime != 0 && (SystemClock.elapsedRealtime() - mLastLocationFixTime >= maxAllowedIntervalBetweenGpsUpdatesInMillis)){
+                // User has not had an update in more than the allowed interval between updates
+                userShouldBeWarnedOfInaccuracy = true;
+                sendInaccuracyWarning();
+            }
+
+            mLastLocationFixTime = SystemClock.elapsedRealtime();
+
             if (callback != null) {
                 callback.send(Activity.RESULT_OK, manager.createNotificationBundle());
             }
+
+
             updateNotification(getString(R.string.notification_active_title), getString(R.string.notification_active_message) + manager.getCurrentDistanceInKm() + " km");
         }
     }
@@ -234,6 +250,12 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
 
     public boolean isListening() {
         return isListening;
+    }
+
+    private void sendInaccuracyWarning() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IntentIndexes.POSSIBLE_INACCURACY_WARNING_INDEX, true);
+        callback.send(Activity.RESULT_OK, bundle);
     }
 
     public void sendError() {

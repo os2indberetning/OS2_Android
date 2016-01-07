@@ -21,6 +21,7 @@ import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
+import it_minds.dk.eindberetningmobil_android.views.dialogs.InaccuracyDialog;
 import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
 
 /**
@@ -99,6 +100,13 @@ public class AfterTripActivity extends BaseReportActivity {
         setDateLabel();
         setUserLabel();
         savePrefilledData();
+
+        // Show inaccuracy warning if relevant
+        boolean shouldShowWarning = getIntent().getBooleanExtra(IntentIndexes.POSSIBLE_INACCURACY_WARNING_INDEX, false);
+        if (shouldShowWarning) {
+            InaccuracyDialog id = new InaccuracyDialog(this);
+            id.showDialog();
+        }
     }
 
     private void savePrefilledData() {

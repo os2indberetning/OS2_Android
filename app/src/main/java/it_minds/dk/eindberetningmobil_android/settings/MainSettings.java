@@ -141,7 +141,6 @@ public class MainSettings {
         getPrefs().edit().putString(TOKEN_INDEX, newVal.saveToJson().toString()).commit();
     }
 
-
     //</editor-fold>
 
     //<editor-fold desc="rates">

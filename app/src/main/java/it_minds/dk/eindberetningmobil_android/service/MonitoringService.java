@@ -14,6 +14,10 @@ import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import org.joda.time.DateTime;
+
+import java.util.TimeZone;
+
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnLocationChangedCallback;
@@ -201,6 +205,12 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
         Log.e("temp", "got location (lat , lng):" + location.getLatitude() + "," + location.getLongitude());
         if (manager != null) {
             manager.addLocation(location);
+
+            // Send UI update on first fix as feedback to user that he can begin driving
+            if (mLastLocationFixTime == 0){
+                long offset = TimeZone.getDefault().getOffset(location.getTime());
+                manager.updateDisplay(location.getAccuracy(), 0, new DateTime(offset + location.getTime()));
+            }
 
             if(!userShouldBeWarnedOfInaccuracy) {
                 if (mLastLocationFixTime != 0 && (SystemClock.elapsedRealtime() - mLastLocationFixTime >= maxAllowedIntervalBetweenGpsUpdatesInMillis)){

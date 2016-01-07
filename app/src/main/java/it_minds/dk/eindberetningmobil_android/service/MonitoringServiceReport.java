@@ -139,7 +139,7 @@ public class MonitoringServiceReport {
      * @param distance
      * @param time
      */
-    private void updateDisplay(float acc, double distance, DateTime time) {
+    public void updateDisplay(float acc, double distance, DateTime time) {
         String s = DistanceDisplayer.formatDistance(distance);
         String distanceText = (s + " Km");//kilometer is an SI unit, so no translations is needed
         String timeText = "";
@@ -150,7 +150,6 @@ public class MonitoringServiceReport {
         lastUiUpdate = new UiStatusModel(timeText, accText, distanceText);
         monitoringService.sendUiUpdate(lastUiUpdate);
     }
-
 
     /**
      * updates the current distance.

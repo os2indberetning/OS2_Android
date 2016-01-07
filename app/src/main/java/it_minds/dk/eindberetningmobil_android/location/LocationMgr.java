@@ -45,8 +45,8 @@ public class LocationMgr implements GoogleApiClient.ConnectionCallbacks, GoogleA
     private LocationMgr(Context context) {
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(4000);
+        mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY); //we are going to need speed, and thus we need "High" acc.
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)

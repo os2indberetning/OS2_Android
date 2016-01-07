@@ -202,11 +202,14 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
         if (manager != null) {
             manager.addLocation(location);
 
-            if (mLastLocationFixTime != 0 && (SystemClock.elapsedRealtime() - mLastLocationFixTime >= maxAllowedIntervalBetweenGpsUpdatesInMillis)){
-                // User has not had an update in more than the allowed interval between updates
-                userShouldBeWarnedOfInaccuracy = true;
-                sendInaccuracyWarning();
+            if(!userShouldBeWarnedOfInaccuracy) {
+                if (mLastLocationFixTime != 0 && (SystemClock.elapsedRealtime() - mLastLocationFixTime >= maxAllowedIntervalBetweenGpsUpdatesInMillis)){
+                    // User has not had an update in more than the allowed interval between updates
+                    userShouldBeWarnedOfInaccuracy = true;
+                    sendInaccuracyWarning();
+                }
             }
+
 
             mLastLocationFixTime = SystemClock.elapsedRealtime();
 

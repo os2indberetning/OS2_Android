@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.models.Profile;
@@ -148,18 +147,15 @@ public class MainSettings {
     //<editor-fold desc="rates">
     public void setRates(ArrayList<Rates> rates) {
 
-        Iterator<Rates> ratesIterator = rates.iterator();
-
         //Remove rates that are not used on mobile reporting
-        while (ratesIterator.hasNext()) {
-            Rates r = ratesIterator.next();
-            if (r.getId() == 8){
-                rates.remove(r);
-                break;
+        ArrayList<Rates> ratesToSave = new ArrayList<>();
+        for (Rates r:rates){
+            if (!r.getDescription().equalsIgnoreCase("Anhænger")){
+                ratesToSave.add(r);
             }
         }
 
-        JSONArray arr = Rates.saveAllToJson(rates);
+        JSONArray arr = Rates.saveAllToJson(ratesToSave);
         getPrefs().edit().putString(RATES_INDEX, arr.toString()).commit();
     }
 

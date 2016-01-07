@@ -3,6 +3,8 @@ package it_minds.dk.eindberetningmobil_android.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -32,6 +34,8 @@ public class UploadingView extends ProvidedSimpleActivity {
     private final static int WAIT_TIME_MS_SUCCESS_DISSAPEAR = 1500;
 
     private TextView statusText;
+    private ProgressBar spinner;
+
     private SaveableReport saveableReport;
 
     private DrivingReport report;
@@ -57,6 +61,7 @@ public class UploadingView extends ProvidedSimpleActivity {
             img.setImageUrl(url, ServerFactory.getInstance(this).getImageLoader()); //load logo.
         }
 
+        spinner = (ProgressBar) findViewById(R.id.progressBar);
 
     }
 
@@ -112,6 +117,7 @@ public class UploadingView extends ProvidedSimpleActivity {
             @Override
             public void onSuccess(UserInfo result) {
                 updateStatusText(getString(R.string.success));
+                spinner.setVisibility(View.INVISIBLE);
                 MainSettings.getInstance(UploadingView.this).removeSavedReport(saveableReport);
                 timer.schedule(new TimerTask() {
                     @Override

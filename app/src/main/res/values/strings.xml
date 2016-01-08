@@ -6,7 +6,7 @@
     <string name="inaccuracy_dialog_title">OBS</string>
     <string name="inaccuracy_dialog_message">Under turen har der været et eller flere udfald i GPS-forbindelsen. Vær derfor særligt opmærksom på, om afstanden og ruten passer med det forventede.</string>
     <string name="confirmation_end_driving_dialog_title">Afslut kørsel?</string>
-    <string name="confirmation_end_driving_dialog_message">Er du sikker på du vil afslutte kørselen?</string>
+    <string name="confirmation_end_driving_dialog_message">Er du sikker på du vil afslutte kørslen?</string>
     <string name="confirmation_end_driving_dialog_end_home">Kørsel slutter hjemme</string>
     <string name="No">Nej</string>
     <string name="Ok">OK</string>

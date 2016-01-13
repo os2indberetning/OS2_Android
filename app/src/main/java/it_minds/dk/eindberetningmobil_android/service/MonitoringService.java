@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.service;
 
 import android.app.Activity;
@@ -27,7 +34,6 @@ import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
- * Created by kasper on 25-07-2015.
  * background service handling the gps location calculations. This service is designed to run in the background, as a foreground service (with a notification).
  */
 public class MonitoringService extends Service implements OnLocationChangedCallback {

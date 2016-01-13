@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.views.dialogs;
 
 import android.app.Dialog;
@@ -9,9 +16,6 @@ import android.widget.TextView;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.BaseProvidedDialog;
 
-/**
- * Created by kasper on 29-06-2015.
- */
 public class ErrorDialog extends BaseProvidedDialog {
 
     private final Context context;

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.location;
 
 import android.content.Context;
@@ -16,7 +23,6 @@ import java.util.ArrayList;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnLocationChangedCallback;
 
 /**
- * Created by kasper on 28-06-2015.
  * Handles the GPS interaction.
  * it automatically listens for gps when there are listeners attached, otherwise it doest (save battery)
  */

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.adapters;
 
 import android.content.Context;
@@ -11,7 +18,6 @@ import java.util.List;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 
 /**
- * Created by kasper on 28-06-2015.
  * handles displaying a list of providers.
  */
 public class ProviderAdapter extends ArrayAdapter<Provider> {

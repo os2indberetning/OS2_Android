@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.baseClasses;
 
 import android.app.Activity;
@@ -21,7 +28,6 @@ import it_minds.dk.eindberetningmobil_android.views.input.EmployementActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 
 /**
- * Created by kasper on 12-07-2015.
  * the base class for displaying and editing a report. This is used for both the pre phase, and the after phase.
  */
 public class BaseReportActivity extends ProvidedSimpleActivity {

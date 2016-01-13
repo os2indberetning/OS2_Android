@@ -1,7 +1,13 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.constants;
 
 /**
- * Created by kasper on 29-06-2015.
  * contains all used intent indexes.
  */
 public class IntentIndexes {

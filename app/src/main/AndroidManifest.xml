@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it_minds.dk.eindberetningmobil_android">
 
@@ -28,39 +29,32 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".views.input.TextInputView"
-            android:windowSoftInputMode="stateVisible"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".views.MonitoringActivity"
-            android:launchMode="singleTop"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop" />
         <activity
             android:name=".views.AfterTripActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-
         <activity
             android:name=".views.UploadingView"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-
         <activity
             android:name=".views.input.RateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".views.input.EmployementActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-
         <activity
             android:name=".views.input.KmActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-
         <activity
             android:name=".views.MissingTripActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
 
-        <service android:name=".service.MonitoringService"
-            android:exported="false"/>
-
+        <service android:name=".service.MonitoringService" android:exported="false" />
     </application>
 
 </manifest>

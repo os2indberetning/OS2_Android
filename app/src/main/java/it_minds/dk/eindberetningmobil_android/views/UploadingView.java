@@ -107,7 +107,6 @@ public class UploadingView extends ProvidedSimpleActivity {
             Log.e("temp", json);
             TrySendReport(toSend);
         }
-
     }
 
     private void TrySendReport(final DriveReport toSend) {

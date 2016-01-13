@@ -1,10 +1,16 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.service;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by kasper on 25-07-2015.
  * a model of the current state about the
  */
 public class UiStatusModel implements Parcelable {

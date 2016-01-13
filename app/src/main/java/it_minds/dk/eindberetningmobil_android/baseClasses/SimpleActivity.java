@@ -1,16 +1,19 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.baseClasses;
 
 import android.support.annotation.IdRes;
-import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
 import it_minds.dk.eindberetningmobil_android.baseClasses.inner.ViewUtilClass;
 
-/**
- * Created by kasper on 28-06-2015.
- */
 public abstract class SimpleActivity extends AppCompatActivity {
     public <T extends View> T getViewById(@IdRes int id) throws ClassCastException {
         return ViewUtilClass.getViewById(this, id);

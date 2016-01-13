@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.adapters;
 
 import android.content.Context;
@@ -16,9 +23,6 @@ import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
-/**
- * Created by kasper on 01-09-2015.
- */
 public class MissingTripsAdapter extends ArrayAdapter<SaveableReport> {
 
     private LayoutInflater inflator;

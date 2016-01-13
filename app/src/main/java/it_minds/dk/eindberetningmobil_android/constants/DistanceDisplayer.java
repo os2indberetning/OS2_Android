@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.constants;
 
 import java.text.DecimalFormat;
@@ -6,7 +13,7 @@ import java.util.Locale;
 
 /**
  * Created by kasper on 12-07-2015.
- * A helper to convert meters (As a double value) to km String, and only use 1 decimals precission
+ * A helper to convert a meter to km, and only use 1 decimals precission
  */
 public class DistanceDisplayer {
     private static DecimalFormat decimalFormat = new DecimalFormat("0.0", new DecimalFormatSymbols(Locale.US));

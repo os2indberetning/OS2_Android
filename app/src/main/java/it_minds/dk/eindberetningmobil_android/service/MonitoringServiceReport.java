@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.service;
 
 import android.content.Intent;
@@ -15,7 +22,6 @@ import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
 
 /**
- * Created by kasper on 25-07-2015.
  * an object, handling the bll (business logic), so that the monitoringservice do not have to work directly with the bll layer.
  */
 public class MonitoringServiceReport {

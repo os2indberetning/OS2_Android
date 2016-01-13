@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.views;
 
 import android.app.Activity;
@@ -22,7 +29,6 @@ import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationEndDrivingDialog;
 
 /**
- * Created by kasper on 28-06-2015.
  * The main activity for an active drive / report.
  */
 public class MonitoringActivity extends ProvidedSimpleActivity {

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package it_minds.dk.eindberetningmobil_android.service;
 
 import android.app.Notification;
@@ -8,12 +15,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
 
-import it_minds.dk.eindberetningmobil_android.BuildConfig;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.views.MonitoringActivity;
 
 /**
- * Created by kasper on 18-07-2015.
  * simple helper
  */
 public class NotificationHelper {

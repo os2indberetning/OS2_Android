@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package eindberetning.it_minds.dk.eindberetningmobil_android.service;
 
 import android.location.Location;
@@ -9,9 +16,6 @@ import it_minds.dk.eindberetningmobil_android.MainApplication;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringService;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringServiceReport;
 
-/**
- * Created by kasper on 06-09-2015.
- */
 public class MonitoringServiceTest extends ApplicationTestCase<MainApplication> {
 
     public MonitoringServiceTest() {

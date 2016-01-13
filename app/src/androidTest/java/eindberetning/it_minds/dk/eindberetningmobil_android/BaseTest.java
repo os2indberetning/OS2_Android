@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package eindberetning.it_minds.dk.eindberetningmobil_android;
 
 import android.app.Activity;
@@ -10,10 +17,6 @@ import org.junit.Before;
 
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
-
-/**
- * Created by kasper on 18-07-2015.
- */
 public abstract class BaseTest<T extends Activity> extends ActivityInstrumentationTestCase2<T> {
     public Solo solo;
 

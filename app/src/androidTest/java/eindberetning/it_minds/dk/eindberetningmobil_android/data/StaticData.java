@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) OS2 2016.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
+ */
+
 package eindberetning.it_minds.dk.eindberetningmobil_android.data;
 
 import org.joda.time.DateTime;
@@ -12,9 +19,6 @@ import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 
-/**
- * Created by kasper on 06-09-2015.
- */
 public class StaticData {
     public static Profile createSimpleProfile() {
         ArrayList<Employments> employess = new ArrayList<Employments>();

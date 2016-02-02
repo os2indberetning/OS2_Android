@@ -17,7 +17,7 @@
     <string name="confirmation_end_driving_dialog_end_home">Kørsel slutter hjemme</string>
     <string name="No">Nej</string>
     <string name="Ok">OK</string>
-    <string name="purpose_title_edit">Skriv dit formål</string>
+    <string name="purpose_title_edit">Vælg dit formål</string>
     <string name="extra_description_title_edit">Indtast din bemærkning</string>
     <string name="rate_title_edit">Vælg taksten</string>
     <string name="org_location_title_edit">Vælg placeringen</string>
@@ -54,7 +54,7 @@
     <string name="error_gps_retry">Prøv igen</string>
     <string name="error_gps_stop">Afslut kørsel</string>
     <string name="stopped_trip_gps">OS2Indberetning er stoppet, eftersom du har slukket for gps\'en.  åben notifikationen for at genoptage din rute.</string>
-    <string name="activate_gps">Aktiviere GPS\'en inden du kører.</string>
+    <string name="activate_gps">Aktivér GPS\'en inden du kører.</string>
     <string name="error_distance_resume">Du er for langt væk fra din position da du pauserede kørslen. Vend tilbage til den position, eller afslut den nuværende kørsel og start en ny.</string>
     <string name="retry">prøv igen</string>
     <string name="cancel_route">afslut nuværende</string>
@@ -80,4 +80,10 @@
     <string name="error_sending_retry_later">Kunne ikke sende rapporten, prøv igen senere.</string>
     <string name="report_title">Rapportering</string>
     <string name="missing_report_dialog_message">Du har ikke sendt denne rapport, hvad vil du?</string>
+    <string name="action_add_purpose">Tilføj et formål</string>
+    <string name="purpose_used_x_y">Brugt %1$s %2$s</string>
+    <string name="purpose_used_once">gang</string>
+    <string name="purpose_used_more_than_once">gange</string>
+    <string name="save">Gem</string>
+    <string name="no_purpose">Der er ingen formål, tilføj selv en ny</string>
 </resources>

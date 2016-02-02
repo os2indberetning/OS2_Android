@@ -20,6 +20,7 @@ import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
+import it_minds.dk.eindberetningmobil_android.models.Purpose;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
@@ -36,6 +37,7 @@ public class MainSettings {
     private static final String PROVIDER_INDEX = "PROVIDER_INDEX";
     private static final String TOKEN_INDEX = "TOKEN_INDEX";
     private static final String RATES_INDEX = "RATES_INDEX";
+    private static final String PURPOSE_INDEX = "PURPOSE_INDEX";
     private static final String PROFILES_INDEX = "PROFILES_INDEX";
     private static final String SERVICE_INDEX = "SERVICE_INDEX";
     private static final String SAVED_REPORTS_INDEX = "SAVED_REPORTS_INDEX";
@@ -169,6 +171,30 @@ public class MainSettings {
         if (val != null) {
             try {
                 return Rates.parseAllFromJson(new JSONArray(val));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    //Purpose data
+    public void setPurpose(ArrayList<Purpose> purpose) {
+
+        ArrayList<Purpose> purposeToSave = new ArrayList<>();
+        for (Purpose p:purpose){
+                purposeToSave.add(p);
+            }
+
+        JSONArray arr = Purpose.saveAllToJson(purposeToSave);
+        getPrefs().edit().putString(PURPOSE_INDEX, arr.toString()).commit();
+    }
+
+    public ArrayList<Purpose> getPurpose() {
+        String val = getPrefs().getString(PURPOSE_INDEX, null);
+        if (val != null) {
+            try {
+                return Purpose.parseAllFromJson(new JSONArray(val));
             } catch (Exception e) {
                 e.printStackTrace();
             }

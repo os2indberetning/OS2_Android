@@ -33,7 +33,6 @@ public class TextInputView extends ProvidedSimpleActivity {
 
         setActionbarBackDisplay(title);
 
-
     }
 
     //store result

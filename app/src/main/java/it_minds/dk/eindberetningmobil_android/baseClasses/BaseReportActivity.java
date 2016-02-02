@@ -21,8 +21,10 @@ import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnData;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.Employments;
+import it_minds.dk.eindberetningmobil_android.models.Purpose;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
+import it_minds.dk.eindberetningmobil_android.views.input.PurposeActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
 import it_minds.dk.eindberetningmobil_android.views.input.EmployementActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
@@ -83,7 +85,6 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         }
     }
 
-
     //<editor-fold desc="Helpers function for various fields of driving report.">
     public void handlePurpose(@IdRes int purposeContainer, @IdRes final int purposeDesc) {
         findViewById(purposeContainer).setOnClickListener(new View.OnClickListener() {
@@ -93,14 +94,32 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                     @Override
                     public void onData(String data) {
                         report.setPurpose(data);
-                        setTextToView(purposeDesc, data);
+                        setPurposeText(data, purposeDesc);
                     }
-                }, getString(R.string.purpose_title_edit), report.getPurpose());
+                }, getString(R.string.purpose_title_edit), report.getPurpose(), PurposeActivity.class);
             }
         });
         if (report.getPurpose() != null && report.getPurpose().length() > 0) {
             setTextToView(purposeDesc, report.getPurpose());
         }
+    }
+
+    public void setPurposeText(String id, @IdRes int label) {
+        TextView purposeText = (TextView) findViewById(label);
+        Purpose purposeById = findPurposeByDescription(id);
+        if (purposeById != null) {
+            purposeText.setText(purposeById.getDescription());
+        }
+    }
+
+    public Purpose findPurposeByDescription(String description) {
+        ArrayList<Purpose> purposes = MainSettings.getInstance(this).getPurpose();
+        for (Purpose purpose : purposes) {
+            if (description.equals(purpose.getDescription())) {
+                return purpose;
+            }
+        }
+        return null;
     }
 
     public void handleOrgLocation(@IdRes int container, @IdRes final int label) {

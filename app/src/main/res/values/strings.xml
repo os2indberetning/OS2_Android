@@ -80,6 +80,7 @@
     <string name="error_sending_retry_later">Kunne ikke sende rapporten, prøv igen senere.</string>
     <string name="report_title">Rapportering</string>
     <string name="missing_report_dialog_message">Du har ikke sendt denne rapport, hvad vil du?</string>
+    <string name="number_of_missing_reports">Antal ikke sendte rapporter</string>
     <string name="action_add_purpose">Tilføj et formål</string>
     <string name="purpose_used_x_y">Brugt %1$s %2$s</string>
     <string name="purpose_used_once">gang</string>

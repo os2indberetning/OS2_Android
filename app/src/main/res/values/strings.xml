@@ -50,7 +50,7 @@
     <string name="km_edit_notice_decline">Nej</string>
     <string name="waiting">venter</string>
     <string name="error_no_gps_title">Fejl, deaktiveret GPS</string>
-    <string name="error_no_gps_message">Din gps er deaktivteret, og vi kan ikke fortsætte uden. Hvis du aktivere gps\'en igen skal du selv klikke på genoptage, for at fortsætte din rute.</string>
+    <string name="error_no_gps_message">Din gps er deaktiveret, og vi kan ikke fortsætte uden. Hvis du aktivere gps\'en igen skal du selv klikke på genoptage, for at fortsætte din rute.</string>
     <string name="error_gps_retry">Prøv igen</string>
     <string name="error_gps_stop">Afslut kørsel</string>
     <string name="stopped_trip_gps">OS2Indberetning er stoppet, eftersom du har slukket for gps\'en.  åben notifikationen for at genoptage din rute.</string>

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
  * this view is the begining of a monitoring of a trip.
  */
 public class StartActivity extends BaseReportActivity {
+
+    int badgeCount = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,15 @@ public class StartActivity extends BaseReportActivity {
 
         loadPreFilledData();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Update count when coming from the see_not_send view
+        badgeCount = MainSettings.getInstance(this).getDrivingReports().size();
+        //Invalidates and forces the bar to update.
+        invalidateOptionsMenu();
     }
 
 
@@ -144,11 +156,23 @@ public class StartActivity extends BaseReportActivity {
         }
     };
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.startactivity_menu, menu);
+
+        final MenuItem badgeItem = menu.findItem(R.id.missing_trip_menu_counter);
+        final RelativeLayout badgeLayout = (RelativeLayout) badgeItem.getActionView();
+
+        //Set badge
+        if (badgeCount>0) {
+            badgeItem.setVisible(true);
+
+            TextView tv = (TextView) badgeLayout.findViewById(R.id.actionbar_notifcation_textview);
+            tv.setText(badgeCount + "");
+        } else {
+            badgeItem.setVisible(false);
+        }
         return true;
     }
 

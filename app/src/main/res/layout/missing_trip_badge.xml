@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/missing_trip_notification_height"
+    android:layout_height="fill_parent"
+    android:layout_gravity="right"
+    android:visibility="visible">
+
+    <!-- Menu Item Image -->
+    <ImageView
+        android:layout_width="@dimen/missing_trip_notification_height"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:src="@drawable/missing_trip_notification_circle" />
+
+    <!-- Badge Count -->
+    <TextView
+        android:id="@+id/actionbar_notifcation_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="0"
+        android:textColor="#000" />
+
+</RelativeLayout>

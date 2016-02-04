@@ -18,7 +18,10 @@
         android:layout_gravity="center_horizontal"
         android:background="#00665F"
         android:textColor="#fff"
-        android:gravity="center_horizontal" />
+        android:paddingTop="@dimen/dialog.title.padding.top"
+        android:paddingBottom="@dimen/dialog.title.padding.bottom"
+        android:gravity="center_horizontal"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,17 +30,19 @@
         android:id="@+id/error_dialog_view_error_message"
         android:layout_gravity="center_horizontal"
         android:textColor="#000"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="@dimen/dialog.message.margin.top"
+        android:layout_marginLeft="@dimen/dialog.message.margin.left"
+        android:layout_marginRight="@dimen/dialog.message.margin.right"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="OK"
         android:id="@+id/error_dialog_view_ok_btn"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/dialog.button.margin.left"
+        android:layout_marginRight="@dimen/dialog.button.margin.right"
+        android:layout_marginTop="@dimen/dialog.button.margin.top"
+        android:layout_marginBottom="@dimen/dialog.button.margin.bottom"
         android:textColor="#ffff"
-        android:background="#DB813C"
-        android:layout_marginBottom="10dp" />
+        android:background="#DB813C" />
 </LinearLayout>

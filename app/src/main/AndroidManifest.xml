@@ -51,6 +51,9 @@
             android:name=".views.input.RateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
+            android:name=".views.input.PurposeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
             android:name=".views.input.EmployementActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity

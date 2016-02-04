@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="missing_trip_notification_height">20dp</dimen>
+
+    <!-- Dialog dimens-->
+    <dimen name="dialog.title.padding.top">5dp</dimen>
+    <dimen name="dialog.title.padding.bottom">5dp</dimen>
+
+    <dimen name="dialog.message.margin.right">10dp</dimen>
+    <dimen name="dialog.message.margin.left">10dp</dimen>
+    <dimen name="dialog.message.margin.top">10dp</dimen>
+
+    <dimen name="dialog.button.margin.left">20dp</dimen>
+    <dimen name="dialog.button.margin.right">20dp</dimen>
+    <dimen name="dialog.button.margin.top">10dp</dimen>
+    <dimen name="dialog.button.margin.bottom">10dp</dimen>
+
+    <!-- Dimens for confirmation dialog with 2 buttons -->
+    <dimen name="dialog.confirmation.button.margin.right">10dp</dimen>
+    <dimen name="dialog.confirmation.button.margin.left">10dp</dimen>
+    <dimen name="dialog.checkbox.margin.left">10dp</dimen>
+    <dimen name="dialog.checkbox.margin.right">10dp</dimen>
+    <dimen name="dialog.confirmation.window.padding.bottom">10dp</dimen>
+</resources>

@@ -8,17 +8,19 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="300dp"
-    android:padding="10dp"
+    android:paddingBottom="@dimen/dialog.confirmation.window.padding.bottom"
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/confirmation_end_driving_dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirmation_end_driving_dialog_title"
         android:background="#00665F"
         android:textColor="#fff"
         android:gravity="center_horizontal"
-        android:id="@+id/confirmation_end_driving_dialog_title"
+        android:paddingTop="@dimen/dialog.title.padding.top"
+        android:paddingBottom="@dimen/dialog.title.padding.bottom"
         android:textSize="18dp" />
 
     <TextView
@@ -26,7 +28,9 @@
         android:layout_height="wrap_content"
         android:text="@string/confirmation_end_driving_dialog_message"
         android:textColor="#000"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dialog.message.margin.top"
+        android:layout_marginLeft="@dimen/dialog.message.margin.left"
+        android:layout_marginRight="@dimen/dialog.message.margin.right"
         android:layout_gravity="center_horizontal"
         android:id="@+id/confirmation_dialog_view_message" />
 
@@ -35,8 +39,8 @@
         android:layout_height="wrap_content"
         android:text="@string/confirmation_end_driving_dialog_end_home"
         android:id="@+id/confirmation_end_driving_dialog_end_home_checkbox"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="@dimen/dialog.checkbox.margin.left"
+        android:layout_marginRight="@dimen/dialog.checkbox.margin.right"
         android:layout_gravity="center_horizontal"
         android:checked="false" />
 
@@ -50,23 +54,25 @@
             android:layout_height="wrap_content"
             android:text="@string/No"
             android:id="@+id/confirmation_end_driving_dialog_no"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/dialog.button.margin.left"
+            android:layout_marginTop="@dimen/dialog.button.margin.top"
+            android:layout_marginRight="@dimen/dialog.confirmation.button.margin.right"
             android:textColor="#DB813C"
             android:background="#fff"
             android:layout_weight="1"
-            android:layout_marginRight="10dp" />
+             />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/Ok"
             android:id="@+id/confirmation_end_driving_dialog_ok"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/dialog.button.margin.right"
+            android:layout_marginTop="@dimen/dialog.button.margin.top"
+            android:layout_marginLeft="@dimen/dialog.confirmation.button.margin.left"
             android:textColor="#ffff"
             android:background="#DB813C"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp" />
+             />
     </LinearLayout>
 </LinearLayout>

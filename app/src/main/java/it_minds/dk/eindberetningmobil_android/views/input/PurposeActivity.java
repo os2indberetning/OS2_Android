@@ -67,7 +67,7 @@ public class PurposeActivity extends ProvidedSimpleActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Increments
                 Purpose purpose = purposes.get((int)id);
-                incrementPurposeUse(purposes, purpose);
+//                incrementPurposeUse(purposes, purpose);
 
                 Intent i = new Intent();
                 i.putExtra(IntentIndexes.DATA_INDEX, purpose.getDescription());
@@ -76,7 +76,7 @@ public class PurposeActivity extends ProvidedSimpleActivity {
             }
         });
 
-        lw.setLongClickable(true);
+        /*lw.setLongClickable(true);
         lw.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -89,7 +89,7 @@ public class PurposeActivity extends ProvidedSimpleActivity {
                 initList();
                 return true;
             }
-        });
+        });*/
     }
 
     private ArrayList<Purpose> sortList(ArrayList<Purpose> purposes) {

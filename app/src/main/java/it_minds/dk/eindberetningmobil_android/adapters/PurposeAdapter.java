@@ -38,7 +38,7 @@ public class PurposeAdapter extends ArrayAdapter<Purpose> {
             toUse = LayoutInflater.from(getContext()).inflate(R.layout.purpose_list_item, parent, false);
         }
         TextView description = (TextView) toUse.findViewById(R.id.purpose_list_item_desc);
-        TextView uses = (TextView) toUse.findViewById(R.id.purpose_list_item_uses);
+        //TextView uses = (TextView) toUse.findViewById(R.id.purpose_list_item_uses);
         Purpose item = getItem(position);
         description.setText(item.getDescription());
 
@@ -50,8 +50,8 @@ public class PurposeAdapter extends ArrayAdapter<Purpose> {
             times = getContext().getString(R.string.purpose_used_more_than_once);
         }
 
-        String usesString = getContext().getString(R.string.purpose_used_x_y, item.getUses(), times);
-        uses.setText(usesString);
+        //String usesString = getContext().getString(R.string.purpose_used_x_y, item.getUses(), times);
+        //uses.setText(usesString);
         return toUse;
     }
 }

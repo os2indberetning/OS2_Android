@@ -125,10 +125,17 @@ public class PurposeActivity extends ProvidedSimpleActivity {
     private void appendPurposes(Purpose purpose) {
         //Get the old list
         ArrayList<Purpose> purposes = MainSettings.getInstance(this).getPurpose();
+        if (purposes != null) {
+            //Append the new purpose
+            purposes.add(purpose);
+            MainSettings.getInstance(this).setPurpose(purposes);
+        //If first item on list init a new Array
+        } else {
+            ArrayList<Purpose> newPurp = new ArrayList<>();
+            newPurp.add(purpose);
+            MainSettings.getInstance(this).setPurpose(newPurp);
+        }
 
-        //Append the new purpose
-        purposes.add(purpose);
-        MainSettings.getInstance(this).setPurpose(purposes);
     }
 
     @Override

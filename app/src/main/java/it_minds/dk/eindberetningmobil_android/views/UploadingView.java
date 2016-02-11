@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
+import org.json.JSONObject;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,7 +27,6 @@ import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
-import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
@@ -118,6 +119,48 @@ public class UploadingView extends ProvidedSimpleActivity {
     private void TrySendReport(final DriveReport toSend) {
         final Timer timer = new Timer();
 
+        ServerFactory.getInstance(this).sendReport(toSend, new ResultCallback<JSONObject>() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                updateStatusText(getString(R.string.success));
+                spinner.setVisibility(View.INVISIBLE);
+                MainSettings.getInstance(UploadingView.this).removeSavedReport(saveableReport);
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(new Intent(UploadingView.this, StartActivity.class));
+                                finish();
+                            }
+                        });
+
+                    }
+                }, WAIT_TIME_MS_SUCCESS_DISSAPEAR);
+            }
+
+            @Override
+            public void onError(Exception error) {
+                updateStatusText(getString(R.string.error));
+                Log.e("temp", "error", error);
+                new ConfirmationDialog(UploadingView.this, getString(R.string.error_dialog_title), getString(R.string.send_report_error),
+                        getString(R.string.send_report_error_retry), getString(R.string.send_report_error_cancel), null, new ResultCallback<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean result) {
+                        TrySendReport(toSend);
+                    }
+
+                    @Override
+                    public void onError(Exception error) {
+                        startActivity(new Intent(UploadingView.this, StartActivity.class));
+                        finish();
+                    }
+                }).showDialog();
+            }
+        });
+
+        /*
         ServerFactory.getInstance(this).sendReport(toSend, new ResultCallback<UserInfo>() {
             @Override
             public void onSuccess(UserInfo result) {
@@ -158,6 +201,7 @@ public class UploadingView extends ProvidedSimpleActivity {
                 }).showDialog();
             }
         });
+        */
     }
 
     public void updateStatusText(String text) {

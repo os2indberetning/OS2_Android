@@ -13,12 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.adapters.MissingTripsAdapter;
 import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.SaveableDriveReport;
-import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
@@ -69,13 +70,12 @@ public class MissingTripActivity extends ProvidedSimpleActivity {
 
     private void trySend(final SaveableReport report) {
         SaveableDriveReport driveReport = new SaveableDriveReport(MainSettings.getInstance(this).getToken(), report);
-        ServerFactory.getInstance(this).sendReport(driveReport, new ResultCallback<UserInfo>() {
+        ServerFactory.getInstance(this).sendSavedReport(driveReport, new ResultCallback<JSONObject>() {
             @Override
-            public void onSuccess(UserInfo result) {
+            public void onSuccess(JSONObject result) {
                 MainSettings.getInstance(MissingTripActivity.this).removeSavedReport(report);
                 Toast.makeText(MissingTripActivity.this, R.string.send_and_recived, Toast.LENGTH_SHORT).show();
                 refreshData();
-
             }
 
             @Override

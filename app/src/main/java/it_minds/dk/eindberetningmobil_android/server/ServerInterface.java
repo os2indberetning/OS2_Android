@@ -9,6 +9,8 @@ package it_minds.dk.eindberetningmobil_android.server;
 
 import com.android.volley.toolbox.ImageLoader;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
@@ -27,9 +29,9 @@ public interface ServerInterface {
 
     void pairPhone(String pairCode, final ResultCallback<UserInfo> callback);
 
-    void sendReport(SaveableDriveReport report, ResultCallback<UserInfo> callback);
+    void sendReport(DriveReport report, ResultCallback<JSONObject> callback);
 
-    void sendReport(DriveReport report, ResultCallback<UserInfo> callback);
+    void sendSavedReport(SaveableDriveReport report, ResultCallback<JSONObject> callback);
 
     void validateToken(Tokens currentToken, ResultCallback<UserInfo> callback);
 

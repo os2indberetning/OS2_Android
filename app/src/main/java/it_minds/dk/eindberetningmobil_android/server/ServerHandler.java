@@ -103,30 +103,37 @@ public class ServerHandler implements ServerInterface {
         String url = getBaseUrl() + getUserData;
         SafeJsonHelper json = new SafeJsonHelper();
         json.put("guid", currentToken.getGuId());
-        MakeRequestWithInfoCallback(callback, url, json, true);
+        makeRequestWithUserInfoCallback(callback, url, json, true);
     }
 
     /**
-     * @param callback onsuccess if success, onError if failed
+     * Used to send a Drive Report that has just been finished to the backend
+     * @param report The report to send
+     * @param callback The callback to use for onSucces / onError
      */
-    public void sendReport(DriveReport report, ResultCallback<UserInfo> callback) {
+    public void sendReport(DriveReport report, ResultCallback<JSONObject> callback){
         if (report == null) {
             callback.onError(new IllegalArgumentException("Report is null"));
         } else {
             String url = getBaseUrl() + SubmitDrive;
-            MakeRequestWithInfoCallback(callback, url, report.saveAsJson(), false);
+            makeRequestWithStatusCallback(callback, url, report.saveAsJson(), false);
         }
     }
 
-    public void sendReport(SaveableDriveReport report, ResultCallback<UserInfo> callback) {
+    /**
+     * Used to send a Saved Drive Report to the backend
+     * @param report The report to send
+     * @param callback The callback to use for onSucces / onError
+     */
+    @Override
+    public void sendSavedReport(SaveableDriveReport report, ResultCallback<JSONObject> callback) {
         if (report == null) {
             callback.onError(new IllegalArgumentException("Report is null"));
         } else {
             String url = getBaseUrl() + SubmitDrive;
-            MakeRequestWithInfoCallback(callback, url, report.saveAsJson(), false);
+            makeRequestWithStatusCallback(callback, url, report.saveAsJson(), false);
         }
     }
-
 
     /**
      * @param callback onsuccess if success, onError if failed
@@ -136,7 +143,7 @@ public class ServerHandler implements ServerInterface {
         String url = getBaseUrl() + SyncTokenEndpoint;
         SafeJsonHelper json = new SafeJsonHelper();
         json.put("TokenString", pairCode);
-        MakeRequestWithInfoCallback(callback, url, json, true);
+        makeRequestWithUserInfoCallback(callback, url, json, true);
 
     }
     //</editor-fold>
@@ -144,14 +151,44 @@ public class ServerHandler implements ServerInterface {
     //<editor-fold desc="Helper function(s)">
 
     /**
-     * Helper function since all requests returns the same data, thus there are no reason to declare 3 identical versions.
-     *
+     * Sends POST request with JSON body via Volley and returns a JSONObject to the supplied callback listener
+     * or the volley error if the request failed.
+     * @param callback the callback to be used for succes/error
+     * @param url the url for the request
+     * @param json the JSONObject to be parsed to the requests body
+     * @param mayRetry whether the request can retry without user interaction
+     */
+    private void makeRequestWithStatusCallback(final ResultCallback<JSONObject> callback, String url, JSONObject json, boolean mayRetry){
+        Log.d("DEBUG JSON", json.toString());
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, json.toString(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                callback.onSuccess(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                callback.onError(error);
+            }
+        });
+
+        if (mayRetry) {
+            request.setRetryPolicy(defaultPolicy);
+        } else {
+            request.setRetryPolicy(noRetryPolicy);
+        }
+        queue.add(request);
+    }
+
+    /**
+     * Sends POST request with JSON body via Volley and returns a UserInfo object to the supplied callback listener
+     * or returns the volley error if the request failed to the callbacks onError().
      * @param callback the callback (onsuccess if success, onError if failed)
      * @param url      the absolute address
      * @param json     the json to send.
      * @param mayRetry if we may retry the request.
      */
-    private void MakeRequestWithInfoCallback(final ResultCallback<UserInfo> callback, String url, JSONObject json, boolean mayRetry) {
+    private void makeRequestWithUserInfoCallback(final ResultCallback<UserInfo> callback, String url, JSONObject json, boolean mayRetry) {
         Log.d("DEBUG JSON",json.toString());
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, json.toString(), new Response.Listener<JSONObject>() {
             @Override

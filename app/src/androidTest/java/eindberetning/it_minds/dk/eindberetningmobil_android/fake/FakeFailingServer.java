@@ -12,6 +12,8 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.android.volley.toolbox.ImageLoader;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -72,6 +74,16 @@ public class FakeFailingServer implements ServerInterface {
         handleCallback(callback);
     }
 
+    @Override
+    public void sendReport(DriveReport report, ResultCallback<JSONObject> callback) {
+        handleCallback(callback);
+    }
+
+    @Override
+    public void sendSavedReport(SaveableDriveReport report, ResultCallback<JSONObject> callback) {
+        handleCallback(callback);
+    }
+
     private void handleCallback(final ResultCallback callback) {
         final Runnable toRun = new Runnable() {
             @Override
@@ -93,16 +105,6 @@ public class FakeFailingServer implements ServerInterface {
                 }
             }
         }, callbackTimeInMs);
-    }
-
-    @Override
-    public void sendReport(SaveableDriveReport report, ResultCallback<UserInfo> callback) {
-        handleCallback(callback);
-    }
-
-    @Override
-    public void sendReport(DriveReport report, ResultCallback<UserInfo> callback) {
-        handleCallback(callback);
     }
 
     @Override

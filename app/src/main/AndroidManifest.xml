@@ -4,14 +4,14 @@
   ~
   ~ This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
   ~ If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
-  -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="it_minds.dk.eindberetningmobil_android">
+-->
+<manifest package="it_minds.dk.eindberetningmobil_android"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -22,48 +22,54 @@
             android:name=".views.ChooseProvider"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".views.StartActivity"
-            android:launchMode="singleTop"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".views.PairPhone"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+            android:name=".views.UserLogin"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".views.input.TextInputView"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".views.MonitoringActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"/>
         <activity
             android:name=".views.AfterTripActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".views.UploadingView"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".views.input.RateActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".views.input.PurposeActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".views.input.EmployementActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".views.input.KmActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".views.MissingTripActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <service android:name=".service.MonitoringService" android:exported="false" />
+        <service
+            android:name=".service.MonitoringService"
+            android:exported="false"/>
     </application>
 
 </manifest>

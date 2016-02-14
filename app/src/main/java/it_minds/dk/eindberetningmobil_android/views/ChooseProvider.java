@@ -69,7 +69,11 @@ public class ChooseProvider extends SimpleActivity {
         Log.e("temp", "chose provider" + provider.getName());
         settings.setProvider(provider);
         ServerFactory.getInstance(this).setBaseUrl(provider.getAPIUrl());
-        startActivity(new Intent(this, PairPhone.class));
+
+//        startActivity(new Intent(this, PairPhone.class));
+
+        startActivity(new Intent(this, UserLogin.class));
+
         finish();
     }
 }

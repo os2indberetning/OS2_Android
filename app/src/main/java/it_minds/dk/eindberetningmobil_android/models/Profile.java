@@ -28,14 +28,18 @@ public class Profile {
     private ArrayList<Employments> Employments;
     private ArrayList<Tokens> Tokens;
 
-    public Profile(int id, String firstname, String lastname, String homeLatitude, String homeLongitude, ArrayList<Employments> employments, ArrayList<Tokens> tokens) {
-        Id = id;
-        Firstname = firstname;
-        Lastname = lastname;
-        HomeLatitude = homeLatitude;
-        HomeLongitude = homeLongitude;
-        Employments = employments;
-        Tokens = tokens;
+    //Part of new username/password login
+    private String authGuId;
+
+    public Profile(int id, String firstname, String lastname, String homeLatitude, String homeLongitude, ArrayList<Employments> employments, ArrayList<Tokens> tokens, String authGuId) {
+        this.Id = id;
+        this.Firstname = firstname;
+        this.Lastname = lastname;
+        this.HomeLatitude = homeLatitude;
+        this.HomeLongitude = homeLongitude;
+        this.Employments = employments;
+        this.Tokens = tokens;
+        this.authGuId = authGuId;
     }
 
     /**
@@ -51,7 +55,10 @@ public class Profile {
         String HomeLongitude = obj.optString("HomeLongitude");
         ArrayList<Tokens> tokens = it_minds.dk.eindberetningmobil_android.models.Tokens.parseAllFromJson(obj.optJSONArray("Tokens"));
         ArrayList<Employments> Employments = it_minds.dk.eindberetningmobil_android.models.Employments.parseAllFromJson(obj.optJSONArray("Employments"));
-        return new Profile(Id, Firstname, Lastname, HomeLatitude, HomeLongitude, Employments, tokens);
+
+        String authGuId = obj.optString(obj.optJSONObject("Authorization").optString("GuId"));
+
+        return new Profile(Id, Firstname, Lastname, HomeLatitude, HomeLongitude, Employments, tokens, authGuId);
     }
 
 

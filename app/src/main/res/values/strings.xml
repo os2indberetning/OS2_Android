@@ -87,4 +87,6 @@
     <string name="purpose_used_more_than_once">gange</string>
     <string name="save">Gem</string>
     <string name="no_purpose">Der er ingen formål, tilføj selv en ny</string>
+    <string name="user_login_username_hint">Brugernavn</string>
+    <string name="user_login_password_hint">Kodeord</string>
 </resources>

@@ -46,24 +46,19 @@ public class ServerHandler implements ServerInterface {
     private final static int RETRY_COUNT = 4;
 
     public static final String PROVIDER_URL = "https://ework.favrskov.dk/FavrskovMobilityAPI/api/AppInfo";
-    //<editor-fold desc="Endpoint constants">
     private static final String SyncTokenEndpoint = "/SyncWithToken";
     private static final String getUserData = "/UserData";
     private static final String SubmitDrive = "/SubmitDrive";
     private static final RetryPolicy noRetryPolicy = new DefaultRetryPolicy(RETRY_MS, -1, 0);
     private final RetryPolicy defaultPolicy;
 
-    //</editor-fold>
-
-    //<editor-fold desc="variables">
-    private final RequestQueue queue;
-
-
-
-    //Based on the provider. So this gets updated in the beginning of the app launch.
+    //BaseUrl is based on the provider. So this gets updated in the beginning of the app launch.
     private String baseUrl;
-    //</editor-fold>
 
+    //v.2 endpoints (New login, new submit etc)
+    private static final String loginEndpoint = "/auth";
+
+    private final RequestQueue queue;
 
     public ServerHandler(Context context) {
         queue = Volley.newRequestQueue(context, new OkHttpStack(new OkHttpClient()));
@@ -145,6 +140,15 @@ public class ServerHandler implements ServerInterface {
         json.put("TokenString", pairCode);
         makeRequestWithUserInfoCallback(callback, url, json, true);
 
+    }
+
+    @Override
+    public void loginWithCredentials(String username, String password, ResultCallback<UserInfo> callback) {
+        String url = getBaseUrl() + loginEndpoint;
+        SafeJsonHelper json = new SafeJsonHelper();
+        json.put("UserName", username);
+        json.put("Password", password);
+        makeRequestWithUserInfoCallback(callback, url, json, true);
     }
     //</editor-fold>
 

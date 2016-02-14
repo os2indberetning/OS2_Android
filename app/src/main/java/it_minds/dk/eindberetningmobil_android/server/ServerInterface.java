@@ -29,6 +29,8 @@ public interface ServerInterface {
 
     void pairPhone(String pairCode, final ResultCallback<UserInfo> callback);
 
+    void loginWithCredentials(String username, String password, final ResultCallback<UserInfo> callback);
+
     void sendReport(DriveReport report, ResultCallback<JSONObject> callback);
 
     void sendSavedReport(SaveableDriveReport report, ResultCallback<JSONObject> callback);

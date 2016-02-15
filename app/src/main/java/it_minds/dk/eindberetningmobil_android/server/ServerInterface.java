@@ -17,7 +17,6 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.SaveableDriveReport;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 
 public interface ServerInterface {
@@ -27,15 +26,15 @@ public interface ServerInterface {
 
     ImageLoader getImageLoader();
 
+    void getProviders(final ResultCallback<List<Provider>> callback);
+
     void pairPhone(String pairCode, final ResultCallback<UserInfo> callback);
 
     void loginWithCredentials(String username, String password, final ResultCallback<UserInfo> callback);
 
+    void syncUserInfo(JSONObject guId, final ResultCallback<UserInfo> callback);
+
     void sendReport(DriveReport report, ResultCallback<JSONObject> callback);
 
     void sendSavedReport(SaveableDriveReport report, ResultCallback<JSONObject> callback);
-
-    void validateToken(Tokens currentToken, ResultCallback<UserInfo> callback);
-
-    void getProviders(final ResultCallback<List<Provider>> callback);
 }

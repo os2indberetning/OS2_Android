@@ -106,13 +106,10 @@ public class UserLogin extends ProvidedSimpleActivity {
      */
     private void handleLoginResult(UserInfo result){
         if(result != null && result.getprofile() != null && result.getrates() != null){
-            UserInfo temp = result;
             MainSettings.getInstance(this).setRates(result.getrates());
             MainSettings.getInstance(this).setProfile(result.getprofile());
-
             //Login was a success
             handleSuccessfulLogin();
-
         }else if (result != null){
             //TODO: Handle errors!!
             Log.d("DEBUG LOGIN", "Success - but something was wrong with the result (Either profile or rates)");

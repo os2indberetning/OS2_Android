@@ -35,7 +35,6 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.SaveableDriveReport;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 
 /**
@@ -60,6 +59,7 @@ public class ServerHandler implements ServerInterface {
     //API v.2 endpoints (New login, new submit etc)
     private static final String loginEndpoint = "/auth";
     private static final String submitEndpoint = "/report";
+    private static final String userInfoEndpoint = "/userinfo";
 
     private final RequestQueue queue;
 
@@ -88,20 +88,6 @@ public class ServerHandler implements ServerInterface {
         }));
         req.setRetryPolicy(defaultPolicy);
         queue.add(req);
-    }
-
-    /**
-     * @param callback onsuccess if success, onError if failed
-     */
-    public void validateToken(Tokens currentToken, ResultCallback<UserInfo> callback) {
-        if (currentToken == null) {
-            callback.onError(new IllegalArgumentException("Token is null"));
-            return;
-        }
-        String url = getBaseUrl() + getUserData;
-        SafeJsonHelper json = new SafeJsonHelper();
-        json.put("guid", currentToken.getGuId());
-        makeRequestWithUserInfoCallback(callback, url, json, true);
     }
 
     /**
@@ -153,6 +139,13 @@ public class ServerHandler implements ServerInterface {
         json.put("Password", password);
         makeRequestWithUserInfoCallback(callback, url, json, true);
     }
+
+    @Override
+    public void syncUserInfo(JSONObject guId, ResultCallback<UserInfo> callback) {
+        String url = getBaseUrl() + userInfoEndpoint;
+        makeRequestWithUserInfoCallback(callback, url, guId, true);
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Helper function(s)">
@@ -214,6 +207,7 @@ public class ServerHandler implements ServerInterface {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    JSONObject res = response;
                     callback.onSuccess(UserInfo.parseFromJson(response));
                 } catch (Exception e) {
                     Logger.getLogger("ServerHandler").log(Level.SEVERE, "", e);

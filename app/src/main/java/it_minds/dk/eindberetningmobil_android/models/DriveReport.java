@@ -23,7 +23,7 @@ public class DriveReport {
 
     public SafeJsonHelper saveAsJson() {
         SafeJsonHelper result = new SafeJsonHelper();
-        result.put("Authorization", auth.saveToJson());
+        result.put("Authorization", auth.saveGuIdToJson());
         result.put("DriveReport", report.saveToJson(profileId));
         return result;
     }

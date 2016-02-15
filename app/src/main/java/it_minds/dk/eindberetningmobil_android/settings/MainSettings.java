@@ -22,7 +22,6 @@ import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.Purpose;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 
@@ -122,32 +121,6 @@ public class MainSettings {
      */
     public boolean haveToken() {
         return getPrefs().getString(TOKEN_INDEX, null) != null;
-    }
-
-    /**
-     * getToken
-     *
-     * @return Tokens
-     */
-    public Tokens getToken() {
-        String val = getPrefs().getString(TOKEN_INDEX, null);
-        if (val != null) {
-            try {
-                return Tokens.parseFromJson(new JSONObject(val));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    /**
-     * setToken
-     *
-     * @return void
-     */
-    public void setToken(Tokens newVal) {
-        getPrefs().edit().putString(TOKEN_INDEX, newVal.saveToJson().toString()).commit();
     }
 
     //</editor-fold>

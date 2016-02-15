@@ -9,6 +9,7 @@ package it_minds.dk.eindberetningmobil_android.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,7 +31,9 @@ import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.location.GpsMonitor;
+import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
+import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringService;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
@@ -86,8 +89,34 @@ public class StartActivity extends BaseReportActivity {
         badgeCount = MainSettings.getInstance(this).getDrivingReports().size();
         //Invalidates and forces the bar to update.
         invalidateOptionsMenu();
+
+        //Make syre userData is up to date
+        syncProfile();
     }
 
+    private void syncProfile(){
+
+        //TODO: Await response from backend people if model changes or changes should be made locally on phone model
+
+        //TODO: Show loading
+        ServerFactory.getInstance(this).syncUserInfo(MainSettings.getInstance(this).getProfile().getAuthorization().saveGuIdToJson(),
+                new ResultCallback<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo result) {
+                MainSettings.getInstance(getApplicationContext()).setRates(result.getrates());
+                MainSettings.getInstance(getApplicationContext()).setProfile(result.getprofile());
+
+                //TODO: Remove loading
+            }
+
+            @Override
+            public void onError(Exception error) {
+                //TODO: Remove loading
+                Log.d("DEBUG", "Failed to sync!");
+            }
+        });
+
+    }
 
     private void loadPreFilledData() {
         PrefilledData prefilledData = MainSettings.getInstance(this).getPrefilledData();

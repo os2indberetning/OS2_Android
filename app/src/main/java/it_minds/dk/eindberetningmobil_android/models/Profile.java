@@ -27,19 +27,17 @@ public class Profile {
     private String HomeLatitude;
     private String HomeLongitude;
     private ArrayList<Employments> Employments;
-    private ArrayList<Tokens> Tokens;
 
     //Part of new username/password login
     private Authorization authorization;
 
-    public Profile(int id, String firstname, String lastname, String homeLatitude, String homeLongitude, ArrayList<Employments> employments, ArrayList<Tokens> tokens, Authorization authorization) {
+    public Profile(int id, String firstname, String lastname, String homeLatitude, String homeLongitude, ArrayList<Employments> employments, Authorization authorization) {
         this.Id = id;
         this.Firstname = firstname;
         this.Lastname = lastname;
         this.HomeLatitude = homeLatitude;
         this.HomeLongitude = homeLongitude;
         this.Employments = employments;
-        this.Tokens = tokens;
         this.authorization = authorization;
     }
 
@@ -54,12 +52,11 @@ public class Profile {
         String Lastname = obj.optString("Lastname");
         String HomeLatitude = obj.optString("HomeLatitude");
         String HomeLongitude = obj.optString("HomeLongitude");
-        ArrayList<Tokens> tokens = it_minds.dk.eindberetningmobil_android.models.Tokens.parseAllFromJson(obj.optJSONArray("Tokens"));
         ArrayList<Employments> Employments = it_minds.dk.eindberetningmobil_android.models.Employments.parseAllFromJson(obj.optJSONArray("Employments"));
 
         String authGuId = obj.optJSONObject("Authorization").optString("GuId");
 
-        return new Profile(Id, Firstname, Lastname, HomeLatitude, HomeLongitude, Employments, tokens, new Authorization(authGuId));
+        return new Profile(Id, Firstname, Lastname, HomeLatitude, HomeLongitude, Employments, new Authorization(authGuId));
     }
 
 
@@ -115,20 +112,6 @@ public class Profile {
     }
 
 
-    /**
-     * @return ArrayList<Tokens>
-     */
-    public ArrayList<Tokens> getTokens() {
-        return this.Tokens;
-    }
-
-    /**
-     * @return ArrayList<Tokens>
-     */
-    public void setTokens(ArrayList<Tokens> newVal) {
-        this.Tokens = newVal;
-    }
-
     public Authorization getAuthorization() {
         return authorization;
     }
@@ -154,16 +137,7 @@ public class Profile {
         }
         result.put("Employments", emplouymentArr);
 
-
-        JSONArray tokenArray = new JSONArray();
-        if (getTokens() != null) {
-            for (it_minds.dk.eindberetningmobil_android.models.Tokens token : getTokens()) {
-                tokenArray.put(token.saveToJson());
-            }
-        }
-        result.put("Tokens", tokenArray);
-
-        result.put("Authorization", authorization.saveToJson());
+        result.put("Authorization", authorization.saveGuIdToJson());
 
         return result;
     }
@@ -173,21 +147,20 @@ public class Profile {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Profile profile = (Profile) o;
+        Profile otherProfile = (Profile) o;
 
-        if (Id != profile.Id) return false;
-        if (Firstname != null ? !Firstname.equals(profile.Firstname) : profile.Firstname != null)
+        if (Id != otherProfile.Id) return false;
+        if (Firstname != null ? !Firstname.equals(otherProfile.Firstname) : otherProfile.Firstname != null)
             return false;
-        if (Lastname != null ? !Lastname.equals(profile.Lastname) : profile.Lastname != null)
+        if (Lastname != null ? !Lastname.equals(otherProfile.Lastname) : otherProfile.Lastname != null)
             return false;
-        if (HomeLatitude != null ? !HomeLatitude.equals(profile.HomeLatitude) : profile.HomeLatitude != null)
+        if (HomeLatitude != null ? !HomeLatitude.equals(otherProfile.HomeLatitude) : otherProfile.HomeLatitude != null)
             return false;
-        if (HomeLongitude != null ? !HomeLongitude.equals(profile.HomeLongitude) : profile.HomeLongitude != null)
+        if (HomeLongitude != null ? !HomeLongitude.equals(otherProfile.HomeLongitude) : otherProfile.HomeLongitude != null)
             return false;
-        if (Employments != null ? !Employments.equals(profile.Employments) : profile.Employments != null)
+        if (Employments != null ? !Employments.equals(otherProfile.Employments) : otherProfile.Employments != null)
             return false;
-        return !(Tokens != null ? !Tokens.equals(profile.Tokens) : profile.Tokens != null);
-
+        return !(authorization != null ? !authorization.getGuId().equals(otherProfile.authorization.getGuId()) : otherProfile.authorization.getGuId() != null);
     }
 
     @Override
@@ -198,7 +171,7 @@ public class Profile {
         result = 31 * result + (HomeLatitude != null ? HomeLatitude.hashCode() : 0);
         result = 31 * result + (HomeLongitude != null ? HomeLongitude.hashCode() : 0);
         result = 31 * result + (Employments != null ? Employments.hashCode() : 0);
-        result = 31 * result + (Tokens != null ? Tokens.hashCode() : 0);
+        result = 31 * result + (authorization != null ? authorization.hashCode() : 0);
         return result;
     }
 }

@@ -16,11 +16,9 @@ public class Authorization {
         return guId;
     }
 
-    public JSONObject saveToJson() {
+    public JSONObject saveGuIdToJson() {
         SafeJsonHelper result = new SafeJsonHelper();
-
         result.put("GuId", guId);
-
         return result;
     }
 }

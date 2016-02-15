@@ -38,7 +38,7 @@ public class SaveableDriveReport {
         }
 
         if(auth != null){
-            result.put("Authorization", auth.saveToJson());
+            result.put("Authorization", auth.saveGuIdToJson());
         }else{
             result.put("Authorization", "");
         }

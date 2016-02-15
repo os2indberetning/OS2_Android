@@ -40,6 +40,7 @@ public class MainSettings {
     private static final String PURPOSE_INDEX = "PURPOSE_INDEX";
     private static final String PROFILES_INDEX = "PROFILES_INDEX";
     private static final String SERVICE_INDEX = "SERVICE_INDEX";
+    private static final String AUTH_INDEX = "AUTH_INDEX";
     private static final String SAVED_REPORTS_INDEX = "SAVED_REPORTS_INDEX";
     private static final String PREFILLEDDATA_INDEX = "PREFILLEDDATA_INDEX";
     //</editor-fold>

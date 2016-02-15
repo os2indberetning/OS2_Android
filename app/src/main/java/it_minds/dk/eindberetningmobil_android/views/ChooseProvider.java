@@ -38,6 +38,16 @@ public class ChooseProvider extends SimpleActivity {
         //Fetch providers and setup list
         setContentView(R.layout.choose_provider_view);
         //set content to the list.
+        refreshProviderList();
+
+        //Check if we already have chosen af provider
+        settings = MainSettings.getInstance(this);
+        if (settings.haveProvider()) {
+            useProvider(settings.getProvider());
+        }
+    }
+
+    private void refreshProviderList(){
         final ListView lw = getViewById(R.id.choose_provider_view_list);
         ServerFactory.getInstance(this).getProviders(new ResultCallback<List<Provider>>() {
             @Override
@@ -58,12 +68,12 @@ public class ChooseProvider extends SimpleActivity {
                 Toast.makeText(ChooseProvider.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        //Check if we already have chosen af provider
-        settings = MainSettings.getInstance(this);
-        if (settings.haveProvider()) {
-            useProvider(settings.getProvider());
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshProviderList();
     }
 
     private synchronized void useProvider(Provider provider) {
@@ -71,9 +81,9 @@ public class ChooseProvider extends SimpleActivity {
         settings.setProvider(provider);
         ServerFactory.getInstance(this).setBaseUrl(provider.getAPIUrl());
 
-        startActivity(new Intent(this, PairPhone.class));
+//        startActivity(new Intent(this, PairPhone.class));
 
-//        startActivity(new Intent(this, UserLogin.class));
+        startActivity(new Intent(this, UserLogin.class));
     }
 }
 

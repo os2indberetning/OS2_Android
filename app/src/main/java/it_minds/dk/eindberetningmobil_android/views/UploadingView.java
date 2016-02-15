@@ -101,7 +101,7 @@ public class UploadingView extends ProvidedSimpleActivity {
     protected void onResume() {
         super.onResume();
         if (!haveSend) {
-            if (MainSettings.getInstance(this).getProfile() == null || report == null || MainSettings.getInstance(this).getToken() == null) {
+            if (MainSettings.getInstance(this).getProfile() == null || report == null) {
                 updateStatusText(getString(R.string.invalid_user));
                 return;
             }
@@ -109,7 +109,7 @@ public class UploadingView extends ProvidedSimpleActivity {
             int profileId = MainSettings.getInstance(this).getProfile().getId();
             saveableReport = new SaveableReport(report, profileId);
             MainSettings.getInstance(this).addReport(saveableReport);
-            DriveReport toSend = new DriveReport(MainSettings.getInstance(this).getToken(), report, profileId);
+            DriveReport toSend = new DriveReport(MainSettings.getInstance(this).getProfile().getAuthorization(), report, profileId);
             final String json = toSend.saveAsJson().toString();
             Log.e("temp", json);
             TrySendReport(toSend);

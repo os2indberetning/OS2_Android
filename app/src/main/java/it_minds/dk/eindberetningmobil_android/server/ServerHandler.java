@@ -11,11 +11,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -55,8 +57,9 @@ public class ServerHandler implements ServerInterface {
     //BaseUrl is based on the provider. So this gets updated in the beginning of the app launch.
     private String baseUrl;
 
-    //v.2 endpoints (New login, new submit etc)
+    //API v.2 endpoints (New login, new submit etc)
     private static final String loginEndpoint = "/auth";
+    private static final String submitEndpoint = "/report";
 
     private final RequestQueue queue;
 
@@ -110,7 +113,7 @@ public class ServerHandler implements ServerInterface {
         if (report == null) {
             callback.onError(new IllegalArgumentException("Report is null"));
         } else {
-            String url = getBaseUrl() + SubmitDrive;
+            String url = getBaseUrl() + submitEndpoint;
             makeRequestWithStatusCallback(callback, url, report.saveAsJson(), false);
         }
     }
@@ -125,7 +128,7 @@ public class ServerHandler implements ServerInterface {
         if (report == null) {
             callback.onError(new IllegalArgumentException("Report is null"));
         } else {
-            String url = getBaseUrl() + SubmitDrive;
+            String url = getBaseUrl() + submitEndpoint;
             makeRequestWithStatusCallback(callback, url, report.saveAsJson(), false);
         }
     }
@@ -164,17 +167,30 @@ public class ServerHandler implements ServerInterface {
      */
     private void makeRequestWithStatusCallback(final ResultCallback<JSONObject> callback, String url, JSONObject json, boolean mayRetry){
         Log.d("DEBUG JSON", json.toString());
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, json.toString(), new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, json.toString(),
+                new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 callback.onSuccess(response);
             }
-        }, new Response.ErrorListener() {
+        },
+                new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 callback.onError(error);
             }
-        });
+        }){
+            //Need to overwrite base method to force statusCode in response
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                SafeJsonHelper json = new SafeJsonHelper();
+                if(response.statusCode == 200){
+                    return Response.success(json.put("statusCode", response.statusCode),
+                            HttpHeaderParser.parseCacheHeaders(response));
+                }
+                return super.parseNetworkResponse(response);
+            }
+        };
 
         if (mayRetry) {
             request.setRetryPolicy(defaultPolicy);

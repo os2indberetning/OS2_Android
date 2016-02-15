@@ -69,7 +69,7 @@ public class MissingTripActivity extends ProvidedSimpleActivity {
     }
 
     private void trySend(final SaveableReport report) {
-        SaveableDriveReport driveReport = new SaveableDriveReport(MainSettings.getInstance(this).getToken(), report);
+        SaveableDriveReport driveReport = new SaveableDriveReport(MainSettings.getInstance(this).getProfile().getAuthorization(), report);
         ServerFactory.getInstance(this).sendSavedReport(driveReport, new ResultCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {

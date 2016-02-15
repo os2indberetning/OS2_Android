@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+import it_minds.dk.eindberetningmobil_android.models.internal.Authorization;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
@@ -29,9 +30,9 @@ public class Profile {
     private ArrayList<Tokens> Tokens;
 
     //Part of new username/password login
-    private String authGuId;
+    private Authorization authorization;
 
-    public Profile(int id, String firstname, String lastname, String homeLatitude, String homeLongitude, ArrayList<Employments> employments, ArrayList<Tokens> tokens, String authGuId) {
+    public Profile(int id, String firstname, String lastname, String homeLatitude, String homeLongitude, ArrayList<Employments> employments, ArrayList<Tokens> tokens, Authorization authorization) {
         this.Id = id;
         this.Firstname = firstname;
         this.Lastname = lastname;
@@ -39,7 +40,7 @@ public class Profile {
         this.HomeLongitude = homeLongitude;
         this.Employments = employments;
         this.Tokens = tokens;
-        this.authGuId = authGuId;
+        this.authorization = authorization;
     }
 
     /**
@@ -56,9 +57,9 @@ public class Profile {
         ArrayList<Tokens> tokens = it_minds.dk.eindberetningmobil_android.models.Tokens.parseAllFromJson(obj.optJSONArray("Tokens"));
         ArrayList<Employments> Employments = it_minds.dk.eindberetningmobil_android.models.Employments.parseAllFromJson(obj.optJSONArray("Employments"));
 
-        String authGuId = obj.optString(obj.optJSONObject("Authorization").optString("GuId"));
+        String authGuId = obj.optJSONObject("Authorization").optString("GuId");
 
-        return new Profile(Id, Firstname, Lastname, HomeLatitude, HomeLongitude, Employments, tokens, authGuId);
+        return new Profile(Id, Firstname, Lastname, HomeLatitude, HomeLongitude, Employments, tokens, new Authorization(authGuId));
     }
 
 
@@ -128,6 +129,10 @@ public class Profile {
         this.Tokens = newVal;
     }
 
+    public Authorization getAuthorization() {
+        return authorization;
+    }
+
     /**
      * saveToJson description here
      *
@@ -157,6 +162,9 @@ public class Profile {
             }
         }
         result.put("Tokens", tokenArray);
+
+        result.put("Authorization", authorization.saveToJson());
+
         return result;
     }
 

@@ -100,15 +100,15 @@ public class UserLogin extends ProvidedSimpleActivity {
     }
 
     /**
-     * Use this to handle a result from server with 200 status code.
-     * This methods makes sure the data is valid
+     * Handles a UserInfo result from server with status code 200.
+     * This methods makes sure the data is valid and completes login if data was valid.
      * @param result The result from the server as a UserInfo object
      */
     private void handleLoginResult(UserInfo result){
         if(result != null && result.getprofile() != null && result.getrates() != null){
-            Log.d("DEBUG LOGIN", "Success - result: " +result.toString());
-            MainSettings.getInstance(this).setProfile(result.getprofile());
+            UserInfo temp = result;
             MainSettings.getInstance(this).setRates(result.getrates());
+            MainSettings.getInstance(this).setProfile(result.getprofile());
 
             //Login was a success
             handleSuccessfulLogin();

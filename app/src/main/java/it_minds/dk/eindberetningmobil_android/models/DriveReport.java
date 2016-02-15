@@ -7,23 +7,24 @@
 
 package it_minds.dk.eindberetningmobil_android.models;
 
+import it_minds.dk.eindberetningmobil_android.models.internal.Authorization;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 public class DriveReport {
-    private Tokens token;
+    private Authorization auth;
     private DrivingReport report;
     private int profileId;
 
-    public DriveReport(Tokens token, DrivingReport report, int profileId) {
-        this.token = token;
+    public DriveReport(Authorization auth, DrivingReport report, int profileId) {
+        this.auth = auth;
         this.report = report;
         this.profileId = profileId;
     }
 
     public SafeJsonHelper saveAsJson() {
         SafeJsonHelper result = new SafeJsonHelper();
+        result.put("Authorization", auth.saveToJson());
         result.put("DriveReport", report.saveToJson(profileId));
-        result.put("Token", token.saveToJson());
         return result;
     }
 }

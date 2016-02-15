@@ -11,15 +11,16 @@ import android.util.Log;
 
 import org.json.JSONException;
 
+import it_minds.dk.eindberetningmobil_android.models.internal.Authorization;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 public class SaveableDriveReport {
+    private final Authorization auth;
     private final SaveableReport report;
-    private final Tokens token;
 
-    public SaveableDriveReport(Tokens token, SaveableReport report) {
-        this.token = token;
+    public SaveableDriveReport(Authorization auth, SaveableReport report) {
+        this.auth = auth;
         this.report = report;
     }
 
@@ -35,10 +36,11 @@ public class SaveableDriveReport {
         }else{
             result.put("DriveReport", "");
         }
-        if(token!=null){
-            result.put("Token", token.saveToJson());
+
+        if(auth != null){
+            result.put("Authorization", auth.saveToJson());
         }else{
-            result.put("Token","");
+            result.put("Authorization", "");
         }
         return result;
     }

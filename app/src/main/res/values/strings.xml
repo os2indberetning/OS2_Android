@@ -36,7 +36,7 @@
     <string name="notification_stopped_title">Stoppet</string>
     <string name="notification_stopped_body">Venter på at genoptage.</string>
     <string name="start_cancel_dialog_title">Er du sikker på at du vil logge ud?</string>
-    <string name="entering_will_dismiss">Dine indtastninger vil forsvinde, er du sikker?</string>
+    <string name="entering_will_dismiss">Eventuelle indtastninger, gemte rapporter og formål vil blive slettet, er du sikker?</string>
     <string name="dialog_cancel_full_report">Slet nuværende rapport</string>
     <string name="cancel_full_report_message">Du er ved at slette hele din rapport, er du virkelig sikker?</string>
     <string name="delete">Slet</string>

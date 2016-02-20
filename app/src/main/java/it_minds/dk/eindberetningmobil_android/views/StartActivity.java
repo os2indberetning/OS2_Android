@@ -9,7 +9,6 @@ package it_minds.dk.eindberetningmobil_android.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,6 +36,7 @@ import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringService;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
+import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
 
 /**
  * this view is the begining of a monitoring of a trip.
@@ -97,25 +97,37 @@ public class StartActivity extends BaseReportActivity {
     private void syncProfile(){
         showProgressDialog();
 
-        ServerFactory.getInstance(this).syncUserInfo(MainSettings.getInstance(this).getProfile().getAuthorization().saveGuIdToJson(),
-                new ResultCallback<UserInfo>() {
+        MainSettings settings = MainSettings.getInstance(this);
+
+        if(settings.getProfile() != null && settings.getProfile().getAuthorization() != null){
+            ServerFactory.getInstance(this).syncUserInfo(MainSettings.getInstance(this).getProfile().getAuthorization().saveGuIdToJson(),
+                    new ResultCallback<UserInfo>() {
+                        @Override
+                        public void onSuccess(UserInfo result) {
+                            MainSettings.getInstance(getApplicationContext()).setRates(result.getrates());
+                            MainSettings.getInstance(getApplicationContext()).setProfile(result.getprofile());
+
+                            dismissProgressDialog();
+                        }
+
+                        @Override
+                        public void onError(Exception error) {
+                            dismissProgressDialog();
+                            handleSyncFail();
+                        }
+                    });
+        }
+    }
+
+    private void handleSyncFail(){
+        final ErrorDialog dialog = new ErrorDialog(this, "Kunne ikke synkronisere med server. Du skal logge ind igen", new View.OnClickListener() {
             @Override
-            public void onSuccess(UserInfo result) {
-                MainSettings.getInstance(getApplicationContext()).setRates(result.getrates());
-                MainSettings.getInstance(getApplicationContext()).setProfile(result.getprofile());
-
-                dismissProgressDialog();
-            }
-
-            @Override
-            public void onError(Exception error) {
-                dismissProgressDialog();
-
-                //TODO: Handle sync errors
-                Log.d("DEBUG", "Failed to sync!");
+            public void onClick(View v) {
+                superBackPressed();
             }
         });
-
+        dialog.setIsCancelable(false);
+        dialog.showDialog();
     }
 
     private void loadPreFilledData() {
@@ -133,7 +145,6 @@ public class StartActivity extends BaseReportActivity {
 
     @Override
     public void onBackPressed() {
-        if (report.getRate() != null || report.getOrgLocation() != null || report.getPurpose() != null || report.getExtraDescription() != null) {
             new ConfirmationDialog(this, getString(R.string.start_cancel_dialog_title), getString(R.string.entering_will_dismiss), getString(R.string.Ok), getString(R.string.No), null, new ResultCallback<Boolean>() {
                 @Override
                 public void onSuccess(Boolean result) {
@@ -145,13 +156,19 @@ public class StartActivity extends BaseReportActivity {
 
                 }
             }).showDialog();
-        } else {
-            superBackPressed();
-        }
     }
 
     private void superBackPressed() {
+        clearLocalUserData();
         super.onBackPressed();
+    }
+
+    private void clearLocalUserData(){
+        ServerFactory.getInstance(this).setBaseUrl(null);
+
+        //Reset user specific data
+        MainSettings settings = MainSettings.getInstance(this);
+        settings.clear();
     }
 
     private final View.OnClickListener onStartClicked = new View.OnClickListener() {

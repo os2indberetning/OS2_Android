@@ -48,8 +48,6 @@ public class ServerHandler implements ServerInterface {
 
     public static final String PROVIDER_URL = "https://ework.favrskov.dk/FavrskovMobilityAPI/api/AppInfo";
     private static final String SyncTokenEndpoint = "/SyncWithToken";
-    private static final String getUserData = "/UserData";
-    private static final String SubmitDrive = "/SubmitDrive";
     private static final RetryPolicy noRetryPolicy = new DefaultRetryPolicy(RETRY_MS, -1, 0);
     private final RetryPolicy defaultPolicy;
 

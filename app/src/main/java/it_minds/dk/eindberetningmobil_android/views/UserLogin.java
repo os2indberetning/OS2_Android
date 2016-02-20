@@ -37,6 +37,14 @@ public class UserLogin extends ProvidedSimpleActivity {
         //Super method handles topBar ui and color
         super.onCreate(savedInstanceState);
 
+        MainSettings settings = MainSettings.getInstance(this);
+        if(settings.getRates() != null &&
+                settings.getProfile() != null &&
+                settings.getProfile().getAuthorization() != null){
+
+            handleSuccessfulLogin();
+            return;
+        }
         setupUI();
     }
 
@@ -148,5 +156,11 @@ public class UserLogin extends ProvidedSimpleActivity {
     private void handleSuccessfulLogin(){
         startActivity(new Intent(UserLogin.this, StartActivity.class));
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        MainSettings.getInstance(this).setProvider(null);
+        super.onBackPressed();
     }
 }

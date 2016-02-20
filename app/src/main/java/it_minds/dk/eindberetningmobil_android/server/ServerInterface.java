@@ -28,8 +28,6 @@ public interface ServerInterface {
 
     void getProviders(final ResultCallback<List<Provider>> callback);
 
-    void pairPhone(String pairCode, final ResultCallback<UserInfo> callback);
-
     void loginWithCredentials(String username, String password, final ResultCallback<UserInfo> callback);
 
     void syncUserInfo(JSONObject guId, final ResultCallback<UserInfo> callback);

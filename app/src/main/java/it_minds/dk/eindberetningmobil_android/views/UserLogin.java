@@ -3,6 +3,8 @@ package it_minds.dk.eindberetningmobil_android.views;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
@@ -21,6 +28,10 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 public class UserLogin extends ProvidedSimpleActivity {
 
     ProgressDialog spinner;
+    private EditText usernameInput;
+    private EditText passwordInput;
+    private TextInputLayout usernameWrapper;
+    private TextInputLayout passwordWrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +49,18 @@ public class UserLogin extends ProvidedSimpleActivity {
         //Initialize spinner
         spinner = new ProgressDialog(this);
 
-        final EditText usernameInput = (EditText) findViewById(R.id.user_login_username);
-        final EditText passwordInput = (EditText) findViewById(R.id.user_login_password);
+        usernameWrapper = (TextInputLayout) findViewById(R.id.user_login_username_wrapper);
+        passwordWrapper = (TextInputLayout) findViewById(R.id.user_login_password_wrapper);
+
+        usernameInput = (EditText) findViewById(R.id.user_login_username);
+        passwordInput = (EditText) findViewById(R.id.user_login_password);
         Button loginButton = (Button) findViewById(R.id.user_login_button);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgressDialog();
-
-                //TODO: Handle userInput validation
-                if(true){
+                if(handleSimpleInputValidation()){
+                    showProgressDialog();
                     //Try login with credentials
                     ServerFactory.getInstance(UserLogin.this).loginWithCredentials(
                             usernameInput.getText().toString(),
@@ -66,19 +78,15 @@ public class UserLogin extends ProvidedSimpleActivity {
 
                                     if(error instanceof VolleyError){
                                         VolleyError err = (VolleyError) error;
-
-                                        //TODO: Handle newtork response errors
-                                        switch (err.networkResponse.statusCode) {
-                                            case 404:
-
-                                                break;
-                                            case 403:
-
-                                                break;
+                                        try {
+                                            JSONObject responseData = new JSONObject(new String(err.networkResponse.data, "UTF-8") + "[");
+                                            Log.d("DATA:", responseData.toString());
+                                            showLoginErrorToast(responseData.getString("ErrorMessage"));
+                                        } catch (JSONException e) {
+                                            showLoginErrorToast(String.format(getString(R.string.generic_network_error_message), err.networkResponse.statusCode, 1));
+                                        } catch (UnsupportedEncodingException e) {
+                                            showLoginErrorToast(String.format(getString(R.string.generic_network_error_message), err.networkResponse.statusCode, 2));
                                         }
-
-                                        String statusCode = String.valueOf(err.networkResponse.statusCode);
-                                        Log.d("DEBUG LOGIN ERROR", "Error info: " + statusCode + ": " + err.getMessage());
                                     }else{
                                         Log.d("DEBUG LOGIN ERROR", "Error: " + error.getLocalizedMessage());
                                         Toast.makeText(UserLogin.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();
@@ -97,6 +105,28 @@ public class UserLogin extends ProvidedSimpleActivity {
         setActionbarBackDisplay();
         //Hide initial keyboard
         hideSoftkeyboard(); //make sure he can actually read the text.
+    }
+
+    public void showLoginErrorToast(String message){
+        Toast.makeText(UserLogin.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean handleSimpleInputValidation(){
+        if(TextUtils.isEmpty(usernameInput.getText())) {
+            usernameWrapper.setError("Brugernavn kan ikke være tom.");
+            return false;
+        }else {
+            usernameWrapper.setErrorEnabled(false);
+        }
+
+        if(TextUtils.isEmpty(passwordInput.getText())) {
+            passwordWrapper.setError("Password kan ikke være tom.");
+            return false;
+        }else{
+            passwordWrapper.setErrorEnabled(false);
+        }
+
+        return true;
     }
 
     /**

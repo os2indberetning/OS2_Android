@@ -1,6 +1,5 @@
 package it_minds.dk.eindberetningmobil_android.views;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -27,7 +26,7 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 public class UserLogin extends ProvidedSimpleActivity {
 
-    ProgressDialog spinner;
+
     private EditText usernameInput;
     private EditText passwordInput;
     private TextInputLayout usernameWrapper;
@@ -37,17 +36,12 @@ public class UserLogin extends ProvidedSimpleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         //Super method handles topBar ui and color
         super.onCreate(savedInstanceState);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
         setupUI();
     }
 
     private void setupUI(){
         setContentView(R.layout.activity_user_login);
-
-        //Initialize spinner
-        spinner = new ProgressDialog(this);
 
         usernameWrapper = (TextInputLayout) findViewById(R.id.user_login_username_wrapper);
         passwordWrapper = (TextInputLayout) findViewById(R.id.user_login_password_wrapper);
@@ -154,19 +148,5 @@ public class UserLogin extends ProvidedSimpleActivity {
     private void handleSuccessfulLogin(){
         startActivity(new Intent(UserLogin.this, StartActivity.class));
         finish();
-    }
-
-    private void showProgressDialog(){
-        if(spinner !=null){
-            spinner.setIndeterminate(true);
-            spinner.setMessage(getString(R.string.please_wait));
-            spinner.show();
-        }
-    }
-
-    private void dismissProgressDialog(){
-        if(spinner != null) {
-            spinner.dismiss();
-        }
     }
 }

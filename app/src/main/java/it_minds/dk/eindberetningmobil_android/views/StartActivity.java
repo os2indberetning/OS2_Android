@@ -90,15 +90,13 @@ public class StartActivity extends BaseReportActivity {
         //Invalidates and forces the bar to update.
         invalidateOptionsMenu();
 
-        //Make syre userData is up to date
+        //Make sure userData is up to date
         syncProfile();
     }
 
     private void syncProfile(){
+        showProgressDialog();
 
-        //TODO: Await response from backend people if model changes or changes should be made locally on phone model
-
-        //TODO: Show loading
         ServerFactory.getInstance(this).syncUserInfo(MainSettings.getInstance(this).getProfile().getAuthorization().saveGuIdToJson(),
                 new ResultCallback<UserInfo>() {
             @Override
@@ -106,12 +104,14 @@ public class StartActivity extends BaseReportActivity {
                 MainSettings.getInstance(getApplicationContext()).setRates(result.getrates());
                 MainSettings.getInstance(getApplicationContext()).setProfile(result.getprofile());
 
-                //TODO: Remove loading
+                dismissProgressDialog();
             }
 
             @Override
             public void onError(Exception error) {
-                //TODO: Remove loading
+                dismissProgressDialog();
+
+                //TODO: Handle sync errors
                 Log.d("DEBUG", "Failed to sync!");
             }
         });

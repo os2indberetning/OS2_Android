@@ -7,22 +7,29 @@
 
 package it_minds.dk.eindberetningmobil_android.baseClasses;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.widget.TextView;
 
+import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 public abstract class ProvidedSimpleActivity extends SimpleActivity {
 
     private ColorHandling colorHandler;
+    ProgressDialog spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Initialize spinner
+        spinner = new ProgressDialog(this);
+
         colorHandler =new ColorHandling(this);
         setTopbarColor();
     }
@@ -50,6 +57,20 @@ public abstract class ProvidedSimpleActivity extends SimpleActivity {
         TextView tv = getViewById(id);
         if (tv != null) {
             tv.setText(val);
+        }
+    }
+
+    public void showProgressDialog(){
+        if(spinner !=null){
+            spinner.setIndeterminate(true);
+            spinner.setMessage(getString(R.string.please_wait));
+            spinner.show();
+        }
+    }
+
+    public void dismissProgressDialog(){
+        if(spinner != null) {
+            spinner.dismiss();
         }
     }
 

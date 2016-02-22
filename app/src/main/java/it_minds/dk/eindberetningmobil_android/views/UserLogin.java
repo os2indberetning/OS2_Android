@@ -81,7 +81,7 @@ public class UserLogin extends ProvidedSimpleActivity {
                                     if(error instanceof VolleyError){
                                         VolleyError err = (VolleyError) error;
                                         try {
-                                            JSONObject responseData = new JSONObject(new String(err.networkResponse.data, "UTF-8") + "[");
+                                            JSONObject responseData = new JSONObject(new String(err.networkResponse.data, "UTF-8"));
                                             Log.d("DATA:", responseData.toString());
                                             showLoginErrorToast(responseData.getString("ErrorMessage"));
                                         } catch (JSONException e) {

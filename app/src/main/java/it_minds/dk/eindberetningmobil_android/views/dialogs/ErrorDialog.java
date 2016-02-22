@@ -24,6 +24,7 @@ public class ErrorDialog extends BaseProvidedDialog {
     //Used if standard dialog needs custom values
     private final View.OnClickListener customListener;
     private boolean isCancelable = true;
+    private Dialog dialog;
 
     public ErrorDialog(Context context, String message) {
         super(context);
@@ -41,7 +42,7 @@ public class ErrorDialog extends BaseProvidedDialog {
 
     @Override
     public void showDialog() {
-        final Dialog dialog = new Dialog(context);
+        dialog = new Dialog(context);
         dialog.setCancelable(isCancelable);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.error_dialog_view);
@@ -65,5 +66,11 @@ public class ErrorDialog extends BaseProvidedDialog {
 
     public void setIsCancelable(boolean isCancelable) {
         this.isCancelable = isCancelable;
+    }
+
+    public void dismissDialog(){
+        if(dialog != null){
+            dialog.dismiss();
+        }
     }
 }

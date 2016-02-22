@@ -15,6 +15,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.R;
@@ -24,27 +30,31 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
+import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
 
 /**
  * in this view we choose a provider to use.
  */
 public class ChooseProvider extends SimpleActivity {
+
     private MainSettings settings;
+    private ErrorDialog errorDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Fetch providers and setup list
-        setContentView(R.layout.choose_provider_view);
-        //set content to the list.
-        refreshProviderList();
-
         //Check if we already have chosen af provider
         settings = MainSettings.getInstance(this);
         if (settings.haveProvider()) {
             useProvider(settings.getProvider());
+            return;
         }
+
+        //Fetch providers and setup list
+        setContentView(R.layout.choose_provider_view);
+        //set content to the list.
+        refreshProviderList();
     }
 
     private void refreshProviderList(){
@@ -65,9 +75,42 @@ public class ChooseProvider extends SimpleActivity {
 
             @Override
             public void onError(Exception error) {
-                Toast.makeText(ChooseProvider.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();
+                if (error instanceof VolleyError) {
+                    VolleyError vError = (VolleyError) error;
+                    if (vError.networkResponse != null) {
+                        try {
+                            JSONObject responseData = new JSONObject(new String(vError.networkResponse.data, "UTF-8"));
+                            Log.d("DATA:", responseData.toString());
+                        } catch (JSONException e) {
+                            Toast.makeText(ChooseProvider.this, "Ukendt fejl ved download af udbydere\n(" + vError.networkResponse.statusCode + ") (1)", Toast.LENGTH_SHORT).show();
+                        } catch (UnsupportedEncodingException e) {
+                            Toast.makeText(ChooseProvider.this, "Ukendt fejl ved download af udbydere\n(" + vError.networkResponse.statusCode + ") (2)", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        //We have not internet
+                    }
+                } else {
+                    Toast.makeText(ChooseProvider.this, "Ukendt fejl ved download af udbydere.\n(3)", Toast.LENGTH_SHORT).show();
+                    Log.d("ERROR", error.getMessage());
+                }
+                showProviderFetchError();
             }
         });
+    }
+
+    private void showProviderFetchError(){
+        if(errorDialog == null){
+            errorDialog = new ErrorDialog(this, "Kunne ikke hente/opdatere listen over udbydere. Tjek din internet forbindelse og forsøg igen.", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    errorDialog.dismissDialog();
+                    refreshProviderList();
+                }
+            });
+        }
+
+        errorDialog.setIsCancelable(false);
+        errorDialog.showDialog();
     }
 
     @Override

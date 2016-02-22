@@ -36,7 +36,6 @@ import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringService;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
-import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
 
 /**
  * this view is the begining of a monitoring of a trip.
@@ -44,6 +43,7 @@ import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
 public class StartActivity extends BaseReportActivity {
 
     int badgeCount = 0;
+    boolean didFailSync = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +104,8 @@ public class StartActivity extends BaseReportActivity {
                     new ResultCallback<UserInfo>() {
                         @Override
                         public void onSuccess(UserInfo result) {
+                            didFailSync = false;
+
                             MainSettings.getInstance(getApplicationContext()).setRates(result.getrates());
                             MainSettings.getInstance(getApplicationContext()).setProfile(result.getprofile());
 
@@ -120,14 +122,22 @@ public class StartActivity extends BaseReportActivity {
     }
 
     private void handleSyncFail(){
-        final ErrorDialog dialog = new ErrorDialog(this, "Kunne ikke synkronisere med server. Du skal logge ind igen", new View.OnClickListener() {
+        new ConfirmationDialog(this,
+                "Kunne ikke synkronisere bruger info med serveren.",
+                "Tjek din internet forbindelse.\nDu kan forsøge igen eller logge ud og ind igen. \nOBS: Log ud sletter dine formål, gemte rapporter og lignende!",
+                "Log ind igen",
+                "Forsøg igen", null, new ResultCallback<Boolean>() {
             @Override
-            public void onClick(View v) {
-                superBackPressed();
+            public void onSuccess(Boolean result) {
+                didFailSync = true;
+                onBackPressed();
             }
-        });
-        dialog.setIsCancelable(false);
-        dialog.showDialog();
+
+            @Override
+            public void onError(Exception error) {
+                syncProfile();
+            }
+        }).showDialog();
     }
 
     private void loadPreFilledData() {
@@ -153,7 +163,9 @@ public class StartActivity extends BaseReportActivity {
 
                 @Override
                 public void onError(Exception error) {
-
+                    if(didFailSync){
+                        syncProfile();
+                    }
                 }
             }).showDialog();
     }

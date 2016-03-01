@@ -10,6 +10,9 @@ package it_minds.dk.eindberetningmobil_android.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -23,6 +26,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import it_minds.dk.eindberetningmobil_android.BuildConfig;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.adapters.ProviderAdapter;
 import it_minds.dk.eindberetningmobil_android.baseClasses.SimpleActivity;
@@ -44,17 +48,41 @@ public class ChooseProvider extends SimpleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Fetch providers and setup list
+        setContentView(R.layout.choose_provider_view);
+
         //Check if we already have chosen af provider
         settings = MainSettings.getInstance(this);
         if (settings.haveProvider()) {
             useProvider(settings.getProvider());
-            return;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Only show menu if app is in debug mode
+        if(BuildConfig.DEBUG){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.provider_menu_debug, menu);
+            return true;
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.provider_menu_test_api){
+            //Set the provider to Test Backend
+            useProvider(new Provider(
+                    "Test Backend",
+                    "http://10.255.1.45:3308/api/auth",
+                    "https://os2indberetning.dk/logo.png",
+                    "#FFFFFF",
+                    "#FFA000",
+                    "#00BCD4"));
         }
 
-        //Fetch providers and setup list
-        setContentView(R.layout.choose_provider_view);
-        //set content to the list.
-        refreshProviderList();
+        return super.onOptionsItemSelected(item);
     }
 
     private void refreshProviderList(){
@@ -123,8 +151,6 @@ public class ChooseProvider extends SimpleActivity {
         Log.e("temp", "chose provider" + provider.getName());
         settings.setProvider(provider);
         ServerFactory.getInstance(this).setBaseUrl(provider.getAPIUrl());
-
-//        startActivity(new Intent(this, PairPhone.class));
 
         startActivity(new Intent(this, UserLogin.class));
     }

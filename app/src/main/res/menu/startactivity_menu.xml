@@ -7,7 +7,8 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools">
     <item android:id="@+id/see_not_send"
         android:title="@string/see_not_send" />
 
@@ -17,6 +18,7 @@
         app:actionLayout="@layout/missing_trip_badge"
         android:title="@string/number_of_missing_reports"
         app:showAsAction="ifRoom"
+        tools:visible="true"
         />
 
 

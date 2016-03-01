@@ -57,6 +57,13 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="@string/user_login_help_text"/>
+
     </LinearLayout>
 
 </ScrollView>

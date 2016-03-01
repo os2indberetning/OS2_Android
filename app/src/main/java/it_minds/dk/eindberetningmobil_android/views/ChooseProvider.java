@@ -78,8 +78,8 @@ public class ChooseProvider extends SimpleActivity {
                     "http://10.255.1.45:3308/api/auth",
                     "https://os2indberetning.dk/logo.png",
                     "#FFFFFF",
-                    "#FFA000",
-                    "#00BCD4"));
+                    "#FFC107",
+                    "#4CAF50"));
         }
 
         return super.onOptionsItemSelected(item);

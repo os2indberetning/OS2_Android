@@ -92,7 +92,8 @@
     <string name="user_login_username_hint">Brugernavn</string>
     <string name="user_login_password_hint">Kodeord</string>
     <string name="user_login_button_text">Log ind</string>
-    <string name="user_login_help_text">Du skal oprette et password for at logge ind på app\'en. Passwordet opretter du i OS2Indberetning under Personlige Indstillinger: Adgangskode til app. \n
+    <string name="user_login_help_text">Du skal oprette et password for at logge ind på app\'en. \n\nPasswordet opretter du i OS2Indberetning under Personlige Indstillinger: Adgangskode til app. \n\n
         Her finder du også dit brugernavn, som er dine initialer.</string>
+
     <string name="choose_test_api">Benyt test backend</string>
 </resources>

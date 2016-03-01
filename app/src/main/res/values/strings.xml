@@ -97,4 +97,9 @@
 
     <string name="choose_test_api">Benyt test backend</string>
     <string name="purpose_list_empty">Tryk på \'+\' for at tilføje et nyt formål</string>
+    <string name="user_sync_error_no_internet">Ingen internetforbindelse!</string>
+    <string name="user_sync_error_no_internet_description">Tjek din internetforbindelse og prøv igen.</string>
+    <string name="user_sync_error_unauthorized">Kunne ikke synkronisere bruger info med serveren!</string>
+    <string name="user_sync_error_unauthorized_description">Der er sket en ændring i din bruger info på serveren - du skal logge ind igen.</string>
+    <string name="user_sync_error_unknown">Der opstod en uventet fejl ved synkronisering af bruger info - vi beklager.</string>
 </resources>

@@ -19,6 +19,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.VolleyError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -114,17 +117,29 @@ public class StartActivity extends BaseReportActivity {
 
                         @Override
                         public void onError(Exception error) {
+                            if(error instanceof VolleyError){
+                                VolleyError vError = (VolleyError) error;
+                                if(vError instanceof NoConnectionError){
+                                    //No internet
+                                    handleSyncFail(getString(R.string.user_sync_error_no_internet), getString(R.string.user_sync_error_no_internet_description));
+                                }else if(vError instanceof AuthFailureError && vError.networkResponse.statusCode == 401){
+                                    //Users info was changed on the server (Possibly a password reset)
+                                    handleSyncFail(getString(R.string.user_sync_error_unauthorized),getString(R.string.user_sync_error_unauthorized_description));
+                                }else{
+                                    handleSyncFail(getString(R.string.user_sync_error_unauthorized), getString(R.string.user_sync_error_unknown));
+                                }
+                            }
+
                             dismissProgressDialog();
-                            handleSyncFail();
                         }
                     });
         }
     }
 
-    private void handleSyncFail(){
+    private void handleSyncFail(String title, String message){
         new ConfirmationDialog(this,
-                "Kunne ikke synkronisere bruger info med serveren.",
-                "Tjek din internet forbindelse.\nDu kan forsøge igen eller logge ud og ind igen. \nOBS: Log ud sletter dine formål, gemte rapporter og lignende!",
+                title,
+                message,
                 "Log ind igen",
                 "Forsøg igen", null, new ResultCallback<Boolean>() {
             @Override
@@ -155,7 +170,11 @@ public class StartActivity extends BaseReportActivity {
 
     @Override
     public void onBackPressed() {
-            new ConfirmationDialog(this, getString(R.string.start_cancel_dialog_title), getString(R.string.entering_will_dismiss), getString(R.string.Ok), getString(R.string.No), null, new ResultCallback<Boolean>() {
+            new ConfirmationDialog(this,
+                    getString(R.string.start_cancel_dialog_title),
+                    getString(R.string.entering_will_dismiss),
+                    getString(R.string.Ok),
+                    getString(R.string.No), null, new ResultCallback<Boolean>() {
                 @Override
                 public void onSuccess(Boolean result) {
                     superBackPressed();

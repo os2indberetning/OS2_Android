@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +30,8 @@ public class PurposeActivity extends ProvidedSimpleActivity {
 
     private ListView lw;
 
+    ArrayList<Purpose> purposes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +52,18 @@ public class PurposeActivity extends ProvidedSimpleActivity {
 
     //Initialize or refresh the list
     private void initList(){
-        final ArrayList<Purpose> purposes = MainSettings.getInstance(this).getPurpose();
+        purposes = MainSettings.getInstance(this).getPurpose();
+
+
 
         if (purposes == null) {
-            Toast.makeText(this, getString(R.string.no_purpose), Toast.LENGTH_SHORT).show();
+            lw.setVisibility(View.GONE);
+            findViewById(R.id.purpose_list_empty_view).setVisibility(View.VISIBLE);
             return;
-            //Always sort the list
         } else {
+            lw.setVisibility(View.VISIBLE);
+            findViewById(R.id.purpose_list_empty_view).setVisibility(View.GONE);
+            //Always sort the list
             MainSettings.getInstance(getApplicationContext()).setPurpose(sortList(purposes));
         }
 
@@ -66,7 +72,7 @@ public class PurposeActivity extends ProvidedSimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Increments
-                Purpose purpose = purposes.get((int)id);
+                Purpose purpose = purposes.get((int) id);
 //                incrementPurposeUse(purposes, purpose);
 
                 Intent i = new Intent();

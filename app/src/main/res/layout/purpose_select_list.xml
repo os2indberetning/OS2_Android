@@ -7,13 +7,24 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/purpose_list_empty_view"
+        layout="@layout/purpose_select_empty_view"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
+
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/purpose_select_list_view"
         android:layout_height="match_parent"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        tools:listitem="@layout/purpose_list_item">
 
     </ListView>
 

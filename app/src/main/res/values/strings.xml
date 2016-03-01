@@ -96,4 +96,5 @@
         Her finder du også dit brugernavn, som er dine initialer.</string>
 
     <string name="choose_test_api">Benyt test backend</string>
+    <string name="purpose_list_empty">Tryk på \'+\' for at tilføje et nyt formål</string>
 </resources>

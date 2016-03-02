@@ -86,7 +86,7 @@ public class UserLogin extends ProvidedSimpleActivity {
                                             showLoginErrorToast(responseData.getString("ErrorMessage"));
                                         } catch (JSONException e) {
                                             showLoginErrorToast(String.format(getString(R.string.generic_network_error_message), err.networkResponse.statusCode, 1));
-                                        } catch (UnsupportedEncodingException e) {
+                                        } catch (Exception e) {
                                             showLoginErrorToast(String.format(getString(R.string.generic_network_error_message), err.networkResponse.statusCode, 2));
                                         }
                                     }else{

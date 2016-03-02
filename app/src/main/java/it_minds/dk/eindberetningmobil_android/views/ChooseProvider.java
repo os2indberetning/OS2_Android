@@ -75,7 +75,7 @@ public class ChooseProvider extends SimpleActivity {
             //Set the provider to Test Backend
             useProvider(new Provider(
                     "Test Backend",
-                    "http://10.255.1.45:3308/api/auth",
+                    "http://10.255.1.45:3308/api",
                     "https://os2indberetning.dk/logo.png",
                     "#FFFFFF",
                     "#FFC107",

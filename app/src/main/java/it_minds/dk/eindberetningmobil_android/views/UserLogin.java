@@ -67,7 +67,7 @@ public class UserLogin extends ProvidedSimpleActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(handleSimpleInputValidation()){
+                if (handleSimpleInputValidation()) {
                     showProgressDialog();
                     //Try login with credentials
                     ServerFactory.getInstance(UserLogin.this).loginWithCredentials(
@@ -84,11 +84,12 @@ public class UserLogin extends ProvidedSimpleActivity {
                                 public void onError(Exception error) {
                                     dismissProgressDialog();
 
-                                    if(error instanceof VolleyError){
+                                    if (error instanceof VolleyError) {
                                         VolleyError err = (VolleyError) error;
-                                        if(err.networkResponse != null){
-                                            if(err.networkResponse.statusCode == 401){
-                                                JSONObject responseData = null;
+                                        if (err.networkResponse != null) {
+                                            JSONObject responseData;
+                                            if (err.networkResponse.statusCode == 401) {
+
                                                 try {
                                                     responseData = new JSONObject(new String(err.networkResponse.data, "UTF-8"));
                                                     Log.d("DATA:", responseData.toString());
@@ -99,17 +100,17 @@ public class UserLogin extends ProvidedSimpleActivity {
                                                             customErrorOnClickListener);
                                                 }
 
-                                            }else{
+                                            } else {
                                                 showLoginError(String.format(
-                                                        getString(R.string.generic_network_error_message),
-                                                        err.networkResponse.statusCode, 2),
+                                                                getString(R.string.generic_network_error_message),
+                                                                err.networkResponse.statusCode, 2),
                                                         customErrorOnClickListener);
                                             }
-                                        }else{
+                                        } else {
                                             //No internet
                                             showLoginError(getString(R.string.network_error_no_internet_description), null);
                                         }
-                                    }else{
+                                    } else {
                                         Log.d("DEBUG LOGIN ERROR", "Error: " + error.getLocalizedMessage());
                                         showLoginError(getString(R.string.generic_error_message),
                                                 customErrorOnClickListener);

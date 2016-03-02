@@ -50,12 +50,6 @@ public class ChooseProvider extends SimpleActivity {
 
         //Fetch providers and setup list
         setContentView(R.layout.choose_provider_view);
-
-        //Check if we already have chosen af provider
-        settings = MainSettings.getInstance(this);
-        if (settings.haveProvider()) {
-            useProvider(settings.getProvider());
-        }
     }
 
     @Override
@@ -144,6 +138,14 @@ public class ChooseProvider extends SimpleActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        //Check if we already have chosen af provider
+        settings = MainSettings.getInstance(this);
+        if (settings.haveProvider()) {
+            useProvider(settings.getProvider());
+            return;
+        }
+
         refreshProviderList();
     }
 

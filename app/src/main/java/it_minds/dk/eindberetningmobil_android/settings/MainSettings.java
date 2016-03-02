@@ -200,6 +200,17 @@ public class MainSettings {
         getPrefs().edit().clear().commit();
     }
 
+    /**
+     * Clears all local stored EXCEPT purposes!
+     */
+    public void logoutClear(){
+        ArrayList<Purpose> purposes = getPurpose();
+
+        getPrefs().edit().clear().commit();
+
+        setPurpose(purposes);
+    }
+
     public void setServiceClosed(boolean serviceClosed) {
         getPrefs().edit().putBoolean(SERVICE_INDEX, serviceClosed).commit();
     }

@@ -199,7 +199,7 @@ public class StartActivity extends BaseReportActivity {
 
         //Reset user specific data
         MainSettings settings = MainSettings.getInstance(this);
-        settings.clear();
+        settings.logoutClear();
     }
 
     private final View.OnClickListener onStartClicked = new View.OnClickListener() {

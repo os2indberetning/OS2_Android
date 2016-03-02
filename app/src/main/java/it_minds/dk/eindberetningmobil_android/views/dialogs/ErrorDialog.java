@@ -20,6 +20,7 @@ public class ErrorDialog extends BaseProvidedDialog {
 
     private final Context context;
     private final String message;
+    private final String title;
 
     //Used if standard dialog needs custom values
     private final View.OnClickListener customListener;
@@ -27,16 +28,18 @@ public class ErrorDialog extends BaseProvidedDialog {
     private Dialog dialog;
 
     public ErrorDialog(Context context, String message) {
-        super(context);
-        this.context = context;
-        this.message = message;
-        this.customListener = null;
+        this(context, message, null);
     }
 
     public ErrorDialog(Context context, String message, View.OnClickListener customListener) {
+        this(context, message, context.getResources().getString(R.string.error_dialog_title), customListener);
+    }
+
+    public ErrorDialog(Context context, String message, String title, View.OnClickListener customListener) {
         super(context);
         this.context = context;
         this.message = message;
+        this.title = title;
         this.customListener = customListener;
     }
 
@@ -49,7 +52,7 @@ public class ErrorDialog extends BaseProvidedDialog {
         TextView errorMsg = (TextView) dialog.findViewById(R.id.error_dialog_view_error_message);
         errorMsg.setText(message);
         TextView errorTitle = (TextView) dialog.findViewById(R.id.error_dialog_view_error_title);
-        errorTitle.setText(R.string.error_dialog_title);
+        errorTitle.setText(title);
         if(customListener == null){
             dialog.findViewById(R.id.error_dialog_view_ok_btn).setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -121,7 +121,7 @@ public class StartActivity extends BaseReportActivity {
                                 VolleyError vError = (VolleyError) error;
                                 if(vError instanceof NoConnectionError){
                                     //No internet
-                                    handleSyncFail(getString(R.string.user_sync_error_no_internet), getString(R.string.user_sync_error_no_internet_description));
+                                    handleSyncFail(getString(R.string.user_sync_error_no_internet), getString(R.string.network_error_no_internet_description));
                                 }else if(vError instanceof AuthFailureError && vError.networkResponse.statusCode == 401){
                                     //Users info was changed on the server (Possibly a password reset)
                                     handleSyncFail(getString(R.string.user_sync_error_unauthorized),getString(R.string.user_sync_error_unauthorized_description));

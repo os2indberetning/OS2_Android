@@ -2,20 +2,17 @@ package it_minds.dk.eindberetningmobil_android.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
@@ -23,6 +20,7 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
+import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
 
 public class UserLogin extends ProvidedSimpleActivity {
 
@@ -31,6 +29,14 @@ public class UserLogin extends ProvidedSimpleActivity {
     private EditText passwordInput;
     private TextInputLayout usernameWrapper;
     private TextInputLayout passwordWrapper;
+    private ErrorDialog errorDialog;
+
+    private View.OnClickListener customErrorOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,18 +86,33 @@ public class UserLogin extends ProvidedSimpleActivity {
 
                                     if(error instanceof VolleyError){
                                         VolleyError err = (VolleyError) error;
-                                        try {
-                                            JSONObject responseData = new JSONObject(new String(err.networkResponse.data, "UTF-8"));
-                                            Log.d("DATA:", responseData.toString());
-                                            showLoginErrorToast(responseData.getString("ErrorMessage"));
-                                        } catch (JSONException e) {
-                                            showLoginErrorToast(String.format(getString(R.string.generic_network_error_message), err.networkResponse.statusCode, 1));
-                                        } catch (Exception e) {
-                                            showLoginErrorToast(String.format(getString(R.string.generic_network_error_message), err.networkResponse.statusCode, 2));
+                                        if(err.networkResponse != null){
+                                            if(err.networkResponse.statusCode == 401){
+                                                JSONObject responseData = null;
+                                                try {
+                                                    responseData = new JSONObject(new String(err.networkResponse.data, "UTF-8"));
+                                                    Log.d("DATA:", responseData.toString());
+                                                    showLoginError(responseData.getString("ErrorMessage"), null);
+                                                } catch (Exception e) {
+                                                    showLoginError(
+                                                            String.format(getString(R.string.generic_network_error_message), err.networkResponse.statusCode, 1),
+                                                            customErrorOnClickListener);
+                                                }
+
+                                            }else{
+                                                showLoginError(String.format(
+                                                        getString(R.string.generic_network_error_message),
+                                                        err.networkResponse.statusCode, 2),
+                                                        customErrorOnClickListener);
+                                            }
+                                        }else{
+                                            //No internet
+                                            showLoginError(getString(R.string.network_error_no_internet_description), null);
                                         }
                                     }else{
                                         Log.d("DEBUG LOGIN ERROR", "Error: " + error.getLocalizedMessage());
-                                        Toast.makeText(UserLogin.this, R.string.generic_error_message, Toast.LENGTH_SHORT).show();
+                                        showLoginError(getString(R.string.generic_error_message),
+                                                customErrorOnClickListener);
                                     }
                                 }
                             }
@@ -109,8 +130,10 @@ public class UserLogin extends ProvidedSimpleActivity {
         hideSoftkeyboard(); //make sure he can actually read the text.
     }
 
-    public void showLoginErrorToast(String message){
-        Toast.makeText(UserLogin.this, message, Toast.LENGTH_SHORT).show();
+    public void showLoginError(String message, @Nullable View.OnClickListener customOnClickListener){
+        errorDialog = new ErrorDialog(this, message, "Login fejl",customOnClickListener);
+        errorDialog.setIsCancelable(false);
+        errorDialog.showDialog();
     }
 
     public boolean handleSimpleInputValidation(){

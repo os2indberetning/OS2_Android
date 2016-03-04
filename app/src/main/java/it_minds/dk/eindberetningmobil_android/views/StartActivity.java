@@ -211,7 +211,26 @@ public class StartActivity extends BaseReportActivity {
             }
 
             if (!GpsMonitor.isGpsEnabled(StartActivity.this)) {
-                Toast.makeText(StartActivity.this, R.string.activate_gps, Toast.LENGTH_SHORT).show();
+                ConfirmationDialog dialog = new ConfirmationDialog(
+                        StartActivity.this,
+                        getString(R.string.activate_gps_title),
+                        getString(R.string.activate_gps_description),
+                        getString(R.string.Ok),
+                        getString(R.string.settings),
+                        null,
+                        new ResultCallback<Boolean>() {
+                            @Override
+                            public void onSuccess(Boolean result) {
+
+                            }
+
+                            @Override
+                            public void onError(Exception error) {
+                                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            }
+                        }
+                );
+                dialog.showDialog();
                 return;
             }
 

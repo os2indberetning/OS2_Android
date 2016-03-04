@@ -50,12 +50,12 @@
     <string name="km_edit_notice_accept">Ja</string>
     <string name="km_edit_notice_decline">Nej</string>
     <string name="waiting">venter</string>
-    <string name="error_no_gps_title">Fejl, deaktiveret GPS</string>
-    <string name="error_no_gps_message">Din gps er deaktiveret, og vi kan ikke fortsætte uden. Hvis du aktivere gps\'en igen skal du selv klikke på genoptage, for at fortsætte din rute.</string>
+    <string name="error_no_gps_title">Lokationstjenester deaktiveret</string>
+    <string name="error_no_gps_message">Lokationstjenester blev deaktiveret. For at fortsætte din kørsel, skal du aktivere lokationstjenester i telefonens indstillinger og herefter trykke på \'Genoptag kørsel\'.</string>
     <string name="error_gps_retry">Prøv igen</string>
     <string name="error_gps_stop">Afslut kørsel</string>
     <string name="stopped_trip_gps">OS2Indberetning er stoppet, eftersom du har slukket for gps\'en.  åben notifikationen for at genoptage din rute.</string>
-    <string name="activate_gps">Aktivér GPS\'en inden du kører.</string>
+    <string name="activate_gps_description">Du skal aktivere lokationstjenester for at kunne benytte appen.</string>
     <string name="error_distance_resume">Du er for langt væk fra din position da du pauserede kørslen. Vend tilbage til den position, eller afslut den nuværende kørsel og start en ny.</string>
     <string name="retry">prøv igen</string>
     <string name="cancel_route">afslut nuværende</string>
@@ -102,4 +102,6 @@
     <string name="user_sync_error_unauthorized">Kunne ikke synkronisere bruger info med serveren!</string>
     <string name="user_sync_error_unauthorized_description">Der er sket en ændring i din bruger info på serveren - du skal logge ind igen.</string>
     <string name="user_sync_error_unknown">Der opstod en uventet fejl ved synkronisering af bruger info - vi beklager.</string>
+    <string name="activate_gps_title">Aktiver lokation</string>
+    <string name="settings">Indstillinger</string>
 </resources>

@@ -28,18 +28,22 @@ public class ErrorDialog extends BaseProvidedDialog {
     private Dialog dialog;
 
     public ErrorDialog(Context context, String message) {
-        this(context, message, null);
+        this(context, message, null, null);
+    }
+
+    public ErrorDialog(Context context, String message, String title) {
+        this(context, message, title, null);
     }
 
     public ErrorDialog(Context context, String message, View.OnClickListener customListener) {
-        this(context, message, context.getResources().getString(R.string.error_dialog_title), customListener);
+        this(context, message, null, customListener);
     }
 
     public ErrorDialog(Context context, String message, String title, View.OnClickListener customListener) {
         super(context);
         this.context = context;
         this.message = message;
-        this.title = title;
+        this.title = title != null ? title : context.getResources().getString(R.string.error_dialog_title);
         this.customListener = customListener;
     }
 

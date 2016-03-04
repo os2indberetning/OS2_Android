@@ -72,8 +72,13 @@ public class MonitoringServiceReport {
                     //yes yes , so lets handle the new location (update the distance, and update the displays)
                     handleNewLocation(location, false);
                 } else {
+                    long offset = TimeZone.getDefault().getOffset(location.getTime());
+                    updateDisplay(location.getAccuracy(), report.getDistanceInMeters(), new DateTime(offset + location.getTime()));
                     Log.e("temp", "not moving");
                 }
+            }else{
+                long offset = TimeZone.getDefault().getOffset(location.getTime());
+                updateDisplay(location.getAccuracy(), report.getDistanceInMeters(), new DateTime(offset + location.getTime()));
             }
 
         }

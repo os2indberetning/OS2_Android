@@ -104,4 +104,5 @@
     <string name="user_sync_error_unknown">Der opstod en uventet fejl ved synkronisering af bruger info - vi beklager.</string>
     <string name="activate_gps_title">Aktiver lokation</string>
     <string name="settings">Indstillinger</string>
+    <string name="version">Version %s</string>
 </resources>

@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
+import it_minds.dk.eindberetningmobil_android.BuildConfig;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.ProvidedSimpleActivity;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
@@ -65,6 +67,9 @@ public class UserLogin extends ProvidedSimpleActivity {
 
     private void setupUI(){
         setContentView(R.layout.activity_user_login);
+
+        TextView version = (TextView) findViewById(R.id.user_login_version);
+        version.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
 
         usernameWrapper = (TextInputLayout) findViewById(R.id.user_login_username_wrapper);
         passwordWrapper = (TextInputLayout) findViewById(R.id.user_login_password_wrapper);

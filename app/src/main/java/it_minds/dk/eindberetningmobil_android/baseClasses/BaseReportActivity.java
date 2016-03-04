@@ -114,6 +114,8 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
 
     public Purpose findPurposeByDescription(String description) {
         ArrayList<Purpose> purposes = MainSettings.getInstance(this).getPurpose();
+        if(purposes == null) return null;
+
         for (Purpose purpose : purposes) {
             if (description.equals(purpose.getDescription())) {
                 return purpose;

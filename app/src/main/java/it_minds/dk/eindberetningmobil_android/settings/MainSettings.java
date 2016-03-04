@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.models.Profile;
@@ -153,14 +154,13 @@ public class MainSettings {
     }
 
     //Purpose data
-    public void setPurpose(ArrayList<Purpose> purpose) {
+    public void setPurposes(ArrayList<Purpose> purposes) {
+        if(purposes == null){
+            purposes = new ArrayList<>();
+        }
+        Collections.sort(purposes);
 
-        ArrayList<Purpose> purposeToSave = new ArrayList<>();
-        for (Purpose p:purpose){
-                purposeToSave.add(p);
-            }
-
-        JSONArray arr = Purpose.saveAllToJson(purposeToSave);
+        JSONArray arr = Purpose.saveAllToJson(purposes);
         getPrefs().edit().putString(PURPOSE_INDEX, arr.toString()).commit();
     }
 
@@ -208,7 +208,7 @@ public class MainSettings {
 
         getPrefs().edit().clear().commit();
 
-        setPurpose(purposes);
+        setPurposes(purposes);
     }
 
     public void setServiceClosed(boolean serviceClosed) {

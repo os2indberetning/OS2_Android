@@ -8,7 +8,6 @@
 package it_minds.dk.eindberetningmobil_android.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.models.Purpose;
-import it_minds.dk.eindberetningmobil_android.models.Rates;
 
 /**
  * an adapter capable of displaying a purpose item.
@@ -38,20 +36,9 @@ public class PurposeAdapter extends ArrayAdapter<Purpose> {
             toUse = LayoutInflater.from(getContext()).inflate(R.layout.purpose_list_item, parent, false);
         }
         TextView description = (TextView) toUse.findViewById(R.id.purpose_list_item_desc);
-        //TextView uses = (TextView) toUse.findViewById(R.id.purpose_list_item_uses);
         Purpose item = getItem(position);
         description.setText(item.getDescription());
 
-        //Set used text:
-        String times;
-        if (item.getUses() == 1) {
-            times = getContext().getString(R.string.purpose_used_once);
-        } else {
-            times = getContext().getString(R.string.purpose_used_more_than_once);
-        }
-
-        //String usesString = getContext().getString(R.string.purpose_used_x_y, item.getUses(), times);
-        //uses.setText(usesString);
         return toUse;
     }
 }

@@ -44,6 +44,15 @@ public class UserLogin extends ProvidedSimpleActivity {
         super.onCreate(savedInstanceState);
 
         MainSettings settings = MainSettings.getInstance(this);
+
+        //Check if provider is actually set
+        if(!(settings.getProvider() != null
+                && settings.getProvider().getAPIUrl() != null
+                && ServerFactory.getInstance(this).getBaseUrl() != null)){
+            onBackPressed();
+            return;
+        }
+
         if(settings.getRates() != null &&
                 settings.getProfile() != null &&
                 settings.getProfile().getAuthorization() != null){

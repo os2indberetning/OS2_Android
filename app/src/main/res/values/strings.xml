@@ -105,4 +105,5 @@
     <string name="activate_gps_title">Aktiver lokation</string>
     <string name="settings">Indstillinger</string>
     <string name="version">Version %s</string>
+    <string name="purpose_list_delete_help">Hold nede på et formål for at slette det.</string>
 </resources>

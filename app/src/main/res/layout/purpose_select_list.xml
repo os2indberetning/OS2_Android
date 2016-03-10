@@ -6,9 +6,8 @@
   ~ If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -20,12 +19,30 @@
         />
 
     <ListView
-        android:layout_width="match_parent"
         android:id="@+id/purpose_select_list_view"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
+        android:layout_below="@+id/purpose_list_empty_view"
+        android:layout_above="@+id/purpose_list_delete_help"
         tools:listitem="@layout/purpose_list_item">
 
     </ListView>
 
-</LinearLayout>
+    <View
+        android:id="@+id/purpose_list_delete_help_divider"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/purpose_list_delete_help"
+        android:layout_height="8dp"
+        android:background="@drawable/view_upper_shadow"/>
+
+    <TextView
+        android:id="@+id/purpose_list_delete_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:text="@string/purpose_list_delete_help"
+        android:textSize="16sp"
+        />
+
+</RelativeLayout>

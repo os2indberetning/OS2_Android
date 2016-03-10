@@ -40,9 +40,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:layout_margin="8dp"
+        android:textStyle="italic"
         android:text="@string/purpose_list_delete_help"
         android:textSize="16sp"
+        android:textColor="#bbb"
         />
 
 </RelativeLayout>

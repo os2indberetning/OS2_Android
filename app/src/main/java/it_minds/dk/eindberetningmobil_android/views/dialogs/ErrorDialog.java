@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import it_minds.dk.eindberetningmobil_android.R;
@@ -53,10 +54,18 @@ public class ErrorDialog extends BaseProvidedDialog {
         dialog.setCancelable(isCancelable);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.error_dialog_view);
+
+
         TextView errorMsg = (TextView) dialog.findViewById(R.id.error_dialog_view_error_message);
         errorMsg.setText(message);
+
         TextView errorTitle = (TextView) dialog.findViewById(R.id.error_dialog_view_error_title);
+        setTitleColorForText(errorTitle);
         errorTitle.setText(title);
+
+        Button errorDialogButton = (Button) dialog.findViewById(R.id.error_dialog_view_ok_btn);
+        setColorForButton(errorDialogButton);
+
         if(customListener == null){
             dialog.findViewById(R.id.error_dialog_view_ok_btn).setOnClickListener(new View.OnClickListener() {
                 @Override

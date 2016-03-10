@@ -8,6 +8,7 @@
 package it_minds.dk.eindberetningmobil_android.baseClasses;
 
 import android.content.Context;
+import android.widget.Button;
 import android.widget.TextView;
 
 import it_minds.dk.eindberetningmobil_android.interfaces.SimpleDialog;
@@ -34,6 +35,10 @@ public abstract class BaseProvidedDialog implements SimpleDialog {
 
     public void setTitleColorForText(TextView tv) {
         colorHandler.setTitleColorForText(tv);
+    }
+
+    public void setColorForButton(Button button){
+        colorHandler.setColorButton(button);
     }
 
 }

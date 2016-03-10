@@ -9,6 +9,7 @@ package it_minds.dk.eindberetningmobil_android.baseClasses;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.widget.Button;
 import android.widget.TextView;
 
 import it_minds.dk.eindberetningmobil_android.models.Provider;
@@ -50,6 +51,14 @@ public class ColorHandling {
             tv.setTextColor((Color.parseColor(foregroundColor)));
         } catch (Exception e) {
 
+        }
+    }
+
+    public void setColorButton(Button button) {
+        Provider provider = MainSettings.getInstance(context).getProvider();
+        if(provider != null){
+            button.setBackgroundColor(Color.parseColor(provider.getSecondaryColor()));
+            button.setTextColor(Color.parseColor(provider.getTextColor()));
         }
     }
 }

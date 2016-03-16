@@ -218,6 +218,11 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        stopRide();
+    }
+
     /**
      * this methods just ends with the current report.
      *

@@ -36,6 +36,7 @@ import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.SaveableDriveReport;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
+import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
  * the server api.
@@ -61,7 +62,10 @@ public class ServerHandler implements ServerInterface {
 
     private final RequestQueue queue;
 
+    private Context context;
+
     public ServerHandler(Context context) {
+        this.context = context;
         queue = Volley.newRequestQueue(context, new OkHttpStack(new OkHttpClient()));
         defaultPolicy = new DefaultRetryPolicy(RETRY_MS, RETRY_COUNT, 1.5f); //6 secounds in the beginning.
     }
@@ -234,6 +238,9 @@ public class ServerHandler implements ServerInterface {
     }
 
     public String getBaseUrl() {
+        if(baseUrl == null){
+            baseUrl = MainSettings.getInstance(context).getProvider().getAPIUrl();
+        }
         return baseUrl;
     }
     //</editor-fold>

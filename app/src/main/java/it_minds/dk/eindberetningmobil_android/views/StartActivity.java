@@ -7,8 +7,14 @@
 
 package it_minds.dk.eindberetningmobil_android.views;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,6 +36,7 @@ import org.joda.time.DateTime;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
+import it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.location.GpsMonitor;
@@ -39,12 +46,18 @@ import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.service.MonitoringService;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
+import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
+
+import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_DISABLED_GLOBAL_SETTINGS;
+import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_DISABLED_MARSHMALLOW;
+import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_ENABLED;
 
 /**
  * this view is the begining of a monitoring of a trip.
  */
 public class StartActivity extends BaseReportActivity {
 
+    private static final int PERMISSION_REQUEST_CODE = 1001;
     int badgeCount = 0;
     boolean didFailSync = false;
 
@@ -197,6 +210,8 @@ public class StartActivity extends BaseReportActivity {
     private void clearLocalUserData(){
         ServerFactory.getInstance(this).setBaseUrl(null);
 
+        Log.d("DEBUG", "Cleared local userdata");
+
         //Reset user specific data
         MainSettings settings = MainSettings.getInstance(this);
         settings.logoutClear();
@@ -205,12 +220,20 @@ public class StartActivity extends BaseReportActivity {
     private final View.OnClickListener onStartClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (!validateCommonFields()) {
-                Toast.makeText(StartActivity.this, R.string.start_activity_validation_error, Toast.LENGTH_LONG).show();
-                return;
-            }
+            handleStartDrive();
+        }
+    };
 
-            if (!GpsMonitor.isGpsEnabled(StartActivity.this)) {
+    private void handleStartDrive(){
+        if (!validateCommonFields()) {
+            Toast.makeText(StartActivity.this, R.string.start_activity_validation_error, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        int gpsPermission = checkGPSEnabled();
+
+        if (gpsPermission != GPS_ENABLED) {
+            if(gpsPermission == GPSAccesCode.GPS_DISABLED_GLOBAL_SETTINGS){
                 ConfirmationDialog dialog = new ConfirmationDialog(
                         StartActivity.this,
                         getString(R.string.activate_gps_title),
@@ -231,26 +254,78 @@ public class StartActivity extends BaseReportActivity {
                         }
                 );
                 dialog.showDialog();
-                return;
+            }else if(gpsPermission == GPSAccesCode.GPS_DISABLED_MARSHMALLOW && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+                requestPermissions(permissions, PERMISSION_REQUEST_CODE);
+                //TODO: Ask for permission
+            }else{
+                ErrorDialog dialog = new ErrorDialog(StartActivity.this, "Ukendt fejl, kunne ikke starte kørsel - vi beklager.");
+                dialog.showDialog();
             }
-
-            //Check if GooglePlayServices is available and up to date
-
-            //https://developers.google.com/android/reference/com/google/android/gms/common/GoogleApiAvailability
-            int result = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
-            //https://developers.google.com/android/reference/com/google/android/gms/common/ConnectionResult
-            if(result != ConnectionResult.SUCCESS){
-                GooglePlayServicesUtil.getErrorDialog(result, StartActivity.this, 1).show();
-                return;
-            }
-
-            report.setstartTime(new DateTime());
-            Intent startIntent = new Intent(StartActivity.this, MonitoringActivity.class);
-            startIntent.putExtra(IntentIndexes.DATA_INDEX, report);
-            startActivity(startIntent);
-            finish();
+            return;
         }
-    };
+
+        //Check if GooglePlayServices is available and up to date
+
+        //https://developers.google.com/android/reference/com/google/android/gms/common/GoogleApiAvailability
+        int result = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
+        //https://developers.google.com/android/reference/com/google/android/gms/common/ConnectionResult
+        if(result != ConnectionResult.SUCCESS){
+            GooglePlayServicesUtil.getErrorDialog(result, StartActivity.this, 1).show();
+            return;
+        }
+
+        report.setstartTime(new DateTime());
+        Intent startIntent = new Intent(StartActivity.this, MonitoringActivity.class);
+        startIntent.putExtra(IntentIndexes.DATA_INDEX, report);
+        startActivity(startIntent);
+        finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,@NonNull String[] permissions,@NonNull int[] grantResults) {
+        if(requestCode == PERMISSION_REQUEST_CODE && grantResults.length > 0){
+            for(int i : grantResults){
+                if(i != PackageManager.PERMISSION_GRANTED){
+                    ErrorDialog dialog = new ErrorDialog(
+                           this,
+                            "Appen skal kunne aflæse din lokation, for at kunne opmåle din rute.",
+                            "GPS adgang nægtet"
+                    );
+                    dialog.showDialog();
+                    return;
+                }
+            }
+
+            handleStartDrive();
+
+        }else{
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private int checkGPSEnabled(){
+        boolean belowAPI23Check = GpsMonitor.isGpsEnabled(this);
+
+        if(!belowAPI23Check){
+            return GPS_DISABLED_GLOBAL_SETTINGS;
+        }
+
+        //Needs special check for Marshmallow (6.0+)
+        //Need to check for permissions on runtime
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            int fineLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+            int coarseLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+            Log.d("DEBUG", "fine = " + fineLocPermissionCheck + " coarse = " + coarseLocPermissionCheck);
+
+            if(fineLocPermissionCheck == PackageManager.PERMISSION_DENIED ||
+                    coarseLocPermissionCheck == PackageManager.PERMISSION_DENIED){
+                return GPS_DISABLED_MARSHMALLOW;
+            }
+        }
+
+        return GPS_ENABLED;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

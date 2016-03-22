@@ -21,7 +21,7 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 public abstract class ProvidedSimpleActivity extends SimpleActivity {
 
     private ColorHandling colorHandler;
-    ProgressDialog spinner;
+    private ProgressDialog spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public abstract class ProvidedSimpleActivity extends SimpleActivity {
     public void showProgressDialog(){
         if(spinner !=null){
             spinner.setIndeterminate(true);
+            spinner.setCancelable(false);
             spinner.setMessage(getString(R.string.please_wait));
             spinner.show();
         }

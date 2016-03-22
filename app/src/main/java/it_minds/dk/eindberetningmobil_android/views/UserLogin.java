@@ -69,7 +69,6 @@ public class UserLogin extends ProvidedSimpleActivity {
         setContentView(R.layout.activity_user_login);
 
         TextView version = (TextView) findViewById(R.id.user_login_version);
-        version.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
 
         usernameWrapper = (TextInputLayout) findViewById(R.id.user_login_username_wrapper);
         passwordWrapper = (TextInputLayout) findViewById(R.id.user_login_password_wrapper);
@@ -77,6 +76,19 @@ public class UserLogin extends ProvidedSimpleActivity {
         usernameInput = (EditText) findViewById(R.id.user_login_username);
         passwordInput = (EditText) findViewById(R.id.user_login_password);
         Button loginButton = (Button) findViewById(R.id.user_login_button);
+
+        if(loginButton == null || version == null){
+            return;
+        }
+        version.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
+
+        //Enable backbutton in topbar
+        setActionbarBackDisplay();
+        //Hide initial keyboard
+        hideSoftkeyboard(); //make sure he can actually read the text.
+
+        //Setup button colors
+        setColorForText(loginButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,13 +148,6 @@ public class UserLogin extends ProvidedSimpleActivity {
 
             }
         });
-
-        //Setup button colors
-        setColorForText(loginButton);
-        //Enable backbutton in topbar
-        setActionbarBackDisplay();
-        //Hide initial keyboard
-        hideSoftkeyboard(); //make sure he can actually read the text.
     }
 
     public void showLoginError(String message, @Nullable View.OnClickListener customOnClickListener){

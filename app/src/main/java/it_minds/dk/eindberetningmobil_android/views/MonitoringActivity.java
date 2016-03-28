@@ -264,12 +264,6 @@ public class MonitoringActivity extends ProvidedSimpleActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-
     public void showInvalidLocation() {
         Log.e("temp", "LOCATION TO FAR AWAY");
         new ConfirmationDialog(this, getString(R.string.error_dialog_title), getString(R.string.error_distance_resume),

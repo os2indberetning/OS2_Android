@@ -93,13 +93,6 @@ public class Rates {
     }
 
     /**
-     * @return String
-     */
-    public void setYear(String newVal) {
-        this.Year = newVal;
-    }
-
-    /**
      * saveToJson description here
      *
      * @return JSONObject

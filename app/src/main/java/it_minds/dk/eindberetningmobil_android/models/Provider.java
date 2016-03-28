@@ -75,22 +75,8 @@ public class Provider {
     /**
      * @return String
      */
-    public void setName(String newVal) {
-        this.Name = newVal;
-    }
-
-    /**
-     * @return String
-     */
     public String getAPIUrl() {
         return this.APIUrl;
-    }
-
-    /**
-     * @return String
-     */
-    public void setAPIUrl(String newVal) {
-        this.APIUrl = newVal;
     }
 
     /**
@@ -103,22 +89,8 @@ public class Provider {
     /**
      * @return String
      */
-    public void setImgUrl(String newVal) {
-        this.ImgUrl = newVal;
-    }
-
-    /**
-     * @return String
-     */
     public String getTextColor() {
         return this.TextColor;
-    }
-
-    /**
-     * @return String
-     */
-    public void setTextColor(String newVal) {
-        this.TextColor = newVal;
     }
 
     /**
@@ -131,22 +103,8 @@ public class Provider {
     /**
      * @return String
      */
-    public void setPrimaryColor(String newVal) {
-        this.PrimaryColor = newVal;
-    }
-
-    /**
-     * @return String
-     */
     public String getSecondaryColor() {
         return this.SecondaryColor;
-    }
-
-    /**
-     * @return String
-     */
-    public void setSecondaryColor(String newVal) {
-        this.SecondaryColor = newVal;
     }
 
     /**

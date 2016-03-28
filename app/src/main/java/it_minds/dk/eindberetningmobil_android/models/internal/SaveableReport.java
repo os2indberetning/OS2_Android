@@ -91,22 +91,8 @@ public class SaveableReport {
     /**
      * @return String
      */
-    public void setJsonToSend(String newVal) {
-        this.jsonToSend = newVal;
-    }
-
-    /**
-     * @return String
-     */
     public String getPurpose() {
         return this.purpose;
-    }
-
-    /**
-     * @return String
-     */
-    public void setPurpose(String newVal) {
-        this.purpose = newVal;
     }
 
     /**
@@ -117,13 +103,6 @@ public class SaveableReport {
     }
 
     /**
-     * @return String
-     */
-    public void setRateid(String newVal) {
-        this.rateid = newVal;
-    }
-
-    /**
      * @return double
      */
     public double getTotalDistance() {
@@ -131,24 +110,10 @@ public class SaveableReport {
     }
 
     /**
-     * @return double
-     */
-    public void setTotalDistance(double newVal) {
-        this.totalDistance = newVal;
-    }
-
-    /**
      * @return DateTime
      */
     public DateTime getCreatedAt() {
         return this.createdAt;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public void setCreatedAt(DateTime newVal) {
-        this.createdAt = newVal;
     }
 
     /**

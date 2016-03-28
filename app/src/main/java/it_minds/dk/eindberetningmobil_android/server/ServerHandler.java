@@ -49,7 +49,6 @@ public class ServerHandler implements ServerInterface {
     private final static int RETRY_COUNT = 4;
 
     public static final String PROVIDER_URL = "https://ework.favrskov.dk/FavrskovMobilityAPI/api/AppInfo";
-    private static final String SyncTokenEndpoint = "/SyncWithToken";
     private static final RetryPolicy noRetryPolicy = new DefaultRetryPolicy(RETRY_MS, -1, 0);
     private final RetryPolicy defaultPolicy;
 

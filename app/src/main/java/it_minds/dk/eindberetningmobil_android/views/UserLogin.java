@@ -189,7 +189,6 @@ public class UserLogin extends ProvidedSimpleActivity {
             //Login was a success
             handleSuccessfulLogin();
         }else if (result != null){
-            //TODO: Handle errors!!
             Log.d("DEBUG LOGIN", "Success - but something was wrong with the result (Either profile or rates)");
         } else {
             Log.d("DEBUG LOGIN", "Success - but result was null?");

@@ -26,7 +26,7 @@ public class GpsMonitor {
         this.callback = callback;
     }
 
-    public void stopListening(Context context) {
+    public void stopListening() {
         locationManager.removeGpsStatusListener(listener);
     }
 

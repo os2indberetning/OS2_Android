@@ -96,7 +96,7 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
         MainSettings.getInstance(this).setServiceClosed(true);
         locMgr.unRegisterOnLocationChanged(this);
         if (gpsMonitor != null) {
-            gpsMonitor.stopListening(this);
+            gpsMonitor.stopListening();
         }
         Log.e("temp", "service killed");
         super.onDestroy();

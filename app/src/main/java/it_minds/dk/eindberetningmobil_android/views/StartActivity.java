@@ -257,7 +257,6 @@ public class StartActivity extends BaseReportActivity {
             }else if(gpsPermission == GPSAccesCode.GPS_DISABLED_MARSHMALLOW && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
                 requestPermissions(permissions, PERMISSION_REQUEST_CODE);
-                //TODO: Ask for permission
             }else{
                 ErrorDialog dialog = new ErrorDialog(StartActivity.this, "Ukendt fejl, kunne ikke starte kørsel - vi beklager.");
                 dialog.showDialog();

@@ -35,9 +35,6 @@ public class MonitoringServiceReport {
     private DrivingReport report;
     private boolean validateOnResume = false;
     private Location lastLocation = null;
-
-    private boolean haveInsertedViaPoints = false;
-
     //</editor-fold>
 
     private UiStatusModel lastUiUpdate;

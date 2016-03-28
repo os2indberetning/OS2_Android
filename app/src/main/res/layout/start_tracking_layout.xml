@@ -20,10 +20,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dato: 24/06-15"
+            android:text="Dato: dd/MM-YY"
             android:id="@+id/start_tracking_layout_date_label"
             android:layout_gravity="center_horizontal"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="#000"
             android:layout_marginBottom="10dp" />
 

@@ -172,9 +172,4 @@ public class PurposeActivity extends ProvidedSimpleActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }

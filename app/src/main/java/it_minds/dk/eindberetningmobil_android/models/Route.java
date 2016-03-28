@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -49,13 +48,6 @@ public class Route {
     }
 
     /**
-     * @return double
-     */
-    public void setTotalDistance(double newVal) {
-        this.TotalDistance = newVal;
-    }
-
-    /**
      * @return ArrayList<GPSCoordinateModel>
      */
     public ArrayList<GPSCoordinateModel> getGPSCoordinates() {
@@ -73,13 +65,5 @@ public class Route {
         result.put("TotalDistance", TotalDistance);
         result.put("", new JSONArray());
         return result;
-    }
-
-    public static String serializeListToJson(List<Route> route) {
-        ArrayList<String> arr = new ArrayList<>();
-        for (Route r : route) {
-            arr.add(r.saveToJson().toString());
-        }
-        return new JSONArray(arr).toString();
     }
 }

@@ -18,7 +18,6 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * Employments
- *
  */
 public class Employments {
     private int Id;

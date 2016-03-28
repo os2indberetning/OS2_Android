@@ -20,7 +20,7 @@ import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
- * DrivingReport
+ * The model containing all the measured data for a DrivingReport
  */
 public class DrivingReport implements Parcelable {
 

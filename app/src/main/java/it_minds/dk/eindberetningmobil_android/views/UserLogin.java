@@ -24,6 +24,9 @@ import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
 
+/**
+ * Handles user login with credentials
+ */
 public class UserLogin extends ProvidedSimpleActivity {
 
 

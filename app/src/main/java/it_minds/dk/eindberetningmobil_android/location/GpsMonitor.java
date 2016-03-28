@@ -7,10 +7,16 @@
 
 package it_minds.dk.eindberetningmobil_android.location;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.GpsStatus;
 import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 
+/**
+ * GPS Top layer, handles interaction with the LocationManager
+ */
 public class GpsMonitor {
 
     private Runnable callback = null;
@@ -22,7 +28,6 @@ public class GpsMonitor {
 
     public void stopListening(Context context) {
         locationManager.removeGpsStatusListener(listener);
-
     }
 
     public void startListening(Context context) {

@@ -83,7 +83,6 @@ public class UploadingView extends ProvidedSimpleActivity {
     }
 
     private void checkForOnlySingleGPSPoint(DrivingReport report) {
-
         //Bit of an edge case
         if(report.getgpsPoints().size() == 1) {
             //If only 1 GPSPoint duplicate it, to make route from 2 identical points

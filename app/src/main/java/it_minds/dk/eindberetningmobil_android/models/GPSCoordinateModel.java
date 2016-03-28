@@ -22,7 +22,6 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * GPSCoordinateModel
- *
  */
 public class GPSCoordinateModel implements Parcelable {
     private double Latitude;

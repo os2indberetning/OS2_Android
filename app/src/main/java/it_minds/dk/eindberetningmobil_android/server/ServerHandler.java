@@ -44,6 +44,7 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
  */
 public class ServerHandler implements ServerInterface {
 
+    //Server config
     private final static int RETRY_MS = 6*1000;
     private final static int RETRY_COUNT = 4;
 
@@ -52,7 +53,7 @@ public class ServerHandler implements ServerInterface {
     private static final RetryPolicy noRetryPolicy = new DefaultRetryPolicy(RETRY_MS, -1, 0);
     private final RetryPolicy defaultPolicy;
 
-    //BaseUrl is based on the provider. So this gets updated in the beginning of the app launch.
+    //BaseUrl is based on the provider chosen by the user
     private String baseUrl;
 
     //API v.2 endpoints (New login, new submit etc)
@@ -71,6 +72,11 @@ public class ServerHandler implements ServerInterface {
     }
 
     //<editor-fold desc="Server requests / api">
+
+    /**
+     * Gets the OS2 providers that has enabled use of the app
+     * @param callback
+     */
     public void getProviders(final ResultCallback<List<Provider>> callback) {
         Request req = (new JsonArrayRequest(Request.Method.GET, PROVIDER_URL, new Response.Listener<JSONArray>() {
             @Override
@@ -122,17 +128,11 @@ public class ServerHandler implements ServerInterface {
     }
 
     /**
-     * @param callback onsuccess if success, onError if failed
+     * Logs the user in with the given credentials
+     * @param username
+     * @param password
+     * @param callback
      */
-    public void pairPhone(String pairCode, final ResultCallback<UserInfo> callback) {
-
-        String url = getBaseUrl() + SyncTokenEndpoint;
-        SafeJsonHelper json = new SafeJsonHelper();
-        json.put("TokenString", pairCode);
-        makeRequestWithUserInfoCallback(callback, url, json, true);
-
-    }
-
     @Override
     public void loginWithCredentials(String username, String password, ResultCallback<UserInfo> callback) {
         String url = getBaseUrl() + loginEndpoint;
@@ -142,6 +142,11 @@ public class ServerHandler implements ServerInterface {
         makeRequestWithUserInfoCallback(callback, url, json, true);
     }
 
+    /**
+     * Used to check user is still valid in the backend
+     * @param guId
+     * @param callback
+     */
     @Override
     public void syncUserInfo(JSONObject guId, ResultCallback<UserInfo> callback) {
         String url = getBaseUrl() + userInfoEndpoint;

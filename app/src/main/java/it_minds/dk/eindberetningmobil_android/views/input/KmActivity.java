@@ -12,7 +12,7 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 
 /**
- * Created by kasper on 27-07-2015.
+ * Activity for changing the measured length of the drive
  */
 public class KmActivity extends ProvidedSimpleActivity {
     private NumberPicker commaPicker;

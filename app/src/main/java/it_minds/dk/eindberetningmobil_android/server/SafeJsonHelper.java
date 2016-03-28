@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * a wrapper for jsonobject, that  doesnt throw exceptions.
+ * a wrapper for jsonobject, that  doesnt throw exceptions, but returns null values instead.
  */
 public class SafeJsonHelper extends JSONObject {
 

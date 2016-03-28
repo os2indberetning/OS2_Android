@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,7 +36,7 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
 
 /**
- * in this view we choose a provider to use.
+ * Activity for choosing the wanted OS2 provider
  */
 public class ChooseProvider extends SimpleActivity {
 
@@ -56,9 +55,12 @@ public class ChooseProvider extends SimpleActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         //Only show menu if app is in debug mode
         if(BuildConfig.DEBUG){
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.provider_menu_debug, menu);
-            return true;
+            /*
+                Test backend not accessible yet!
+             */
+//            MenuInflater inflater = getMenuInflater();
+//            inflater.inflate(R.menu.provider_menu_debug, menu);
+//            return true;
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -69,7 +71,7 @@ public class ChooseProvider extends SimpleActivity {
             //Set the provider to Test Backend
             useProvider(new Provider(
                     "Test Backend",
-                    "http://10.255.1.45:3308/api",
+                    "http://10.255.1.45:3308/api", //Not correct port number
                     "https://os2indberetning.dk/logo.png",
                     "#FFFFFF",
                     "#FFC107",

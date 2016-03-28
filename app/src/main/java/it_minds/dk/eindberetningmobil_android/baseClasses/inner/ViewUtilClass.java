@@ -16,6 +16,9 @@ import android.view.WindowManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Used for hiding softKeyboard and getting views without having to typecast.
+ */
 public class ViewUtilClass {
 
     //<editor-fold desc="keyboard features">

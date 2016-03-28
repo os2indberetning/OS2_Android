@@ -18,7 +18,7 @@ import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
- * Created by kasper on 12-07-2015.
+ * Handles user selection of rates
  */
 public class RateActivity extends ProvidedSimpleActivity {
     @Override

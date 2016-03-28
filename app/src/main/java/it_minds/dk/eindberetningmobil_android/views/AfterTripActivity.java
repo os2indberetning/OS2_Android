@@ -55,7 +55,7 @@ public class AfterTripActivity extends BaseReportActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navgateBack();
+                navigateBack();
             }
         });
         setReverseColorsForText(cancelBtn);
@@ -170,10 +170,10 @@ public class AfterTripActivity extends BaseReportActivity {
 
     @Override
     public void onBackPressed() {
-        navgateBack();
+        navigateBack();
     }
 
-    private void navgateBack() {
+    private void navigateBack() {
         //show a confirmation dialog.
         new ConfirmationDialog(this, getString(R.string.dialog_cancel_full_report), getString(R.string.cancel_full_report_message), getString(R.string.delete), getString(R.string.No), null, new ResultCallback<Boolean>() {
             @Override

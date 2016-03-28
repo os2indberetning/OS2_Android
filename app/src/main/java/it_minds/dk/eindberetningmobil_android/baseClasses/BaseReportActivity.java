@@ -26,7 +26,7 @@ import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.input.PurposeActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
-import it_minds.dk.eindberetningmobil_android.views.input.EmployementActivity;
+import it_minds.dk.eindberetningmobil_android.views.input.EmploymentActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 
 /**
@@ -134,7 +134,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                         report.setOrgLocation(data);
                         setOrgText(data, label);
                     }
-                }, getString(R.string.org_location_title_edit), report.getOrgLocation(), EmployementActivity.class);
+                }, getString(R.string.org_location_title_edit), report.getOrgLocation(), EmploymentActivity.class);
             }
         });
         if (report.getOrgLocation() != null && report.getOrgLocation().length() > 0) {

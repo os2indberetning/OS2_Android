@@ -53,7 +53,7 @@ import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_
 import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_ENABLED;
 
 /**
- * this view is the begining of a monitoring of a trip.
+ * Activity for setting up info for the driveReport
  */
 public class StartActivity extends BaseReportActivity {
 

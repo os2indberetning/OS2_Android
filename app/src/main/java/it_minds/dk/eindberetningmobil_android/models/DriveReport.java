@@ -10,6 +10,10 @@ package it_minds.dk.eindberetningmobil_android.models;
 import it_minds.dk.eindberetningmobil_android.models.internal.Authorization;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
+/**
+ * Model containing data for a driveReport
+ * (Model also represents data setup for uploads)
+ */
 public class DriveReport {
     private Authorization auth;
     private DrivingReport report;

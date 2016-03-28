@@ -20,7 +20,7 @@ import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
- * SaveableReport
+ * Model for a locally Saveable drive report
  */
 public class SaveableReport {
     private String jsonToSend;

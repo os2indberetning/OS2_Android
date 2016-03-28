@@ -23,6 +23,9 @@ import it_minds.dk.eindberetningmobil_android.models.Rates;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
+/**
+ * handles displaying a list of locally saved reports.
+ */
 public class MissingTripsAdapter extends ArrayAdapter<SaveableReport> {
 
     private LayoutInflater inflator;
@@ -35,6 +38,9 @@ public class MissingTripsAdapter extends ArrayAdapter<SaveableReport> {
         createLookupMap();
     }
 
+    /**
+     * Sets up data for the adapter
+     */
     private void createLookupMap() {
         ArrayList<Rates> rates = MainSettings.getInstance(getContext()).getRates();
         for (Rates r : rates) {
@@ -69,6 +75,11 @@ public class MissingTripsAdapter extends ArrayAdapter<SaveableReport> {
         return viewToUse;
     }
 
+    /**
+     * Get the string corresponding to the given rateId
+     * @param rateId
+     * @return
+     */
     private String getRateText(String rateId) {
         if (lookupMap.containsKey(rateId)) {
             return lookupMap.get(rateId).getDescription();

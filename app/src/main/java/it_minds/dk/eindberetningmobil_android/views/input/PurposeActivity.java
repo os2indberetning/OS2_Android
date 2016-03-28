@@ -23,7 +23,7 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 
 /**
- * Created by Claus on 02-02-2016.
+ * Used to select a stored purpose or creating a new one
  */
 public class PurposeActivity extends ProvidedSimpleActivity {
 

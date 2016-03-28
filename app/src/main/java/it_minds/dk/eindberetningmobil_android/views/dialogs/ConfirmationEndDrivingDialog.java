@@ -12,6 +12,9 @@ import android.content.Context;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 
+/**
+ * Specific dialog for ending a drive
+ */
 public class ConfirmationEndDrivingDialog extends ConfirmationDialog {
 
 

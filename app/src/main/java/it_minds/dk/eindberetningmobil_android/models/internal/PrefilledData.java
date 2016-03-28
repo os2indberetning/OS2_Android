@@ -16,6 +16,9 @@ import java.util.ArrayList;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
+/**
+ * Model used for pre-filling new drive report.
+ */
 public class PrefilledData {
     private String purposeText;
 

@@ -16,16 +16,15 @@ import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
+import it_minds.dk.eindberetningmobil_android.models.internal.Authorization;
 
 public class StaticData {
     public static Profile createSimpleProfile() {
         ArrayList<Employments> employess = new ArrayList<Employments>();
         employess.add(new Employments(999, "tester"));
-        ArrayList<Tokens> tokenses = new ArrayList<>();
-        tokenses.add(createSimpleToken());
-        return (new Profile(0, "firstname", "lastname", "0.0", "0.0", employess, tokenses));
+        Authorization auth = createMockAuth();
+        return (new Profile(0, "firstname", "lastname", "0.0", "0.0", employess, auth));
     }
 
     public static UserInfo createSimpleUserInfo() {
@@ -55,7 +54,7 @@ public class StaticData {
         return new GPSCoordinateModel(3.0, 6.0, false);
     }
 
-    public static Tokens createSimpleToken() {
-        return new Tokens("", "123456", 1);
+    public static Authorization createMockAuth() {
+        return new Authorization("abc123def456");
     }
 }

@@ -1,21 +1,11 @@
 package eindberetning.it_minds.dk.eindberetningmobil_android.views;
 
-import android.widget.TextView;
-
-import org.junit.Test;
-
-import eindberetning.it_minds.dk.eindberetningmobil_android.BaseTest;
-import it_minds.dk.eindberetningmobil_android.R;
-import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
-import it_minds.dk.eindberetningmobil_android.views.PairPhone;
-import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
-
 /**
  * Created by kasper on 06-09-2015.
  */
-public class ErrorDialogTest extends BaseTest<PairPhone> {
+public class ErrorDialogTest /*extends BaseTest<PairPhone>*/ {
 
-
+/*
     public ErrorDialogTest() {
         super(PairPhone.class);
     }
@@ -41,4 +31,5 @@ public class ErrorDialogTest extends BaseTest<PairPhone> {
         solo.clickOnView(solo.getView(R.id.error_dialog_view_ok_btn));
         solo.waitForDialogToClose();
     }
+    */
 }

@@ -7,17 +7,7 @@
 
 package eindberetning.it_minds.dk.eindberetningmobil_android;
 
-import android.test.ApplicationTestCase;
-
-import org.junit.Test;
-
-import it_minds.dk.eindberetningmobil_android.MainApplication;
-import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
-import it_minds.dk.eindberetningmobil_android.models.UserInfo;
-import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
-
-public class ServerTest extends ApplicationTestCase<MainApplication> {
+public class ServerTest { /* extends ApplicationTestCase<MainApplication> {
     public ServerTest() {
         super(MainApplication.class);
     }
@@ -51,4 +41,5 @@ public class ServerTest extends ApplicationTestCase<MainApplication> {
 
 
     }
+    */
 }

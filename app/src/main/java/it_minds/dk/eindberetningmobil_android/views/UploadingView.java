@@ -121,6 +121,7 @@ public class UploadingView extends ProvidedSimpleActivity {
         ServerFactory.getInstance(this).sendReport(toSend, new ResultCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
+                Log.d("RESULT", result.toString());
                 updateStatusText(getString(R.string.success));
                 spinner.setVisibility(View.INVISIBLE);
                 MainSettings.getInstance(UploadingView.this).removeSavedReport(saveableReport);

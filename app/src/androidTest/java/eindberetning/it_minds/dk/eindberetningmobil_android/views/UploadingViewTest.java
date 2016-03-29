@@ -15,7 +15,6 @@ import it_minds.dk.eindberetningmobil_android.views.UploadingView;
 public class UploadingViewTest extends BaseTest<UploadingView> {
     @Override
     public void runBeforeGetActivity() {
-        getSettings().setToken(StaticData.createSimpleToken());
         getSettings().setProfile(StaticData.createSimpleProfile());
     }
 

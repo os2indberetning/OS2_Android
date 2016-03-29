@@ -1,8 +1,5 @@
 package eindberetning.it_minds.dk.eindberetningmobil_android.views;
 
-/**
- * Created by kasper on 06-09-2015.
- */
 public class ErrorDialogTest /*extends BaseTest<PairPhone>*/ {
 
 /*

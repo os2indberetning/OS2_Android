@@ -22,9 +22,6 @@ import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
 
-/**
- * Created by kasper on 18-07-2015.
- */
 public class AfterTripTest extends BaseTest<AfterTripActivity> {
     public AfterTripTest() {
         super(AfterTripActivity.class);

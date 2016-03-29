@@ -10,9 +10,6 @@ import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.MissingTripActivity;
 
-/**
- * Created by kasper on 02-09-2015.
- */
 public class MissingTripTest extends BaseTest<MissingTripActivity> {
     public MissingTripTest() {
         super(MissingTripActivity.class);

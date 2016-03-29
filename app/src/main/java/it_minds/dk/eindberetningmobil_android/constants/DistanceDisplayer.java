@@ -12,8 +12,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 /**
- * Created by kasper on 12-07-2015.
- * A helper to convert a meter to km, and only use 1 decimals precission
+ * A helper to convert a meter to km, and only use 1 decimals precision
  */
 public class DistanceDisplayer {
     private static DecimalFormat decimalFormat = new DecimalFormat("0.0", new DecimalFormatSymbols(Locale.US));

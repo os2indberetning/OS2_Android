@@ -14,9 +14,6 @@ import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.views.AfterTripActivity;
 import it_minds.dk.eindberetningmobil_android.views.MonitoringActivity;
 
-/**
- * Created by kasper on 18-07-2015.
- */
 public class MonitoringTest extends BaseTest<MonitoringActivity> {
     @Override
     public void runBeforeGetActivity() {

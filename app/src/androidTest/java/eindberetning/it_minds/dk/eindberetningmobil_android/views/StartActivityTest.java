@@ -17,9 +17,6 @@ import it_minds.dk.eindberetningmobil_android.views.input.EmploymentActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
 
-/**
- * Created by kasper on 18-07-2015.
- */
 public class StartActivityTest extends BaseTest<StartActivity> {
     public StartActivityTest() {
         super(StartActivity.class);

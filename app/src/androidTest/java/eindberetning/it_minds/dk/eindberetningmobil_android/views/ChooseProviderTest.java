@@ -9,9 +9,6 @@ import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.ChooseProvider;
 
-/**
- * Created by kasper on 18-07-2015.
- */
 public class ChooseProviderTest extends BaseTest<ChooseProvider> {
     public ChooseProviderTest() {
         super(ChooseProvider.class);

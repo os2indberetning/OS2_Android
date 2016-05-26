@@ -34,10 +34,6 @@ public abstract class BaseTest<T extends Activity> extends ActivityInstrumentati
 
     public abstract void runBeforeGetActivity();
 
-    /**
-     * This will work like expected.
-     * @return
-     */
     public MainSettings getSettings() {
         return MainSettings.getInstance(getInstrumentation().getTargetContext());
     }

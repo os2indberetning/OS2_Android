@@ -18,6 +18,9 @@ import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
+/**
+ * BaseClass for shared Activity methods
+ */
 public abstract class ProvidedSimpleActivity extends SimpleActivity {
 
     private ColorHandling colorHandler;

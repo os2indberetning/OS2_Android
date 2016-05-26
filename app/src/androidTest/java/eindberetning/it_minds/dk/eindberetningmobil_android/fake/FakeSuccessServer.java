@@ -9,6 +9,8 @@ package eindberetning.it_minds.dk.eindberetningmobil_android.fake;
 
 import com.android.volley.toolbox.ImageLoader;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,6 @@ import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.SaveableDriveReport;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.models.UserInfo;
 import it_minds.dk.eindberetningmobil_android.server.ServerInterface;
 
@@ -38,27 +39,28 @@ public class FakeSuccessServer implements ServerInterface {
     }
 
     @Override
-    public void pairPhone(String pairCode, ResultCallback<UserInfo> callback) {
-        callback.onSuccess(StaticData.createSimpleUserInfo());
-    }
-
-    @Override
-    public void sendReport(SaveableDriveReport report, ResultCallback<UserInfo> callback) {
-        callback.onSuccess(StaticData.createSimpleUserInfo());
-    }
-
-    @Override
-    public void sendReport(DriveReport report, ResultCallback<UserInfo> callback) {
-        callback.onSuccess(StaticData.createSimpleUserInfo());
-    }
-
-    @Override
-    public void validateToken(Tokens currentToken, ResultCallback<UserInfo> callback) {
-        callback.onSuccess(StaticData.createSimpleUserInfo());
-    }
-
-    @Override
     public void getProviders(ResultCallback<List<Provider>> callback) {
         callback.onSuccess(new ArrayList<Provider>());
+    }
+
+    @Override
+    public void loginWithCredentials(String username, String password, ResultCallback<UserInfo> callback) {
+        callback.onSuccess(StaticData.createSimpleUserInfo());
+        //TODO: IMplement
+    }
+
+    @Override
+    public void syncUserInfo(JSONObject guId, ResultCallback<UserInfo> callback) {
+        callback.onSuccess(StaticData.createSimpleUserInfo());
+    }
+
+    @Override
+    public void sendReport(DriveReport report, ResultCallback<JSONObject> callback) {
+        callback.onSuccess(new JSONObject());
+    }
+
+    @Override
+    public void sendSavedReport(SaveableDriveReport report, ResultCallback<JSONObject> callback) {
+        callback.onSuccess(new JSONObject());
     }
 }

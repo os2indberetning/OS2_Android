@@ -15,6 +15,9 @@ import it_minds.dk.eindberetningmobil_android.models.internal.Authorization;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
+/**
+ * The model holding the data for a saveableDriveReport
+ */
 public class SaveableDriveReport {
     private final Authorization auth;
     private final SaveableReport report;

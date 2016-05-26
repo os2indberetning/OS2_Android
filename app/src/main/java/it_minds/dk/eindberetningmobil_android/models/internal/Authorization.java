@@ -4,6 +4,9 @@ import org.json.JSONObject;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
+/**
+ * Model representing users information
+ */
 public class Authorization {
 
     private String guId;

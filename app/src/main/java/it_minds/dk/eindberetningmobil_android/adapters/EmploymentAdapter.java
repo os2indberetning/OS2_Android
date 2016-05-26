@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.models.Employments;
 
+/**
+ * handles displaying a list of employments.
+ */
 public class EmploymentAdapter extends ArrayAdapter<Employments> {
     public EmploymentAdapter(Context context, ArrayList<Employments> employments) {
         super(context, 0);

@@ -50,7 +50,7 @@
             android:layout_marginTop="10dp"
             android:text="Du har nu kørt"
             android:textColor="#000"
-            android:textSize="28dp" />
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/monitoring_view_dist_text"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textColor="#000"
-            android:textSize="28dp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:text="@string/waiting" />
 

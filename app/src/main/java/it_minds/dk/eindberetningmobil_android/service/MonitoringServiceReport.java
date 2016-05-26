@@ -22,7 +22,7 @@ import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
 
 /**
- * an object, handling the bll (business logic), so that the monitoringservice do not have to work directly with the bll layer.
+ * an object, handling the bl (business logic), so that the monitoringservice do not have to work directly with the bl layer.
  */
 public class MonitoringServiceReport {
 
@@ -35,9 +35,6 @@ public class MonitoringServiceReport {
     private DrivingReport report;
     private boolean validateOnResume = false;
     private Location lastLocation = null;
-
-    private boolean haveInsertedViaPoints = false;
-
     //</editor-fold>
 
     private UiStatusModel lastUiUpdate;

@@ -8,24 +8,20 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import eindberetning.it_minds.dk.eindberetningmobil_android.BaseTest;
+import eindberetning.it_minds.dk.eindberetningmobil_android.data.StaticData;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.AfterTripActivity;
-import it_minds.dk.eindberetningmobil_android.views.UploadingView;
-import it_minds.dk.eindberetningmobil_android.views.input.EmployementActivity;
+import it_minds.dk.eindberetningmobil_android.views.input.EmploymentActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
 
-/**
- * Created by kasper on 18-07-2015.
- */
 public class AfterTripTest extends BaseTest<AfterTripActivity> {
     public AfterTripTest() {
         super(AfterTripActivity.class);
@@ -42,9 +38,12 @@ public class AfterTripTest extends BaseTest<AfterTripActivity> {
     public void testEntries() throws InterruptedException {
         solo.clickOnView(solo.getView(R.id.after_tracking_view_km_container));
         solo.waitForActivity(KmActivity.class);
+
         solo.waitForDialogToOpen();
+        solo.waitForView(R.id.confirmation_end_driving_dialog_ok);
         solo.clickOnView(solo.getView(R.id.confirmation_end_driving_dialog_ok));
         solo.waitForDialogToClose();
+
         solo.clickOnActionBarHomeButton();
         solo.waitForView(solo.getView(R.id.after_tracking_view_km_container));
         solo.clickOnView(solo.getView(R.id.after_tracking_view_extra_desc));
@@ -63,7 +62,7 @@ public class AfterTripTest extends BaseTest<AfterTripActivity> {
         solo.waitForView(solo.getView(R.id.after_tracking_view_km_container));
 
         solo.clickOnView(solo.getView(R.id.after_tracking_view_org_location_desc));
-        solo.waitForActivity(EmployementActivity.class);
+        solo.waitForActivity(EmploymentActivity.class);
         solo.clickOnActionBarHomeButton();
         solo.waitForView(solo.getView(R.id.after_tracking_view_km_container));
         solo.clickOnView(solo.getView(R.id.after_tracking_view_send_btn));
@@ -74,7 +73,6 @@ public class AfterTripTest extends BaseTest<AfterTripActivity> {
 
     @Override
     public void runBeforeGetActivity() {
-
         DrivingReport report = new DrivingReport("", "", "", "", false, false, true, new DateTime(), new DateTime(), 200.0d);
         Intent i = new Intent();
         i.putExtra(IntentIndexes.DATA_INDEX, report);
@@ -83,7 +81,7 @@ public class AfterTripTest extends BaseTest<AfterTripActivity> {
         rates.add(new Rates(0, "swagging", "2051"));
         ArrayList<Employments> employmentses = new ArrayList<>();
         employmentses.add(new Employments(1, "tester"));
-        MainSettings.getInstance(getActivity()).setProfile(new Profile(0, "", "", "", "", employmentses, new ArrayList<Tokens>()));
+        MainSettings.getInstance(getActivity()).setProfile(new Profile(0, "", "", "", "", employmentses, StaticData.createMockAuth()));
         MainSettings.getInstance(getActivity()).setRates(rates);
     }
 

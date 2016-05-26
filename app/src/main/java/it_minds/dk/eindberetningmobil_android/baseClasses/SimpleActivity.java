@@ -14,6 +14,9 @@ import android.view.View;
 
 import it_minds.dk.eindberetningmobil_android.baseClasses.inner.ViewUtilClass;
 
+/**
+ *  BaseClass for shared Activity methods
+ */
 public abstract class SimpleActivity extends AppCompatActivity {
     public <T extends View> T getViewById(@IdRes int id) throws ClassCastException {
         return ViewUtilClass.getViewById(this, id);
@@ -31,7 +34,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
     /**
      * Shows a back button in the actionbar with the supplied title
-     *
      * @param titleId
      */
     public void setActionbarBackDisplay(String titleId) {
@@ -50,7 +52,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //convinece function.
+    //convenience function.
     public void hideSoftkeyboard() {
         ViewUtilClass.hideSoftkeyboard(this.getWindow());
     }

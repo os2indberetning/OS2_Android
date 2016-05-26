@@ -16,13 +16,11 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * GPSCoordinateModel
- *
  */
 public class GPSCoordinateModel implements Parcelable {
     private double Latitude;
@@ -76,26 +74,8 @@ public class GPSCoordinateModel implements Parcelable {
     /**
      * @return String
      */
-    public void setLatitude(double newVal) {
-        this.Latitude = newVal;
-    }
-
-    /**
-     * @return String
-     */
     public double getLongitude() {
         return this.Longitude;
-    }
-
-    /**
-     *
-     */
-    public void setLongitude(double newVal) {
-        this.Longitude = newVal;
-    }
-
-    public boolean isViaPoint() {
-        return IsViaPoint;
     }
 
     /**
@@ -111,15 +91,6 @@ public class GPSCoordinateModel implements Parcelable {
         return result;
 
     }
-
-    public static JSONArray saveAllToJson(List<GPSCoordinateModel> models) {
-        ArrayList<JSONObject> list = new ArrayList<>();
-        for (GPSCoordinateModel mod : models) {
-            list.add(mod.saveToJson());
-        }
-        return new JSONArray(list);
-    }
-
 
     @Override
     public boolean equals(Object o) {

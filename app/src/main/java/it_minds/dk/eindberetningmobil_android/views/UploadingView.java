@@ -83,7 +83,6 @@ public class UploadingView extends ProvidedSimpleActivity {
     }
 
     private void checkForOnlySingleGPSPoint(DrivingReport report) {
-
         //Bit of an edge case
         if(report.getgpsPoints().size() == 1) {
             //If only 1 GPSPoint duplicate it, to make route from 2 identical points
@@ -122,6 +121,7 @@ public class UploadingView extends ProvidedSimpleActivity {
         ServerFactory.getInstance(this).sendReport(toSend, new ResultCallback<JSONObject>() {
             @Override
             public void onSuccess(JSONObject result) {
+                Log.d("RESULT", result.toString());
                 updateStatusText(getString(R.string.success));
                 spinner.setVisibility(View.INVISIBLE);
                 MainSettings.getInstance(UploadingView.this).removeSavedReport(saveableReport);

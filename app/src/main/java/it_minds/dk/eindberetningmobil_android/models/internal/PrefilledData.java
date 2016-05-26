@@ -7,17 +7,20 @@
 
 package it_minds.dk.eindberetningmobil_android.models.internal;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
+/**
+ * Model used for pre-filling new drive report.
+ */
 public class PrefilledData {
     private String purposeText;
+    private String rateId;
+    private String orgId;
 
     public PrefilledData(String purposeText, String rateId, String orgId) {
         this.purposeText = purposeText;
@@ -28,36 +31,9 @@ public class PrefilledData {
     /**
      * @return String
      */
-    public String getPurposeText() {
-        return this.purposeText;
-    }
-
-
-    /**
-     * @return String
-     */
-    public void setPurposeText(String newVal) {
-        this.purposeText = newVal;
-    }
-
-    private String rateId;
-
-    /**
-     * @return String
-     */
     public String getRateId() {
         return this.rateId;
     }
-
-
-    /**
-     * @return String
-     */
-    public void setRateId(String newVal) {
-        this.rateId = newVal;
-    }
-
-    private String orgId;
 
     /**
      * @return String
@@ -65,15 +41,6 @@ public class PrefilledData {
     public String getOrgId() {
         return this.orgId;
     }
-
-
-    /**
-     * @return String
-     */
-    public void setOrgId(String newVal) {
-        this.orgId = newVal;
-    }
-
 
     /**
      * saveToJson description here
@@ -87,19 +54,6 @@ public class PrefilledData {
         result.put("orgId", orgId);
         return result;
 
-    }
-
-    /**
-     * parseAllFromJson description here
-     *
-     * @return ArrayList<PrefilledData>
-     */
-    public static ArrayList<PrefilledData> parseAllFromJson(JSONArray arr) throws JSONException, MalformedURLException {
-        ArrayList<PrefilledData> result = new ArrayList<>();
-        for (int i = 0; i < arr.length(); i++) {
-            result.add(parseFromJson(arr.getJSONObject(i)));
-        }
-        return result;
     }
 
     /**

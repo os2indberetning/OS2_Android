@@ -13,7 +13,7 @@ public class ServerFactory {
     private static ServerInterface serverIface;
 
     /**
-     * Mosly used by testing, to override the default server.
+     * Mostly used by testing, to override the default server.
      *
      * @param newServerIface
      */

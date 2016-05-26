@@ -10,9 +10,6 @@ import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
 
-/**
- * Created by kasper on 18-07-2015.
- */
 public class TextInputViewTest extends BaseTest<TextInputView> {
 
     public TextInputViewTest() {

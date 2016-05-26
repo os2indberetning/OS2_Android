@@ -7,6 +7,7 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:fillViewport="true"
     android:layout_height="match_parent">
@@ -21,19 +22,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dato: 24/06-15"
+            tools:text="Dato: dd/MM-YY"
             android:id="@+id/after_tracking_view_date_label"
             android:layout_gravity="center_horizontal"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="#000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bruger: swag jensen"
+            tools:text="Bruger: swag jensen"
             android:id="@+id/after_tracking_view_user_label"
             android:layout_gravity="center_horizontal"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="#000"
             android:layout_marginBottom="10dp" />
 
@@ -244,7 +245,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xyz km"
+                tools:text="x.y km"
                 android:id="@+id/after_tracking_view_km_container_desc"
                 android:layout_below="@+id/textView"
                 android:layout_alignParentLeft="true"
@@ -271,7 +272,7 @@
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Starter du hjemme ?"
+            android:text="Starter du hjemme?"
             android:id="@+id/after_tracking_view_start_at_home"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"

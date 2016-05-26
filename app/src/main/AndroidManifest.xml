@@ -32,9 +32,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"/>
         <activity
-            android:name=".views.PairPhone"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
-        <activity
             android:name=".views.UserLogin"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
@@ -58,7 +55,7 @@
             android:name=".views.input.PurposeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
-            android:name=".views.input.EmployementActivity"
+            android:name=".views.input.EmploymentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".views.input.KmActivity"

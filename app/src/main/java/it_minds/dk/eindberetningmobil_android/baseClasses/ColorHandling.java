@@ -15,6 +15,9 @@ import android.widget.TextView;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
+/**
+ * Handles proper use of colors for selected provider
+ */
 public class ColorHandling {
 
     private final Context context;

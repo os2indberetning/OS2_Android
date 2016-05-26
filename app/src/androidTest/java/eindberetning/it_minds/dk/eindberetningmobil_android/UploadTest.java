@@ -14,6 +14,7 @@ import org.junit.Test;
 import eindberetning.it_minds.dk.eindberetningmobil_android.data.StaticData;
 import eindberetning.it_minds.dk.eindberetningmobil_android.fake.FakeSuccessServer;
 import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
+import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.StartActivity;
@@ -28,7 +29,7 @@ public class UploadTest extends BaseTest<UploadingView> {
         report.putExtra(IntentIndexes.DATA_INDEX, StaticData.createSimpleDrivingReport());
         setActivityIntent(report);
         MainSettings.getInstance(getActivity()).setProfile(StaticData.createSimpleProfile());
-        MainSettings.getInstance(getActivity()).setToken(StaticData.createSimpleToken());
+        MainSettings.getInstance(getActivity()).setProvider(new Provider("Test provider", "https://fake-url.com", "https://fake-url.com/image.jpg", "#000000", "#FFFF00", "#FF00FF"));
     }
 
     public UploadTest() {

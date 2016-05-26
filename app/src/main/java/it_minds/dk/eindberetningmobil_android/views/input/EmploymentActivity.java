@@ -18,9 +18,9 @@ import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 /**
- * Created by kasper on 27-07-2015.
+ * Activity for selecting Employment type
  */
-public class EmployementActivity extends ProvidedSimpleActivity {
+public class EmploymentActivity extends ProvidedSimpleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -9,13 +9,9 @@ import eindberetning.it_minds.dk.eindberetningmobil_android.data.StaticData;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.views.UploadingView;
 
-/**
- * Created by kasper on 18-07-2015.
- */
 public class UploadingViewTest extends BaseTest<UploadingView> {
     @Override
     public void runBeforeGetActivity() {
-        getSettings().setToken(StaticData.createSimpleToken());
         getSettings().setProfile(StaticData.createSimpleProfile());
     }
 

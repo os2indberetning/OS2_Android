@@ -40,7 +40,6 @@ public class MainSettings {
     private static final String PURPOSE_INDEX = "PURPOSE_INDEX";
     private static final String PROFILES_INDEX = "PROFILES_INDEX";
     private static final String SERVICE_INDEX = "SERVICE_INDEX";
-    private static final String AUTH_INDEX = "AUTH_INDEX";
     private static final String SAVED_REPORTS_INDEX = "SAVED_REPORTS_INDEX";
     private static final String PREFILLEDDATA_INDEX = "PREFILLEDDATA_INDEX";
     //</editor-fold>
@@ -111,19 +110,6 @@ public class MainSettings {
         }
         getPrefs().edit().putString(PROVIDER_INDEX, json).commit();
     }
-    //</editor-fold>
-
-    //<editor-fold desc="token">
-
-    /**
-     * haveToken
-     *
-     * @return boolean
-     */
-    public boolean haveToken() {
-        return getPrefs().getString(TOKEN_INDEX, null) != null;
-    }
-
     //</editor-fold>
 
     //<editor-fold desc="rates">
@@ -218,10 +204,6 @@ public class MainSettings {
     public boolean getServiceClosed() {
         return getPrefs().getBoolean(SERVICE_INDEX, true);
     }
-
-    public void clearToken() {
-        getPrefs().edit().remove(TOKEN_INDEX).commit();
-    }
     //</editor-fold>
 
     //drive report saving
@@ -272,16 +254,6 @@ public class MainSettings {
 
     public void clearReports() {
         getPrefs().edit().remove(SAVED_REPORTS_INDEX).commit();
-    }
-
-
-    /**
-     * havePrefilledData description here
-     *
-     * @return boolean
-     */
-    public boolean havePrefilledData() {
-        return getPrefs().getString(PREFILLEDDATA_INDEX, null) != null;
     }
 
     /**

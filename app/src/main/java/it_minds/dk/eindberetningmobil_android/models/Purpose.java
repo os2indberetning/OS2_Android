@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
@@ -42,7 +43,7 @@ public class Purpose implements Comparable<Purpose>{
      */
     public static Purpose parseFromJson(JSONObject obj) throws JSONException, MalformedURLException, ParseException {
         String description = obj.optString("Description");
-        Date date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(obj.optString("Date"));
+        Date date = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH).parse(obj.optString("Date"));
         return new Purpose(description, date);
     }
 

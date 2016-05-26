@@ -11,7 +11,6 @@ import android.test.ApplicationTestCase;
 
 import org.joda.time.DateTime;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,15 +19,11 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import it_minds.dk.eindberetningmobil_android.MainApplication;
-import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
 import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
-import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Provider;
 import it_minds.dk.eindberetningmobil_android.models.Route;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
-import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 public class ModelsTests extends ApplicationTestCase<MainApplication> {
     public ModelsTests() {
@@ -72,27 +67,6 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
         report.saveToJson(0); //indirect assertion, it can serialize.
         assertTrue(report.equals(report2));
         assertTrue(report.hashCode() == report2.hashCode());
-
-
-    }
-
-    @Test
-    public void testProfile() throws MalformedURLException, JSONException {
-        Profile prof = new Profile(0, "", "", "", "", new ArrayList<Employments>(), new ArrayList<Tokens>());
-        Profile prof2 = Profile.parseFromJson(prof.saveToJson());
-        assertEquals(prof, prof2);
-        MainSettings.getInstance(mContext).setProfile(prof);
-        assertTrue(MainSettings.getInstance(mContext).getProfile().equals(prof));
-        assertTrue(MainSettings.getInstance(mContext).getProfile().hashCode() == (prof.hashCode()));
-    }
-
-    @Test
-    public void testTokens() {
-        Tokens magic = new Tokens("gui-d", "magic", 1);
-        MainSettings.getInstance(mContext).setToken(magic);
-        assertTrue(MainSettings.getInstance(mContext).getToken().equals(magic));
-        assertTrue(MainSettings.getInstance(mContext).getToken().hashCode() == magic.hashCode());
-
     }
 
     @Test
@@ -111,16 +85,6 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
         assertTrue(model2.hashCode() == gps.hashCode());
         assertTrue(model2.equals(gps));
     }
-
-    @Test
-    public void testDriveReportResult() {
-        DriveReport report = new DriveReport(new Tokens("222", "1111", 1),
-                new DrivingReport("", "1", "1", "", false, false, false, new DateTime(), new DateTime(), 1000), 1);
-        JSONObject json = report.saveAsJson();
-        assertNotNull(json);
-        assertTrue(json.toString().length() > 0);
-    }
-
 
     @Test
     public void testRoute() throws MalformedURLException, JSONException {

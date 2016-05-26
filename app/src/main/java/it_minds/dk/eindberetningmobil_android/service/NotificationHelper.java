@@ -19,7 +19,7 @@ import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.views.MonitoringActivity;
 
 /**
- * simple helper
+ * simple notification helper
  */
 public class NotificationHelper {
 
@@ -27,7 +27,6 @@ public class NotificationHelper {
 
     /**
      * Creates a notification.
-     *
      * @param context
      * @param title
      * @param content

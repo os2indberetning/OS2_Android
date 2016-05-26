@@ -18,7 +18,6 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 
 /**
  * Employments
- *
  */
 public class Employments {
     private int Id;
@@ -62,24 +61,10 @@ public class Employments {
     }
 
     /**
-     * @return int
-     */
-    public void setId(int newVal) {
-        this.Id = newVal;
-    }
-
-    /**
      * @return String
      */
     public String getEmploymentPosition() {
         return this.EmploymentPosition;
-    }
-
-    /**
-     * @return String
-     */
-    public void setEmploymentPosition(String newVal) {
-        this.EmploymentPosition = newVal;
     }
 
     /**

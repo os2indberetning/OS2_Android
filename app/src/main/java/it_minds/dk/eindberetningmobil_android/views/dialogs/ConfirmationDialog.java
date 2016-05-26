@@ -18,6 +18,9 @@ import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.BaseProvidedDialog;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 
+/**
+ * Generic dialog which has a positive and a negative button and requires user decision.
+ */
 public class ConfirmationDialog extends BaseProvidedDialog {
     private final Context context;
     private final String title;

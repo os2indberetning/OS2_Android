@@ -25,6 +25,10 @@ import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 
+/**
+ * Activity for showing locally saved driveReports
+ * Handles retry of sending the saved reports.
+ */
 public class MissingTripActivity extends ProvidedSimpleActivity {
 
     private ListView listView;

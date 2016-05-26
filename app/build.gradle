@@ -31,7 +31,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        testInstrumentationRunnerArguments
     }
@@ -66,7 +66,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //volley
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.4.1'
-    androidTestCompile 'junit:junit:4.11'
+    androidTestCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test:testing-support-lib:0.+') {
         exclude group: 'junit'
     }

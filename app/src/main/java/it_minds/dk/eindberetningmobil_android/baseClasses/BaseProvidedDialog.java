@@ -14,9 +14,8 @@ import android.widget.TextView;
 import it_minds.dk.eindberetningmobil_android.interfaces.SimpleDialog;
 
 /**
- * simple baseclass for a provider dialog (a colored dialog).
+ * simple baseClass for a provided dialog (a colored dialog).
  */
-
 public abstract class BaseProvidedDialog implements SimpleDialog {
 
     private ColorHandling colorHandler;

@@ -53,7 +53,7 @@ import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_
 import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_ENABLED;
 
 /**
- * this view is the begining of a monitoring of a trip.
+ * Activity for setting up info for the driveReport
  */
 public class StartActivity extends BaseReportActivity {
 
@@ -257,7 +257,6 @@ public class StartActivity extends BaseReportActivity {
             }else if(gpsPermission == GPSAccesCode.GPS_DISABLED_MARSHMALLOW && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
                 requestPermissions(permissions, PERMISSION_REQUEST_CODE);
-                //TODO: Ask for permission
             }else{
                 ErrorDialog dialog = new ErrorDialog(StartActivity.this, "Ukendt fejl, kunne ikke starte kørsel - vi beklager.");
                 dialog.showDialog();

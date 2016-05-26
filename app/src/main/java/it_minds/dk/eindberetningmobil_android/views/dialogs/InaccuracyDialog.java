@@ -16,7 +16,9 @@ import android.widget.TextView;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.BaseProvidedDialog;
 
-
+/**
+ * Used to alert user of GPS inaccuracy on the drive
+ */
 public class InaccuracyDialog extends BaseProvidedDialog {
 
     private final Context context;

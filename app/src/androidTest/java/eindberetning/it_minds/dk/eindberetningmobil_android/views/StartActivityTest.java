@@ -5,22 +5,18 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import eindberetning.it_minds.dk.eindberetningmobil_android.BaseTest;
+import eindberetning.it_minds.dk.eindberetningmobil_android.data.StaticData;
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.models.Employments;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
 import it_minds.dk.eindberetningmobil_android.models.Rates;
-import it_minds.dk.eindberetningmobil_android.models.Tokens;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
-import it_minds.dk.eindberetningmobil_android.views.ChooseProvider;
 import it_minds.dk.eindberetningmobil_android.views.MonitoringActivity;
 import it_minds.dk.eindberetningmobil_android.views.StartActivity;
-import it_minds.dk.eindberetningmobil_android.views.input.EmployementActivity;
+import it_minds.dk.eindberetningmobil_android.views.input.EmploymentActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.RateActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.TextInputView;
 
-/**
- * Created by kasper on 18-07-2015.
- */
 public class StartActivityTest extends BaseTest<StartActivity> {
     public StartActivityTest() {
         super(StartActivity.class);
@@ -36,9 +32,7 @@ public class StartActivityTest extends BaseTest<StartActivity> {
     public void testStart() {
         ArrayList<Employments> employess = new ArrayList<Employments>();
         employess.add(new Employments(999, "tester"));
-        ArrayList<Tokens> tokenses = new ArrayList<>();
-        tokenses.add(new Tokens("", "", 1));
-        MainSettings.getInstance(getActivity()).setProfile(new Profile(0, "", "", "", "", employess, tokenses));
+        MainSettings.getInstance(getActivity()).setProfile(new Profile(0, "", "", "", "", employess, StaticData.createMockAuth()));
         ArrayList<Rates> rates = new ArrayList<>();
         rates.add(new Rates(6667,"rate descrition","no year"));
         MainSettings.getInstance(getActivity()).setRates(rates);
@@ -50,7 +44,7 @@ public class StartActivityTest extends BaseTest<StartActivity> {
         solo.waitForActivity(StartActivity.class);
 
         solo.clickOnView(solo.getView(R.id.start_tracking_layout_org_location));
-        solo.waitForActivity(EmployementActivity.class);
+        solo.waitForActivity(EmploymentActivity.class);
         solo.clickInList(0);
 
         solo.waitForActivity(StartActivity.class);

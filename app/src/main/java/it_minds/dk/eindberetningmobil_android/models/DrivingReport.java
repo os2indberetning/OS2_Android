@@ -33,6 +33,7 @@ public class DrivingReport implements Parcelable {
     private boolean haveEditedDistance;
     private boolean startedAtHome;
     private boolean endedAtHome;
+    private boolean fourKMRule;
     private DateTime startTime;
     private DateTime endTime;
     private double distanceInMeters;
@@ -43,7 +44,7 @@ public class DrivingReport implements Parcelable {
         gpsPoints = new ArrayList<>();
     }
 
-    public DrivingReport(String purpose, String orgLocation, String rate, String extraDescription, boolean haveEditedDistance, boolean startedAtHome, boolean endedAtHome, DateTime startTime, DateTime endTime, double distanceInMeters) {
+    public DrivingReport(String purpose, String orgLocation, String rate, String extraDescription, boolean haveEditedDistance, boolean startedAtHome, boolean endedAtHome, boolean fourKMRule, DateTime startTime, DateTime endTime, double distanceInMeters) {
 
         this.Uuid = UUID.randomUUID().toString();
         this.purpose = purpose;
@@ -53,6 +54,7 @@ public class DrivingReport implements Parcelable {
         this.haveEditedDistance = haveEditedDistance;
         this.startedAtHome = startedAtHome;
         this.endedAtHome = endedAtHome;
+        this.fourKMRule = fourKMRule;
         this.startTime = startTime;
         this.endTime = endTime;
         this.distanceInMeters = distanceInMeters;
@@ -168,6 +170,18 @@ public class DrivingReport implements Parcelable {
     }
 
     /**
+     * @return boolean
+     */
+    public boolean getfourKMRule() { return this.fourKMRule; }
+
+    /**
+     * @return boolean
+     */
+    public void setfourKMRule(boolean newVal) {
+        this.fourKMRule = newVal;
+    }
+
+    /**
      * @return DateTime
      */
     public DateTime getstartTime() {
@@ -224,6 +238,7 @@ public class DrivingReport implements Parcelable {
 
         result.put("StartsAtHome", startedAtHome);
         result.put("EndsAtHome", endedAtHome);
+        result.put("FourKmRule", fourKMRule);
         if (startTime != null) {
             result.put("Date", startTime.toString());
         } else if (endTime != null) {
@@ -255,6 +270,7 @@ public class DrivingReport implements Parcelable {
         if (haveEditedDistance != that.haveEditedDistance) return false;
         if (startedAtHome != that.startedAtHome) return false;
         if (endedAtHome != that.endedAtHome) return false;
+        if (fourKMRule != that.fourKMRule) return false;
         if (Double.compare(that.distanceInMeters, distanceInMeters) != 0) return false;
         if (purpose != null ? !purpose.equals(that.purpose) : that.purpose != null) return false;
         if (orgLocation != null ? !orgLocation.equals(that.orgLocation) : that.orgLocation != null)
@@ -281,6 +297,7 @@ public class DrivingReport implements Parcelable {
         result = 31 * result + (haveEditedDistance ? 1 : 0);
         result = 31 * result + (startedAtHome ? 1 : 0);
         result = 31 * result + (endedAtHome ? 1 : 0);
+        result = 31 * result + (fourKMRule ? 1 : 0);
         result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         temp = Double.doubleToLongBits(distanceInMeters);
@@ -304,6 +321,7 @@ public class DrivingReport implements Parcelable {
         dest.writeByte(haveEditedDistance ? (byte) 1 : (byte) 0);
         dest.writeByte(startedAtHome ? (byte) 1 : (byte) 0);
         dest.writeByte(endedAtHome ? (byte) 1 : (byte) 0);
+        dest.writeByte(fourKMRule ? (byte) 1 : (byte) 0);
         dest.writeSerializable(this.startTime);
         dest.writeSerializable(this.endTime);
         dest.writeDouble(this.distanceInMeters);
@@ -319,6 +337,7 @@ public class DrivingReport implements Parcelable {
         this.haveEditedDistance = in.readByte() != 0;
         this.startedAtHome = in.readByte() != 0;
         this.endedAtHome = in.readByte() != 0;
+        this.fourKMRule = in.readByte() != 0;
         this.startTime = (DateTime) in.readSerializable();
         this.endTime = (DateTime) in.readSerializable();
         this.distanceInMeters = in.readDouble();

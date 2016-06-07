@@ -78,6 +78,14 @@ public class AfterTripActivity extends BaseReportActivity {
             }
         });
 
+        CheckBox usingFourKMRule = getViewById(R.id.after_tracking_view_using_fourkm_rule);
+        usingFourKMRule.setChecked(report.getfourKMRule());
+        usingFourKMRule.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                report.setfourKMRule(isChecked);
+            }
+        });
 
         handleExtraDesc(R.id.after_tracking_view_extra_desc, R.id.after_tracking_view_extra_desc_desc);
         handlePurpose(R.id.after_tracking_view_purpose, R.id.after_tracking_view_purpose_desc);

@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
 import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
@@ -24,6 +25,7 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
  */
 public class DrivingReport implements Parcelable {
 
+    private String Uuid;
     private String purpose;
     private String orgLocation;
     private String Rate;
@@ -37,11 +39,13 @@ public class DrivingReport implements Parcelable {
     private ArrayList<GPSCoordinateModel> gpsPoints;
 
     public DrivingReport() {
+        this.Uuid = UUID.randomUUID().toString();
         gpsPoints = new ArrayList<>();
     }
 
     public DrivingReport(String purpose, String orgLocation, String rate, String extraDescription, boolean haveEditedDistance, boolean startedAtHome, boolean endedAtHome, DateTime startTime, DateTime endTime, double distanceInMeters) {
 
+        this.Uuid = UUID.randomUUID().toString();
         this.purpose = purpose;
         this.orgLocation = orgLocation;
         this.Rate = rate;
@@ -55,6 +59,15 @@ public class DrivingReport implements Parcelable {
         this.gpsPoints = new ArrayList<>();
     }
 
+    /**
+     * @return String
+     */
+    public String getUuid() { return this.Uuid; }
+
+    /**
+     * @return String
+     */
+    public void setUuid(String newVal) { this.Uuid = newVal; }
 
     /**
      * @return String
@@ -203,6 +216,7 @@ public class DrivingReport implements Parcelable {
      */
     public JSONObject saveToJson(int profileId) {
         SafeJsonHelper result = new SafeJsonHelper();
+        result.put("Uuid", Uuid);
         result.put("Purpose", purpose);
         result.put("EmploymentId", Integer.parseInt(orgLocation));
         result.put("RateId", Integer.parseInt(Rate));
@@ -282,6 +296,7 @@ public class DrivingReport implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.Uuid);
         dest.writeString(this.purpose);
         dest.writeString(this.orgLocation);
         dest.writeString(this.Rate);
@@ -296,6 +311,7 @@ public class DrivingReport implements Parcelable {
     }
 
     protected DrivingReport(Parcel in) {
+        this.Uuid = in.readString();
         this.purpose = in.readString();
         this.orgLocation = in.readString();
         this.Rate = in.readString();

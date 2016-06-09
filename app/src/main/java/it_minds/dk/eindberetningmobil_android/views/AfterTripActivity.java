@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
+import java.util.HashMap;
+
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.baseClasses.BaseReportActivity;
 import it_minds.dk.eindberetningmobil_android.constants.DistanceDisplayer;
@@ -29,12 +31,15 @@ import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.InaccuracyDialog;
+import it_minds.dk.eindberetningmobil_android.views.input.FourKmRuleKmActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
 
 /**
  * the view after we have monitored a trip
  */
 public class AfterTripActivity extends BaseReportActivity {
+    private double fourKmRuleValue = 0.0f;
+    protected View FourKmRuleKmView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +89,14 @@ public class AfterTripActivity extends BaseReportActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 report.setfourKMRule(isChecked);
+                if (isChecked)
+                {
+                    FourKmRuleKmView.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    FourKmRuleKmView.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -106,10 +119,28 @@ public class AfterTripActivity extends BaseReportActivity {
             }
         });
 
-
         TextView kmDescView = (TextView) findViewById(R.id.after_tracking_view_km_container_desc);
-
         kmDescView.setText(DistanceDisplayer.formatDistance(report.getDistanceInMeters()));
+
+
+        FourKmRuleKmView = findViewById(R.id.after_tracking_view_fourkm_rule_km_container);
+        FourKmRuleKmView.setVisibility(View.GONE);
+        FourKmRuleKmView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final double prevVal = fourKmRuleValue;
+                showEdit(new OnData<String>() {
+                    @Override
+                    public void onData(String data) {
+                        double meters = handleFourKmRuleKmClick(data, prevVal);
+                        fourKmRuleValue = meters;
+                    }
+                }, getString(R.string.distance_title_edit), fourKmRuleValue + "", FourKmRuleKmActivity.class);
+            }
+        });
+
+        TextView fourKmRuleKmDescView = (TextView)findViewById(R.id.after_tracking_view_fourkm_rule_km_container_desc);
+        fourKmRuleKmDescView.setText(DistanceDisplayer.formatDistance(fourKmRuleValue));
 
         setDateLabel();
         setUserLabel();
@@ -175,6 +206,16 @@ public class AfterTripActivity extends BaseReportActivity {
         return meters;
     }
 
+    private double handleFourKmRuleKmClick(String data, double prevVal) {
+        double meters = fourKmRuleValue;
+        try {
+            meters = Double.parseDouble(data);
+            setTextToView(R.id.after_tracking_view_fourkm_rule_km_container_desc, DistanceDisplayer.formatDistance(meters));
+        } catch (Exception e) {
+            Log.e("temp", "is not a decimal number", e);
+        }
+        return meters;
+    }
 
     @Override
     public void onBackPressed() {

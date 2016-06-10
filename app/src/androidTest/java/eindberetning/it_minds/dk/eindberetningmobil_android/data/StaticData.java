@@ -40,7 +40,7 @@ public class StaticData {
     }
 
     public static DrivingReport createSimpleDrivingReport() {
-        DrivingReport result = new DrivingReport("purpose", "999", "1", "extra here.", false, true, false, new DateTime(), new DateTime(), 6000);
+        DrivingReport result = new DrivingReport("purpose", "999", "1", "extra here.", false, true, false, false, new DateTime(), new DateTime(), 6000, 10);
         result.getgpsPoints().add(createSimpleGpsPoint1());
         result.getgpsPoints().add(createSimpleGpsPoint2());
         return result;

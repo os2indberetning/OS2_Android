@@ -73,7 +73,7 @@ public class AfterTripTest extends BaseTest<AfterTripActivity> {
 
     @Override
     public void runBeforeGetActivity() {
-        DrivingReport report = new DrivingReport("", "", "", "", false, false, true, new DateTime(), new DateTime(), 200.0d);
+        DrivingReport report = new DrivingReport("", "", "", "", false, false, true, false, new DateTime(), new DateTime(), 200.0d);
         Intent i = new Intent();
         i.putExtra(IntentIndexes.DATA_INDEX, report);
         setActivityIntent(i);

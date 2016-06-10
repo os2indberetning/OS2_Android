@@ -18,7 +18,7 @@ public class MonitoringTest extends BaseTest<MonitoringActivity> {
     @Override
     public void runBeforeGetActivity() {
         Intent i = new Intent();
-        DrivingReport report = new DrivingReport("", "", "", "", false, false, false, new DateTime(), new DateTime(), 0);
+        DrivingReport report = new DrivingReport("", "", "", "", false, false, false, false, new DateTime(), new DateTime(), 0);
         i.putExtra(IntentIndexes.DATA_INDEX, report);
         setActivityIntent(i);
     }

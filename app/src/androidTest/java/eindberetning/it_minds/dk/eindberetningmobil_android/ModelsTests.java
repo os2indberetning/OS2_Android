@@ -62,8 +62,8 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
     @Test
     public void testDrivingReport() throws MalformedURLException, JSONException {
         DateTime dt = new DateTime();
-        DrivingReport report = new DrivingReport("", "1", "1", "", false, false, true, dt, dt, 200.0d);
-        DrivingReport report2 = new DrivingReport("", "1", "1", "", false, false, true, dt, dt, 200.0d);
+        DrivingReport report = new DrivingReport("", "1", "1", "", false, false, true, false, dt, dt, 200.0d, 11.2d);
+        DrivingReport report2 = new DrivingReport("", "1", "1", "", false, false, true, false, dt, dt, 200.0d, 11.2d);
         report.saveToJson(0); //indirect assertion, it can serialize.
         assertTrue(report.equals(report2));
         assertTrue(report.hashCode() == report2.hashCode());
@@ -88,9 +88,10 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
 
     @Test
     public void testRoute() throws MalformedURLException, JSONException {
-        Route route = new Route(1000.2d, new ArrayList<GPSCoordinateModel>());
+        Route route = new Route(1000.2d, new ArrayList<GPSCoordinateModel>(), 11.1d);
         assertTrue(route.getTotalDistance() == 1000.2d);
         assertTrue(route.getGPSCoordinates().size() == 0);
+        assertTrue(route.getFourKmRuleDistance() == 11.1d);
         route.saveToJson();//indirect assert not throws
     }
 

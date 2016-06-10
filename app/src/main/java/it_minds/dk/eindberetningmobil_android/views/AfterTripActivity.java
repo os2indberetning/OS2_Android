@@ -38,7 +38,6 @@ import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
  * the view after we have monitored a trip
  */
 public class AfterTripActivity extends BaseReportActivity {
-    private double fourKmRuleValue = 0.0f;
     protected View FourKmRuleKmView;
 
     @Override
@@ -128,19 +127,19 @@ public class AfterTripActivity extends BaseReportActivity {
         FourKmRuleKmView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final double prevVal = fourKmRuleValue;
+                final double prevVal = report.getfourKmRuleDistanceInMeters();
                 showEdit(new OnData<String>() {
                     @Override
                     public void onData(String data) {
                         double meters = handleFourKmRuleKmClick(data, prevVal);
-                        fourKmRuleValue = meters;
+                        report.setfourKmRuleDistanceInMeters(meters);
                     }
-                }, getString(R.string.distance_title_edit), fourKmRuleValue + "", FourKmRuleKmActivity.class);
+                }, getString(R.string.distance_title_edit), report.getfourKmRuleDistanceInMeters() + "", FourKmRuleKmActivity.class);
             }
         });
 
         TextView fourKmRuleKmDescView = (TextView)findViewById(R.id.after_tracking_view_fourkm_rule_km_container_desc);
-        fourKmRuleKmDescView.setText(DistanceDisplayer.formatDistance(fourKmRuleValue));
+        fourKmRuleKmDescView.setText(DistanceDisplayer.formatDistance(report.getfourKmRuleDistanceInMeters()));
 
         setDateLabel();
         setUserLabel();
@@ -207,7 +206,7 @@ public class AfterTripActivity extends BaseReportActivity {
     }
 
     private double handleFourKmRuleKmClick(String data, double prevVal) {
-        double meters = fourKmRuleValue;
+        double meters = report.getfourKmRuleDistanceInMeters();
         try {
             meters = Double.parseDouble(data);
             setTextToView(R.id.after_tracking_view_fourkm_rule_km_container_desc, DistanceDisplayer.formatDistance(meters));

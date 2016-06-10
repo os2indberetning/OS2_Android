@@ -21,11 +21,13 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
  */
 public class Route {
     private double TotalDistance;
+    private double FourKmRuleDistance;
     private ArrayList<GPSCoordinateModel> GPSCoordinates;
 
-    public Route(double totalDistance, ArrayList<GPSCoordinateModel> gpsCoordinates) {
+    public Route(double totalDistance, ArrayList<GPSCoordinateModel> gpsCoordinates, double fourKmRuleDistance) {
         GPSCoordinates = gpsCoordinates;
         TotalDistance = totalDistance;
+        FourKmRuleDistance = fourKmRuleDistance;
     }
 
     /**
@@ -35,17 +37,16 @@ public class Route {
      */
     public static Route parseFromJson(JSONObject obj) throws JSONException, MalformedURLException {
         double TotalDistance = obj.optDouble("TotalDistance");
+        double FourKmRuleDistance = obj.optDouble("FourKmRuleDistance");
         ArrayList<GPSCoordinateModel> GPSCoordinates = GPSCoordinateModel.parseAllFromJson(obj.optJSONArray("GPSCoordinates"));
-        return new Route(TotalDistance, GPSCoordinates);
+        return new Route(TotalDistance, GPSCoordinates, FourKmRuleDistance);
     }
 
 
     /**
      * @return double
      */
-    public double getTotalDistance() {
-        return this.TotalDistance;
-    }
+    public double getTotalDistance() { return this.TotalDistance; }
 
     /**
      * @return ArrayList<GPSCoordinateModel>
@@ -53,6 +54,11 @@ public class Route {
     public ArrayList<GPSCoordinateModel> getGPSCoordinates() {
         return this.GPSCoordinates;
     }
+
+    /**
+     * @return double
+     */
+    public double getFourKmRuleDistance() { return this.FourKmRuleDistance; }
 
 
     /**
@@ -64,6 +70,7 @@ public class Route {
         SafeJsonHelper result = new SafeJsonHelper();
         result.put("TotalDistance", TotalDistance);
         result.put("", new JSONArray());
+        result.put("FourKmRuleDistance", FourKmRuleDistance);
         return result;
     }
 }

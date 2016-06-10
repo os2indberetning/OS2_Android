@@ -38,7 +38,7 @@ import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
  * the view after we have monitored a trip
  */
 public class AfterTripActivity extends BaseReportActivity {
-    //protected View FourKmRuleKmView;
+    protected View FourKmRuleKmView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,6 @@ public class AfterTripActivity extends BaseReportActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 report.setfourKMRule(isChecked);
-                /*
                 if (isChecked)
                 {
                     FourKmRuleKmView.setVisibility(View.VISIBLE);
@@ -97,7 +96,6 @@ public class AfterTripActivity extends BaseReportActivity {
                 {
                     FourKmRuleKmView.setVisibility(View.GONE);
                 }
-                */
             }
         });
 
@@ -123,7 +121,7 @@ public class AfterTripActivity extends BaseReportActivity {
         TextView kmDescView = (TextView) findViewById(R.id.after_tracking_view_km_container_desc);
         kmDescView.setText(DistanceDisplayer.formatDistance(report.getDistanceInMeters()));
 
-/*
+
         FourKmRuleKmView = findViewById(R.id.after_tracking_view_fourkm_rule_km_container);
         FourKmRuleKmView.setVisibility(View.GONE);
         FourKmRuleKmView.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +140,6 @@ public class AfterTripActivity extends BaseReportActivity {
 
         TextView fourKmRuleKmDescView = (TextView)findViewById(R.id.after_tracking_view_fourkm_rule_km_container_desc);
         fourKmRuleKmDescView.setText(DistanceDisplayer.formatDistance(report.getfourKmRuleDistanceInMeters()));
-*/
 
         setDateLabel();
         setUserLabel();
@@ -208,7 +205,6 @@ public class AfterTripActivity extends BaseReportActivity {
         return meters;
     }
 
-    /*
     private double handleFourKmRuleKmClick(String data, double prevVal) {
         double meters = report.getfourKmRuleDistanceInMeters();
         try {
@@ -219,7 +215,6 @@ public class AfterTripActivity extends BaseReportActivity {
         }
         return meters;
     }
-    */
 
     @Override
     public void onBackPressed() {

@@ -285,7 +285,7 @@
             android:background="#b4b4b4" />
 
         <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Sluttede du hjemme?"
             android:id="@+id/after_tracking_view_ended_at_home"
@@ -300,7 +300,7 @@
             android:background="#b4b4b4" />
 
         <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Jeg bruger 4-km reglen"
             android:id="@+id/after_tracking_view_using_fourkm_rule"
@@ -313,7 +313,7 @@
             android:layout_height="1px"
             android:id="@+id/after_tracking_view_using_fourkm_rule_divider"
             android:background="#b4b4b4" />
-<!--
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="58dp"
@@ -352,7 +352,7 @@
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/arrow_right" />
         </RelativeLayout>
--->
+
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="1px"

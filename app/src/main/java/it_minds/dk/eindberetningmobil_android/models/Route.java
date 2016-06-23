@@ -39,7 +39,6 @@ public class Route {
         return new Route(TotalDistance, GPSCoordinates);
     }
 
-
     /**
      * @return double
      */

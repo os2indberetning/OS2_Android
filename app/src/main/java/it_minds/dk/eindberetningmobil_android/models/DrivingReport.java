@@ -37,7 +37,6 @@ public class DrivingReport implements Parcelable {
     private DateTime startTime;
     private DateTime endTime;
     private double distanceInMeters;
-    private double fourKmRuleDistanceInMeters;
     private ArrayList<GPSCoordinateModel> gpsPoints;
 
     public DrivingReport() {
@@ -45,7 +44,7 @@ public class DrivingReport implements Parcelable {
         gpsPoints = new ArrayList<>();
     }
 
-    public DrivingReport(String purpose, String orgLocation, String rate, String extraDescription, boolean haveEditedDistance, boolean startedAtHome, boolean endedAtHome, boolean fourKMRule, DateTime startTime, DateTime endTime, double distanceInMeters, double fourKmRuleDistanceInMeters) {
+    public DrivingReport(String purpose, String orgLocation, String rate, String extraDescription, boolean haveEditedDistance, boolean startedAtHome, boolean endedAtHome, boolean fourKMRule, DateTime startTime, DateTime endTime, double distanceInMeters) {
 
         this.Uuid = UUID.randomUUID().toString();
         this.purpose = purpose;
@@ -56,7 +55,6 @@ public class DrivingReport implements Parcelable {
         this.startedAtHome = startedAtHome;
         this.endedAtHome = endedAtHome;
         this.fourKMRule = fourKMRule;
-        this.fourKmRuleDistanceInMeters = fourKmRuleDistanceInMeters;
         this.startTime = startTime;
         this.endTime = endTime;
         this.distanceInMeters = distanceInMeters;
@@ -160,9 +158,7 @@ public class DrivingReport implements Parcelable {
     /**
      * @return boolean
      */
-    public boolean getendedAtHome() {
-        return this.endedAtHome;
-    }
+    public boolean getendedAtHome() { return this.endedAtHome; }
 
     /**
      * @return boolean
@@ -179,19 +175,7 @@ public class DrivingReport implements Parcelable {
     /**
      * @return boolean
      */
-    public void setfourKMRule(boolean newVal) {
-        this.fourKMRule = newVal;
-    }
-
-    /**
-     * @return double
-     */
-    public double getfourKmRuleDistanceInMeters() { return this.fourKmRuleDistanceInMeters; }
-
-    /**
-     * @return boolean
-     */
-    public void setfourKmRuleDistanceInMeters(double newVal) { this.fourKmRuleDistanceInMeters = newVal; }
+    public void setfourKMRule(boolean newVal) { this.fourKMRule = newVal; }
 
     /**
      * @return DateTime
@@ -249,7 +233,6 @@ public class DrivingReport implements Parcelable {
         result.put("StartsAtHome", startedAtHome);
         result.put("EndsAtHome", endedAtHome);
         result.put("FourKmRule", fourKMRule);
-        result.put("FourKmRuleDistanceInMeters", fourKmRuleDistanceInMeters);
         if (startTime != null) {
             result.put("Date", startTime.toString());
         } else if (endTime != null) {
@@ -282,7 +265,6 @@ public class DrivingReport implements Parcelable {
         if (startedAtHome != that.startedAtHome) return false;
         if (endedAtHome != that.endedAtHome) return false;
         if (fourKMRule != that.fourKMRule) return false;
-        if (Double.compare(that.fourKmRuleDistanceInMeters, fourKmRuleDistanceInMeters) != 0) return false;
         if (Double.compare(that.distanceInMeters, distanceInMeters) != 0) return false;
         if (purpose != null ? !purpose.equals(that.purpose) : that.purpose != null) return false;
         if (orgLocation != null ? !orgLocation.equals(that.orgLocation) : that.orgLocation != null)
@@ -301,7 +283,6 @@ public class DrivingReport implements Parcelable {
     public int hashCode() {
         int result;
         long tempdistanceInMeters;
-        long tempfourKmRuleDistanceInMeters;
         result = 1;
         result = 31 * result + (purpose != null ? purpose.hashCode() : 0);
         result = 31 * result + (orgLocation != null ? orgLocation.hashCode() : 0);
@@ -311,8 +292,6 @@ public class DrivingReport implements Parcelable {
         result = 31 * result + (startedAtHome ? 1 : 0);
         result = 31 * result + (endedAtHome ? 1 : 0);
         result = 31 * result + (fourKMRule ? 1 : 0);
-        tempfourKmRuleDistanceInMeters = Double.doubleToLongBits(fourKmRuleDistanceInMeters);
-        result = 31 * result + (int) (tempfourKmRuleDistanceInMeters ^ (tempfourKmRuleDistanceInMeters >>> 32));
         result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
         result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
         tempdistanceInMeters = Double.doubleToLongBits(distanceInMeters);
@@ -337,7 +316,6 @@ public class DrivingReport implements Parcelable {
         dest.writeByte(startedAtHome ? (byte) 1 : (byte) 0);
         dest.writeByte(endedAtHome ? (byte) 1 : (byte) 0);
         dest.writeByte(fourKMRule ? (byte) 1 : (byte) 0);
-        dest.writeDouble(this.fourKmRuleDistanceInMeters);
         dest.writeSerializable(this.startTime);
         dest.writeSerializable(this.endTime);
         dest.writeDouble(this.distanceInMeters);
@@ -354,7 +332,6 @@ public class DrivingReport implements Parcelable {
         this.startedAtHome = in.readByte() != 0;
         this.endedAtHome = in.readByte() != 0;
         this.fourKMRule = in.readByte() != 0;
-        this.fourKmRuleDistanceInMeters = in.readDouble();
         this.startTime = (DateTime) in.readSerializable();
         this.endTime = (DateTime) in.readSerializable();
         this.distanceInMeters = in.readDouble();

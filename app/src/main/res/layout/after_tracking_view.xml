@@ -299,65 +299,26 @@
             android:id="@+id/imageView2"
             android:background="#b4b4b4" />
 
-        <CheckBox
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Jeg bruger 4-km reglen"
-            android:id="@+id/after_tracking_view_using_fourkm_rule"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="#000" />
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:id="@+id/after_tracking_view_using_fourkm_rule_divider"
-            android:background="#b4b4b4" />
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/after_tracking_view_using_fourkm_rule_container"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:id="@+id/after_tracking_view_fourkm_rule_km_container" >
-
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Antal Km for 4-km regel"
-                android:id="@+id/after_tracking_view_fourkm_rule_km_textview"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textColor="#000"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="x.y km"
-                android:id="@+id/after_tracking_view_fourkm_rule_km_container_desc"
-                android:layout_below="@+id/after_tracking_view_fourkm_rule_km_textview"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:text="Jeg bruger 4-km reglen"
+                android:id="@+id/after_tracking_view_using_fourkm_rule"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:textColor="#000" />
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="fill_parent"
-                android:id="@+id/after_tracking_view_fourkm_rule_km_arrow"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/arrow_right" />
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:id="@+id/after_tracking_view_fourkm_rule_km_divider"
-            android:background="#b4b4b4" />
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:id="@+id/after_tracking_view_using_fourkm_rule_divider"
+                android:background="#b4b4b4" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"

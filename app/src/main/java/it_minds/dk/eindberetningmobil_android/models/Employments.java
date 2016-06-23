@@ -26,7 +26,6 @@ public class Employments {
     public Employments(int id, String employmentPosition) {
         Id = id;
         EmploymentPosition = employmentPosition;
-
     }
 
     /**

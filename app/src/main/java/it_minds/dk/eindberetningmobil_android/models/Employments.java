@@ -22,11 +22,12 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 public class Employments {
     private int Id;
     private String EmploymentPosition;
+    private String ManNr;
 
-    public Employments(int id, String employmentPosition) {
+    public Employments(int id, String employmentPosition, String manNr) {
         Id = id;
         EmploymentPosition = employmentPosition;
-
+        ManNr = manNr;
     }
 
     /**
@@ -37,7 +38,8 @@ public class Employments {
     public static Employments parseFromJson(JSONObject obj) throws JSONException, MalformedURLException {
         int Id = obj.optInt("Id");
         String EmploymentPosition = obj.optString("EmploymentPosition");
-        return new Employments(Id, EmploymentPosition);
+        String ManNr = obj.optString("ManNr");
+        return new Employments(Id, EmploymentPosition, ManNr);
     }
 
     /**
@@ -68,6 +70,15 @@ public class Employments {
     }
 
     /**
+     * @return String
+     */
+    public String getManNr() {
+        return this.ManNr;
+    }
+
+
+
+    /**
      * saveToJson description here
      *
      * @return JSONObject
@@ -76,6 +87,7 @@ public class Employments {
         SafeJsonHelper result = new SafeJsonHelper();
         result.put("Id", Id);
         result.put("EmploymentPosition", EmploymentPosition);
+        result.put("ManNr", ManNr);
         return result;
 
     }
@@ -89,6 +101,7 @@ public class Employments {
         Employments that = (Employments) o;
 
         if (Id != that.Id) return false;
+        if (ManNr != that.ManNr) return false;
         return !(EmploymentPosition != null ? !EmploymentPosition.equals(that.EmploymentPosition) : that.EmploymentPosition != null);
 
     }
@@ -97,6 +110,7 @@ public class Employments {
     public int hashCode() {
         int result = Id;
         result = 31 * result + (EmploymentPosition != null ? EmploymentPosition.hashCode() : 0);
+        result = 31 * result + (ManNr != null ? ManNr.hashCode() : 0);
         return result;
     }
 }

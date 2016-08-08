@@ -59,9 +59,9 @@ public class ChooseProvider extends SimpleActivity {
             /*
                 Test backend not accessible yet!
              */
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.provider_menu_debug, menu);
-            return true;
+        //    MenuInflater inflater = getMenuInflater();
+        //    inflater.inflate(R.menu.provider_menu_debug, menu);
+        //    return true;
         }
         return super.onCreateOptionsMenu(menu);
     }

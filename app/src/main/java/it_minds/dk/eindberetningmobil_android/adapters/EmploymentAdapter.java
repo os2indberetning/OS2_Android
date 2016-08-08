@@ -34,9 +34,19 @@ public class EmploymentAdapter extends ArrayAdapter<Employments> {
         if (convertView == null) {
             toUse = LayoutInflater.from(getContext()).inflate(R.layout.employmeet_list_item, parent, false);
         }
-        TextView desc = (TextView) toUse.findViewById(R.id.employment_list_item_text);
         Employments item = getItem(position);
+
+        TextView desc = (TextView) toUse.findViewById(R.id.employment_list_item_text);
         desc.setText(item.getEmploymentPosition());
+
+        TextView subDesc = (TextView) toUse.findViewById(R.id.employment_list_item_subtext);
+        String manNr = item.getManNr();
+        if (manNr.isEmpty() || manNr == null || manNr.equals("null")) {
+            subDesc.setVisibility(View.GONE);
+        } else {
+            subDesc.setText(manNr);
+        }
+
         return toUse;
     }
 }

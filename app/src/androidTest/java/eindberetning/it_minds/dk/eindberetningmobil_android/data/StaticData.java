@@ -22,7 +22,7 @@ import it_minds.dk.eindberetningmobil_android.models.internal.Authorization;
 public class StaticData {
     public static Profile createSimpleProfile() {
         ArrayList<Employments> employess = new ArrayList<Employments>();
-        employess.add(new Employments(999, "tester"));
+        employess.add(new Employments(999, "tester", "020"));
         Authorization auth = createMockAuth();
         return (new Profile(0, "firstname", "lastname", "0.0", "0.0", employess, auth));
     }

@@ -22,10 +22,12 @@ import it_minds.dk.eindberetningmobil_android.server.SafeJsonHelper;
 public class Employments {
     private int Id;
     private String EmploymentPosition;
+    private boolean FourKmRuleAllowed;
 
-    public Employments(int id, String employmentPosition) {
+    public Employments(int id, String employmentPosition, boolean fourKmRuleAllowed) {
         Id = id;
         EmploymentPosition = employmentPosition;
+        FourKmRuleAllowed = fourKmRuleAllowed;
     }
 
     /**
@@ -36,7 +38,8 @@ public class Employments {
     public static Employments parseFromJson(JSONObject obj) throws JSONException, MalformedURLException {
         int Id = obj.optInt("Id");
         String EmploymentPosition = obj.optString("EmploymentPosition");
-        return new Employments(Id, EmploymentPosition);
+        boolean FourKmRuleAllowed = obj.optJSONObject("OrgUnit").optBoolean("FourKmRuleAllowed");
+        return new Employments(Id, EmploymentPosition, FourKmRuleAllowed);
     }
 
     /**
@@ -67,6 +70,14 @@ public class Employments {
     }
 
     /**
+     * @return boolean
+     */
+    public boolean getFourKmRuleAllowed() {
+        return this.FourKmRuleAllowed;
+    }
+
+
+    /**
      * saveToJson description here
      *
      * @return JSONObject
@@ -75,6 +86,11 @@ public class Employments {
         SafeJsonHelper result = new SafeJsonHelper();
         result.put("Id", Id);
         result.put("EmploymentPosition", EmploymentPosition);
+
+        SafeJsonHelper fourKmObj = new SafeJsonHelper();
+        fourKmObj.put("FourKmRuleAllowed", FourKmRuleAllowed);
+        result.put("OrgUnit", fourKmObj);
+
         return result;
 
     }
@@ -88,6 +104,7 @@ public class Employments {
         Employments that = (Employments) o;
 
         if (Id != that.Id) return false;
+        if (FourKmRuleAllowed != that.FourKmRuleAllowed) return false;
         return !(EmploymentPosition != null ? !EmploymentPosition.equals(that.EmploymentPosition) : that.EmploymentPosition != null);
 
     }

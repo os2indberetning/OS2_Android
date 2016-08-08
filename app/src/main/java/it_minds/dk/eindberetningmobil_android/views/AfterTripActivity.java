@@ -89,7 +89,8 @@ public class AfterTripActivity extends BaseReportActivity {
         handleExtraDesc(R.id.after_tracking_view_extra_desc, R.id.after_tracking_view_extra_desc_desc);
         handlePurpose(R.id.after_tracking_view_purpose, R.id.after_tracking_view_purpose_desc);
         handleRate(R.id.after_tracking_view_rate, R.id.after_tracking_view_rate_desc);
-        handleOrgLocation(R.id.after_tracking_view_org_location, R.id.after_tracking_view_org_location_desc);
+        handleOrgLocationAfterTrip(R.id.after_tracking_view_org_location, R.id.after_tracking_view_org_location_desc, R.id.after_tracking_view_using_fourkm_rule);
+
         View kmView = findViewById(R.id.after_tracking_view_km_container);
         kmView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +105,7 @@ public class AfterTripActivity extends BaseReportActivity {
                 }, getString(R.string.distance_title_edit), report.getDistanceInMeters() + "", KmActivity.class);
             }
         });
+
 
         TextView kmDescView = (TextView) findViewById(R.id.after_tracking_view_km_container_desc);
         kmDescView.setText(DistanceDisplayer.formatDistance(report.getDistanceInMeters()));

@@ -80,7 +80,7 @@ public class AfterTripTest extends BaseTest<AfterTripActivity> {
         ArrayList<Rates> rates = new ArrayList<>();
         rates.add(new Rates(0, "swagging", "2051"));
         ArrayList<Employments> employmentses = new ArrayList<>();
-        employmentses.add(new Employments(1, "tester"));
+        employmentses.add(new Employments(1, "tester", false));
         MainSettings.getInstance(getActivity()).setProfile(new Profile(0, "", "", "", "", employmentses, StaticData.createMockAuth()));
         MainSettings.getInstance(getActivity()).setRates(rates);
     }

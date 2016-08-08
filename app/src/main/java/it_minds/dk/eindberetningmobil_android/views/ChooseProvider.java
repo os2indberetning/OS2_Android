@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,9 +59,9 @@ public class ChooseProvider extends SimpleActivity {
             /*
                 Test backend not accessible yet!
              */
-//            MenuInflater inflater = getMenuInflater();
-//            inflater.inflate(R.menu.provider_menu_debug, menu);
-//            return true;
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.provider_menu_debug, menu);
+            return true;
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -71,7 +72,7 @@ public class ChooseProvider extends SimpleActivity {
             //Set the provider to Test Backend
             useProvider(new Provider(
                     "Test Backend",
-                    "http://10.255.1.45:3308/api", //Not correct port number
+                    "http://os2indberetningmobil/api",
                     "https://os2indberetning.dk/logo.png",
                     "#FFFFFF",
                     "#FFC107",

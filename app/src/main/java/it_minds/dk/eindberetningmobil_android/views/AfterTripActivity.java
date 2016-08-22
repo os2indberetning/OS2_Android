@@ -7,7 +7,9 @@
 
 package it_minds.dk.eindberetningmobil_android.views;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,19 +27,27 @@ import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.OnData;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.Profile;
+import it_minds.dk.eindberetningmobil_android.models.internal.Authorization;
 import it_minds.dk.eindberetningmobil_android.models.internal.PrefilledData;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.InaccuracyDialog;
+import it_minds.dk.eindberetningmobil_android.views.input.FourKmRuleDistanceActivity;
 import it_minds.dk.eindberetningmobil_android.views.input.KmActivity;
 
 /**
  * the view after we have monitored a trip
  */
 public class AfterTripActivity extends BaseReportActivity {
+    protected View FourKmRuleKmView;
+    private Authorization auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        auth = MainSettings.getInstance(this).getProfile().getAuthorization();
+
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
         report.setEndTime(new DateTime());
         setContentView(R.layout.after_tracking_view);
@@ -83,13 +93,45 @@ public class AfterTripActivity extends BaseReportActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 report.setfourKMRule(isChecked);
+                if (isChecked)
+                {
+                    FourKmRuleKmView.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    FourKmRuleKmView.setVisibility(View.GONE);
+                }
+
             }
         });
+
+        FourKmRuleKmView = findViewById(R.id.after_tracking_view_hometoborderdistance_container);
+        FourKmRuleKmView.setVisibility(View.GONE);
+        FourKmRuleKmView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final double prevVal = report.getHomeToBorderDistance();
+                showEdit(new OnData<String>() {
+                    @Override
+                    public void onData(String data) {
+                        double meters = handleFourKmRuleKmClick(data, prevVal);
+
+                        saveFourKmRuleDistance(meters);
+
+                        report.setHomeToBorderDistance(meters);
+                    }
+                }, getString(R.string.distance_title_edit), report.getHomeToBorderDistance() + "", FourKmRuleDistanceActivity.class);
+            }
+        });
+
+        TextView fourKmRuleKmDescView = (TextView)findViewById(R.id.after_tracking_view_hometoborderdistance_textview_2);
+        report.setHomeToBorderDistance(loadFourKmRuleDistance());
+        fourKmRuleKmDescView.setText(DistanceDisplayer.formatDistance(report.getHomeToBorderDistance()));
 
         handleExtraDesc(R.id.after_tracking_view_extra_desc, R.id.after_tracking_view_extra_desc_desc);
         handlePurpose(R.id.after_tracking_view_purpose, R.id.after_tracking_view_purpose_desc);
         handleRate(R.id.after_tracking_view_rate, R.id.after_tracking_view_rate_desc);
-        handleOrgLocationAfterTrip(R.id.after_tracking_view_org_location, R.id.after_tracking_view_org_location_desc, R.id.after_tracking_view_using_fourkm_rule);
+        handleOrgLocationAfterTrip(R.id.after_tracking_view_org_location, R.id.after_tracking_view_org_location_desc, R.id.after_tracking_view_using_fourkm_rule_container, R.id.after_tracking_view_using_fourkm_rule, R.id.after_tracking_view_hometoborderdistance_container);
 
         View kmView = findViewById(R.id.after_tracking_view_km_container);
         kmView.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +164,19 @@ public class AfterTripActivity extends BaseReportActivity {
         }
     }
 
+    private void saveFourKmRuleDistance(double meters) {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("DevicePreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putFloat("hometoborderdistance-" + auth.getGuId(), Double.valueOf(meters).floatValue());
+        editor.commit();
+    }
+
+    private double loadFourKmRuleDistance() {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("DevicePreferences", Context.MODE_PRIVATE);
+        double meters = preferences.getFloat("hometoborderdistance-" + auth.getGuId(), 0);
+        return meters;
+    }
+
     private void savePrefilledData() {
 
         String purpose = report.getPurpose();
@@ -139,6 +194,18 @@ public class AfterTripActivity extends BaseReportActivity {
             showDialogBeforeSend();
         }
     }
+
+    private double handleFourKmRuleKmClick(String data, double prevVal) {
+        double meters = report.getHomeToBorderDistance();
+        try {
+            meters = Double.parseDouble(data);
+            setTextToView(R.id.after_tracking_view_hometoborderdistance_textview_2, DistanceDisplayer.formatDistance(meters));
+        } catch (Exception e) {
+            Log.e("temp", "is not a decimal number", e);
+        }
+        return meters;
+    }
+
 
     private void setDateLabel() {
         TextView dateLabel = getViewById(R.id.after_tracking_view_date_label);

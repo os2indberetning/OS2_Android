@@ -320,6 +320,52 @@
                 android:background="#b4b4b4" />
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/after_tracking_view_hometoborderdistance_container" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/after_tracking_hometoborderdistance_title"
+                android:id="@+id/after_tracking_view_hometoborderdistance_textview"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#000"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="x.y km"
+                android:id="@+id/after_tracking_view_hometoborderdistance_textview_2"
+                android:layout_below="@+id/after_tracking_view_hometoborderdistance_textview"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:textColor="#000" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/after_tracking_view_hometoborderdistance_imageview"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/arrow_right" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/after_tracking_view_hometoborderdistance_divider"
+                android:background="#b4b4b4" />
+        </RelativeLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

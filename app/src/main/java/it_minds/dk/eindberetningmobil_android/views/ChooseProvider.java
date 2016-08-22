@@ -71,7 +71,7 @@ public class ChooseProvider extends SimpleActivity {
             //Set the provider to Test Backend
             useProvider(new Provider(
                     "Test Backend",
-                    "http://10.255.1.45:3308/api", //Not correct port number
+                    "http://os2indberetningmobil/api", //Not correct port number
                     "https://os2indberetning.dk/logo.png",
                     "#FFFFFF",
                     "#FFC107",

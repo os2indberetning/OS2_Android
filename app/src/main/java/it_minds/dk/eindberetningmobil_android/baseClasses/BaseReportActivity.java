@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -143,7 +144,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         }
     }
 
-    public void handleOrgLocationAfterTrip(@IdRes int container, @IdRes final int label, @IdRes final int fourKmRuleView) {
+    public void handleOrgLocationAfterTrip(@IdRes int container, @IdRes final int label, @IdRes final int fourKmRuleView, @IdRes final int fourKmRuleCheckbox, @IdRes final int fourKmRuleDistanceView) {
         findViewById(container).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,31 +153,41 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                     public void onData(String data) {
                         report.setOrgLocation(data);
                         setOrgText(data, label);
-                        setFourKmRuleHidden(data, fourKmRuleView);
+                        setFourKmRuleHidden(data, fourKmRuleView, fourKmRuleCheckbox, fourKmRuleDistanceView);
                     }
                 }, getString(R.string.org_location_title_edit), report.getOrgLocation(), EmploymentActivity.class);
             }
         });
         if (report.getOrgLocation() != null && report.getOrgLocation().length() > 0) {
             setOrgText(report.getOrgLocation(), label);
-            setFourKmRuleHidden(report.getOrgLocation(), fourKmRuleView);
+            setFourKmRuleHidden(report.getOrgLocation(), fourKmRuleView, fourKmRuleCheckbox, fourKmRuleDistanceView);
+
         }
     }
 
-    public void setFourKmRuleHidden(String orgId, int fourKmRuleViewResId) {
+    public void setFourKmRuleHidden(String orgId, int fourKmRuleViewResId, int fourKmRuleCheckbox, int fourKmRuleDistanceView) {
         View kmView = getViewById(fourKmRuleViewResId);
+        View kmDistanceView = getViewById(fourKmRuleDistanceView);
+        CheckBox fourKmCheckbox = getViewById(fourKmRuleCheckbox);
         employment = findEmployementById(orgId);
         if (employment != null) {
             if (employment.getFourKmRuleAllowed()) {
                 kmView.setVisibility(View.VISIBLE);
+                if (fourKmCheckbox.isChecked()) {
+                    kmDistanceView.setVisibility(View.VISIBLE);
+                } else {
+                    kmDistanceView.setVisibility(View.GONE);
+                }
             }
             else {
                 kmView.setVisibility(View.GONE);
+                kmDistanceView.setVisibility(View.GONE);
             }
         }
         else
         {
             kmView.setVisibility(View.GONE);
+            kmDistanceView.setVisibility(View.GONE);
         }
     }
 

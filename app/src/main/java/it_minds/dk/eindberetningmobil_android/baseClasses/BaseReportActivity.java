@@ -173,6 +173,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
         if (employment != null) {
             if (employment.getFourKmRuleAllowed()) {
                 kmView.setVisibility(View.VISIBLE);
+                fourKmCheckbox.setChecked(false);
                 if (fourKmCheckbox.isChecked()) {
                     kmDistanceView.setVisibility(View.VISIBLE);
                 } else {

@@ -71,7 +71,7 @@ public class ModelsTests extends ApplicationTestCase<MainApplication> {
 
     @Test
     public void testEmployments() throws MalformedURLException, JSONException {
-        Employments emp = new Employments(0, "swagger", "010");
+        Employments emp = new Employments(0, "swagger", "010", false);
         Employments emp2 = Employments.parseFromJson(emp.saveToJson());
         assertTrue(emp.equals(emp2));
         assertTrue(emp.hashCode() == emp2.hashCode());

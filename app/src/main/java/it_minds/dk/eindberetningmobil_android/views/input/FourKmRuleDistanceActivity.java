@@ -13,7 +13,7 @@ import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 /**
  * Created by jonas on 09/06/16.
  */
-public class FourKmRuleKmActivity extends ProvidedSimpleActivity {
+public class FourKmRuleDistanceActivity extends ProvidedSimpleActivity {
     private NumberPicker commaPicker;
     private NumberPicker mainCounter;
 

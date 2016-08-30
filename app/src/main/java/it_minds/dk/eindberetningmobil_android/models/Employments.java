@@ -23,11 +23,13 @@ public class Employments {
     private int Id;
     private String EmploymentPosition;
     private String ManNr;
+    private boolean FourKmRuleAllowed;
 
-    public Employments(int id, String employmentPosition, String manNr) {
+    public Employments(int id, String employmentPosition, String manNr, boolean fourKmRuleAllowed) {
         Id = id;
         EmploymentPosition = employmentPosition;
-        ManNr = manNr;
+		ManNr = manNr;
+		FourKmRuleAllowed = fourKmRuleAllowed;
     }
 
     /**
@@ -39,7 +41,8 @@ public class Employments {
         int Id = obj.optInt("Id");
         String EmploymentPosition = obj.optString("EmploymentPosition");
         String ManNr = obj.optString("ManNr");
-        return new Employments(Id, EmploymentPosition, ManNr);
+        boolean FourKmRuleAllowed = obj.optJSONObject("OrgUnit").optBoolean("FourKmRuleAllowed");
+        return new Employments(Id, EmploymentPosition, ManNr, FourKmRuleAllowed);
     }
 
     /**
@@ -79,6 +82,14 @@ public class Employments {
 
 
     /**
+     * @return boolean
+     */
+    public boolean getFourKmRuleAllowed() {
+        return this.FourKmRuleAllowed;
+    }
+
+
+    /**
      * saveToJson description here
      *
      * @return JSONObject
@@ -88,6 +99,11 @@ public class Employments {
         result.put("Id", Id);
         result.put("EmploymentPosition", EmploymentPosition);
         result.put("ManNr", ManNr);
+
+        SafeJsonHelper fourKmObj = new SafeJsonHelper();
+        fourKmObj.put("FourKmRuleAllowed", FourKmRuleAllowed);
+        result.put("OrgUnit", fourKmObj);
+
         return result;
 
     }
@@ -102,6 +118,7 @@ public class Employments {
 
         if (Id != that.Id) return false;
         if (ManNr != that.ManNr) return false;
+        if (FourKmRuleAllowed != that.FourKmRuleAllowed) return false;
         return !(EmploymentPosition != null ? !EmploymentPosition.equals(that.EmploymentPosition) : that.EmploymentPosition != null);
 
     }

@@ -64,7 +64,7 @@
             android:name=".views.MissingTripActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
-            android:name=".views.input.FourKmRuleKmActivity"
+            android:name=".views.input.FourKmRuleDistanceActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <service

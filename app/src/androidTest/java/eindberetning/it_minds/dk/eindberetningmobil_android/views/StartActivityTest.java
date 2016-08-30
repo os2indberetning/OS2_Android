@@ -31,7 +31,7 @@ public class StartActivityTest extends BaseTest<StartActivity> {
     @Test
     public void testStart() {
         ArrayList<Employments> employess = new ArrayList<Employments>();
-        employess.add(new Employments(999, "tester", "230"));
+        employess.add(new Employments(999, "tester", "230", false));
         MainSettings.getInstance(getActivity()).setProfile(new Profile(0, "", "", "", "", employess, StaticData.createMockAuth()));
         ArrayList<Rates> rates = new ArrayList<>();
         rates.add(new Rates(6667,"rate descrition","no year"));

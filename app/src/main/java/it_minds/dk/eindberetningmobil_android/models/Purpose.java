@@ -8,12 +8,14 @@
 package it_minds.dk.eindberetningmobil_android.models;
 
 import android.support.annotation.NonNull;
+import android.text.format.DateFormat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,7 +89,11 @@ public class Purpose implements Comparable<Purpose>{
     public JSONObject saveToJson() {
         SafeJsonHelper result = new SafeJsonHelper();
         result.put("Description", description);
-        result.put("Date", lastUsed.toString());
+
+        Format f = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.ENGLISH);
+        String date = f.format(lastUsed);
+        result.put("Date", date);
+
         return result;
 
     }

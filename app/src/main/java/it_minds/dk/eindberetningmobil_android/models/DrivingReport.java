@@ -263,7 +263,7 @@ public class DrivingReport implements Parcelable {
             gpsPointsArray.put(gpsPoint);
         }
         routeView.put("GPSCoordinates", gpsPointsArray);
-        result.put("hometoborderDistance", DistanceDisplayer.formatDisanceForUpload(homeToBorderDistance));
+        result.put("HomeToBorderDistance", DistanceDisplayer.formatDisanceForUpload(homeToBorderDistance));
         result.put("route", routeView);
         result.put("ProfileId", profileId);
 

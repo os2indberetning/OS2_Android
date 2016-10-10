@@ -106,5 +106,5 @@
     <string name="settings">Indstillinger</string>
     <string name="version">Version %s</string>
     <string name="purpose_list_delete_help">Hold nede på et formål for at slette det.</string>
-    <string name="after_tracking_hometoborderdistance_title">Antal Km for 4-km reglen</string>
+    <string name="after_tracking_hometoborderdistance_title">Antal km fra kommunegrænse til bopæl</string>
 </resources>

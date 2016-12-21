@@ -53,6 +53,8 @@ public class AfterTripActivity extends BaseReportActivity {
         setContentView(R.layout.after_tracking_view);
         TextView sendBtn = getViewById(R.id.after_tracking_view_send_btn);
 
+        setTitle(R.string.after_tacking_accept_view_title);
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -122,6 +122,7 @@
 
     <string name="after_tacking_cancel_button_title">Annuller og slet</string>
     <string name="after_tacking_accept_button_title">Indsend kørsel</string>
+    <string name="after_tacking_accept_view_title">Afslut kørsel</string>
 
     <string name="confirmation_delete_drivereport_title">Bekræft sletning</string>
     <string name="confirmation_delete_drivereport_description">Kørslen vil ikke blive gemt</string>

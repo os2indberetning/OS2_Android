@@ -120,7 +120,7 @@ public class AfterTripActivity extends BaseReportActivity {
 
                         report.setHomeToBorderDistance(meters);
                     }
-                }, getString(R.string.distance_title_edit), report.getHomeToBorderDistance() + "", FourKmRuleDistanceActivity.class);
+                }, getString(R.string.hometoborderdistance_view_title), report.getHomeToBorderDistance() + "", FourKmRuleDistanceActivity.class);
             }
         });
 
@@ -144,7 +144,7 @@ public class AfterTripActivity extends BaseReportActivity {
                         double meters = handleKmClick(data, prevVal);
                         report.setDistanceInMeters(meters);
                     }
-                }, getString(R.string.distance_title_edit), report.getDistanceInMeters() + "", KmActivity.class);
+                }, getString(R.string.hometoborderdistance_view_title), report.getDistanceInMeters() + "", KmActivity.class);
             }
         });
 
@@ -248,7 +248,7 @@ public class AfterTripActivity extends BaseReportActivity {
 
     private void navigateBack() {
         //show a confirmation dialog.
-        new ConfirmationDialog(this, getString(R.string.dialog_cancel_full_report), getString(R.string.cancel_full_report_message), getString(R.string.delete), getString(R.string.No), null, new ResultCallback<Boolean>() {
+        new ConfirmationDialog(this, getString(R.string.confirmation_delete_drivereport_title), getString(R.string.confirmation_delete_drivereport_description), getString(R.string.confirmation_delete_drivereport_accept), getString(R.string.confirmation_delete_drivereport_cancel), null, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 startActivity(new Intent(AfterTripActivity.this, StartActivity.class));
@@ -263,7 +263,7 @@ public class AfterTripActivity extends BaseReportActivity {
     }
 
     private void showDialogBeforeSend() {
-        new ConfirmationDialog(this, getString(R.string.dialog_send_full_report), getString(R.string.dialog_send_full_report_message), getString(R.string.send), getString(R.string.No), null, new ResultCallback<Boolean>() {
+        new ConfirmationDialog(this, getString(R.string.confirmation_send_drivereport_title), getString(R.string.confirmation_send_drivereport_description), getString(R.string.confirmation_send_drivereport_accept), getString(R.string.confirmation_send_drivereport_cancel), null, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 Intent intent = new Intent(AfterTripActivity.this, UploadingView.class);

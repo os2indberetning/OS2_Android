@@ -22,7 +22,7 @@ public class ConfirmationEndDrivingDialog extends ConfirmationDialog {
         super(context,
                 lookup(R.string.confirmation_end_driving_dialog_title, context),
                 lookup(R.string.confirmation_end_driving_dialog_message, context),
-                lookup(R.string.Ok, context), lookup(R.string.No, context),
+                lookup(R.string.confirmation_end_driving_dialog_Yes, context), lookup(R.string.confirmation_end_driving_dialog_No, context),
                 lookup(R.string.confirmation_end_driving_dialog_end_home, context), callback);
     }
 

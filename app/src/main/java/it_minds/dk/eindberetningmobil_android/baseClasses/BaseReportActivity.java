@@ -98,7 +98,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                         report.setPurpose(data);
                         setPurposeText(data, purposeDesc);
                     }
-                }, getString(R.string.purpose_title_edit), report.getPurpose(), PurposeActivity.class);
+                }, getString(R.string.purpose_view_title), report.getPurpose(), PurposeActivity.class);
             }
         });
         if (report.getPurpose() != null && report.getPurpose().length() > 0) {
@@ -136,7 +136,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                         report.setOrgLocation(data);
                         setOrgText(data, label);
                     }
-                }, getString(R.string.org_location_title_edit), report.getOrgLocation(), EmploymentActivity.class);
+                }, getString(R.string.employments_view_title), report.getOrgLocation(), EmploymentActivity.class);
             }
         });
         if (report.getOrgLocation() != null && report.getOrgLocation().length() > 0) {
@@ -155,7 +155,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                         setOrgText(data, label);
                         setFourKmRuleHidden(data, fourKmRuleView, fourKmRuleCheckbox, fourKmRuleDistanceView);
                     }
-                }, getString(R.string.org_location_title_edit), report.getOrgLocation(), EmploymentActivity.class);
+                }, getString(R.string.employments_view_title), report.getOrgLocation(), EmploymentActivity.class);
             }
         });
         if (report.getOrgLocation() != null && report.getOrgLocation().length() > 0) {
@@ -210,7 +210,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                         report.setRate(data);
                         setRateText(data, label);
                     }
-                }, getString(R.string.rate_title_edit), report.getRate(), RateActivity.class);
+                }, getString(R.string.rates_view_title), report.getRate(), RateActivity.class);
             }
         });
         if (report.getRate() != null && report.getRate().length() > 0) {
@@ -228,7 +228,7 @@ public class BaseReportActivity extends ProvidedSimpleActivity {
                         report.setExtraDescription(data);
                         setTextToView(label, data);
                     }
-                }, getString(R.string.extra_description_title_edit), report.getExtraDescription());
+                }, getString(R.string.comments_view_title), report.getExtraDescription());
             }
         });
         if (report.getExtraDescription() != null && report.getExtraDescription().length() > 0) {

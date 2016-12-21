@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Formål"
+                android:text="@string/purpose_title"
                 android:id="@+id/textView2"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vælg formål"
+                android:text="@string/purpose_subtitle"
                 android:id="@+id/after_tracking_view_purpose_desc"
                 android:layout_below="@+id/textView2"
                 android:layout_alignParentLeft="true"
@@ -99,7 +99,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Organisatorisk placering"
+                android:text="@string/employments_title"
                 android:id="@+id/textView4"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -110,7 +110,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vælg placering"
+                android:text="@string/employments_subtitle"
                 android:id="@+id/after_tracking_view_org_location_desc"
                 android:layout_below="@+id/textView4"
                 android:layout_alignParentLeft="true"
@@ -144,7 +144,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Takst"
+                android:text="@string/rates_title"
                 android:id="@+id/textView6"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -155,7 +155,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vælg takst"
+                android:text="@string/rates_subtitle"
                 android:id="@+id/after_tracking_view_rate_desc"
                 android:layout_below="@+id/textView6"
                 android:layout_alignParentLeft="true"
@@ -189,7 +189,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ekstra bemærkning"
+                android:text="@string/comments_title"
                 android:id="@+id/textView8"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -200,7 +200,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Indtast bemærkning"
+                android:text="@string/comments_subtitle"
                 android:id="@+id/after_tracking_view_extra_desc_desc"
                 android:layout_below="@+id/textView8"
                 android:layout_alignParentLeft="true"
@@ -234,7 +234,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Antal Km"
+                android:text="@string/total_distance_title"
                 android:id="@+id/textView"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -272,7 +272,7 @@
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Starter du hjemme?"
+            android:text="@string/start_home_title"
             android:id="@+id/after_tracking_view_start_at_home"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -287,7 +287,7 @@
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Sluttede du hjemme?"
+            android:text="@string/end_home_title"
             android:id="@+id/after_tracking_view_ended_at_home"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -307,7 +307,7 @@
             <CheckBox
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Jeg bruger 4-km reglen"
+                android:text="@string/use_fourkm_title"
                 android:id="@+id/after_tracking_view_using_fourkm_rule"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -330,7 +330,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/after_tracking_hometoborderdistance_title"
+                android:text="@string/hometoborderdistance_title"
                 android:id="@+id/after_tracking_view_hometoborderdistance_textview"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -375,10 +375,11 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Annuller og slet"
+                android:text="@string/after_tacking_cancel_button_title"
                 android:id="@+id/after_tracking_view_cancel_btn"
                 android:textColor="#DB813C"
                 android:background="#fff"
+                android:textAllCaps="false"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
@@ -389,10 +390,11 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Indsend kørsel"
+                android:text="@string/after_tacking_accept_button_title"
                 android:id="@+id/after_tracking_view_send_btn"
                 android:textColor="#fff"
                 android:background="#DB813C"
+                android:textAllCaps="false"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"

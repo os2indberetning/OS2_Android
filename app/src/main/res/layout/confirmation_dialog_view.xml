@@ -53,7 +53,8 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/No"
+            android:text="@string/confirmation_end_driving_dialog_No"
+            android:textAllCaps="false"
             android:id="@+id/confirmation_end_driving_dialog_no"
             android:layout_marginLeft="@dimen/dialog.button.margin.left"
             android:layout_marginTop="@dimen/dialog.button.margin.top"
@@ -66,7 +67,8 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/Ok"
+            android:text="@string/confirmation_end_driving_dialog_Yes"
+            android:textAllCaps="false"
             android:id="@+id/confirmation_end_driving_dialog_ok"
             android:layout_marginRight="@dimen/dialog.button.margin.right"
             android:layout_marginTop="@dimen/dialog.button.margin.top"

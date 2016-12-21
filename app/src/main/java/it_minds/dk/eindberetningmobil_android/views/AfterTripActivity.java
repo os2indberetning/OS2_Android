@@ -133,22 +133,6 @@ public class AfterTripActivity extends BaseReportActivity {
         handleRate(R.id.after_tracking_view_rate, R.id.after_tracking_view_rate_desc);
         handleOrgLocationAfterTrip(R.id.after_tracking_view_org_location, R.id.after_tracking_view_org_location_desc, R.id.after_tracking_view_using_fourkm_rule_container, R.id.after_tracking_view_using_fourkm_rule, R.id.after_tracking_view_hometoborderdistance_container);
 
-        View kmView = findViewById(R.id.after_tracking_view_km_container);
-        kmView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final double prevVal = report.getDistanceInMeters();
-                showEdit(new OnData<String>() {
-                    @Override
-                    public void onData(String data) {
-                        double meters = handleKmClick(data, prevVal);
-                        report.setDistanceInMeters(meters);
-                    }
-                }, getString(R.string.hometoborderdistance_view_title), report.getDistanceInMeters() + "", KmActivity.class);
-            }
-        });
-
-
         TextView kmDescView = (TextView) findViewById(R.id.after_tracking_view_km_container_desc);
         kmDescView.setText(DistanceDisplayer.formatDistance(report.getDistanceInMeters()));
 

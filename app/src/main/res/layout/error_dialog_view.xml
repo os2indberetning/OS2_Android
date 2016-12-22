@@ -39,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="OK"
+        android:textAllCaps="false"
         android:id="@+id/error_dialog_view_ok_btn"
         android:layout_marginLeft="@dimen/dialog.button.margin.left"
         android:layout_marginRight="@dimen/dialog.button.margin.right"

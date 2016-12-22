@@ -73,6 +73,8 @@ public class StartActivity extends BaseReportActivity {
 
         setContentView(R.layout.start_tracking_layout);
 
+        setTitle(R.string.new_drive_view_title);
+
         TextView dateLabel = getViewById(R.id.start_tracking_layout_date_label);
         dateLabel.setText(getString(R.string.date_start) + new DateTime().toString("dd/MM-yy"));
 
@@ -184,10 +186,10 @@ public class StartActivity extends BaseReportActivity {
     @Override
     public void onBackPressed() {
             new ConfirmationDialog(this,
-                    getString(R.string.start_cancel_dialog_title),
-                    getString(R.string.entering_will_dismiss),
-                    getString(R.string.Ok),
-                    getString(R.string.No), null, new ResultCallback<Boolean>() {
+                    getString(R.string.confirmation_logout_drivereport_title),
+                    getString(R.string.confirmation_logout_drivereport_description),
+                    getString(R.string.confirmation_logout_drivereport_accept),
+                    getString(R.string.confirmation_logout_drivereport_cancel), null, new ResultCallback<Boolean>() {
                 @Override
                 public void onSuccess(Boolean result) {
                     superBackPressed();
@@ -236,9 +238,9 @@ public class StartActivity extends BaseReportActivity {
             if(gpsPermission == GPSAccesCode.GPS_DISABLED_GLOBAL_SETTINGS){
                 ConfirmationDialog dialog = new ConfirmationDialog(
                         StartActivity.this,
-                        getString(R.string.activate_gps_title),
-                        getString(R.string.activate_gps_description),
-                        getString(R.string.Ok),
+                        getString(R.string.gps_alert_title),
+                        getString(R.string.gps_alert_description),
+                        getString(R.string.gps_alert_accept),
                         getString(R.string.settings),
                         null,
                         new ResultCallback<Boolean>() {

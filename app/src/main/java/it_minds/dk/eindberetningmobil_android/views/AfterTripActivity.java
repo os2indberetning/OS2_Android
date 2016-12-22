@@ -53,6 +53,8 @@ public class AfterTripActivity extends BaseReportActivity {
         setContentView(R.layout.after_tracking_view);
         TextView sendBtn = getViewById(R.id.after_tracking_view_send_btn);
 
+        setTitle(R.string.after_tacking_accept_view_title);
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +122,7 @@ public class AfterTripActivity extends BaseReportActivity {
 
                         report.setHomeToBorderDistance(meters);
                     }
-                }, getString(R.string.distance_title_edit), report.getHomeToBorderDistance() + "", FourKmRuleDistanceActivity.class);
+                }, getString(R.string.hometoborderdistance_view_title), report.getHomeToBorderDistance() + "", FourKmRuleDistanceActivity.class);
             }
         });
 
@@ -132,22 +134,6 @@ public class AfterTripActivity extends BaseReportActivity {
         handlePurpose(R.id.after_tracking_view_purpose, R.id.after_tracking_view_purpose_desc);
         handleRate(R.id.after_tracking_view_rate, R.id.after_tracking_view_rate_desc);
         handleOrgLocationAfterTrip(R.id.after_tracking_view_org_location, R.id.after_tracking_view_org_location_desc, R.id.after_tracking_view_using_fourkm_rule_container, R.id.after_tracking_view_using_fourkm_rule, R.id.after_tracking_view_hometoborderdistance_container);
-
-        View kmView = findViewById(R.id.after_tracking_view_km_container);
-        kmView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final double prevVal = report.getDistanceInMeters();
-                showEdit(new OnData<String>() {
-                    @Override
-                    public void onData(String data) {
-                        double meters = handleKmClick(data, prevVal);
-                        report.setDistanceInMeters(meters);
-                    }
-                }, getString(R.string.distance_title_edit), report.getDistanceInMeters() + "", KmActivity.class);
-            }
-        });
-
 
         TextView kmDescView = (TextView) findViewById(R.id.after_tracking_view_km_container_desc);
         kmDescView.setText(DistanceDisplayer.formatDistance(report.getDistanceInMeters()));
@@ -248,7 +234,7 @@ public class AfterTripActivity extends BaseReportActivity {
 
     private void navigateBack() {
         //show a confirmation dialog.
-        new ConfirmationDialog(this, getString(R.string.dialog_cancel_full_report), getString(R.string.cancel_full_report_message), getString(R.string.delete), getString(R.string.No), null, new ResultCallback<Boolean>() {
+        new ConfirmationDialog(this, getString(R.string.confirmation_delete_drivereport_title), getString(R.string.confirmation_delete_drivereport_description), getString(R.string.confirmation_delete_drivereport_accept), getString(R.string.confirmation_delete_drivereport_cancel), null, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 startActivity(new Intent(AfterTripActivity.this, StartActivity.class));
@@ -263,7 +249,7 @@ public class AfterTripActivity extends BaseReportActivity {
     }
 
     private void showDialogBeforeSend() {
-        new ConfirmationDialog(this, getString(R.string.dialog_send_full_report), getString(R.string.dialog_send_full_report_message), getString(R.string.send), getString(R.string.No), null, new ResultCallback<Boolean>() {
+        new ConfirmationDialog(this, getString(R.string.confirmation_send_drivereport_title), getString(R.string.confirmation_send_drivereport_description), getString(R.string.confirmation_send_drivereport_accept), getString(R.string.confirmation_send_drivereport_cancel), null, new ResultCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 Intent intent = new Intent(AfterTripActivity.this, UploadingView.class);

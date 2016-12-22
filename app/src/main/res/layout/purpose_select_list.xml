@@ -43,7 +43,7 @@
         android:gravity="center"
         android:layout_margin="8dp"
         android:textStyle="italic"
-        android:text="@string/purpose_list_delete_help"
+        android:text="@string/purpose_view_delete_hint"
         android:textSize="16sp"
         android:textColor="#bbb"
         />

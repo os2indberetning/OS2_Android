@@ -29,7 +29,7 @@
     <string name="delete">Slet</string>
     <string name="date_start">"Dato: "</string>s
     <string name="send">Send</string>
-    <string name="start_activity_validation_error">Udfyld venligst formål, organisatorisk placering, og takst inden du starter.</string>
+    <string name="start_activity_validation_error">Udfyld venligst formål, stilling, og takst inden du starter.</string>
     <string name="km_edit_notice_title">Advarsel</string>
     <string name="km_edit_notice_body">Hvis du redigerer din distance, vil dette blive opgivet, er du sikker du vil fortsætte?</string>
     <string name="km_edit_notice_accept">Ja</string>

@@ -12,16 +12,6 @@
     <string name="error_dialog_title">Fejl</string>
     <string name="inaccuracy_dialog_title">OBS</string>
     <string name="inaccuracy_dialog_message">Under turen har der været et eller flere udfald i GPS-forbindelsen. Vær derfor særligt opmærksom på, om afstanden og ruten passer med det forventede.</string>
-    <string name="confirmation_end_driving_dialog_title">Afslut kørsel?</string>
-    <string name="confirmation_end_driving_dialog_message">Er du sikker på du vil afslutte kørslen?</string>
-    <string name="confirmation_end_driving_dialog_end_home">Kørsel slutter hjemme</string>
-    <string name="No">Nej</string>
-    <string name="Ok">OK</string>
-    <string name="purpose_title_edit">Vælg dit formål</string>
-    <string name="extra_description_title_edit">Indtast din bemærkning</string>
-    <string name="rate_title_edit">Vælg taksten</string>
-    <string name="org_location_title_edit">Vælg placeringen</string>
-    <string name="distance_title_edit">Indtast antal Km</string>
     <string name="pause_trip">Pause kørsel</string>
     <string name="resume_trip">Genoptag kørsel</string>
     <string name="unknown_token_error">Der skete en ukendt fejl, prøv at lave en ny token og prøv igen.</string>
@@ -35,16 +25,11 @@
     <string name="notification_resuming_body">venter på signal…</string>
     <string name="notification_stopped_title">Stoppet</string>
     <string name="notification_stopped_body">Venter på at genoptage.</string>
-    <string name="start_cancel_dialog_title">Er du sikker på at du vil logge ud?</string>
-    <string name="entering_will_dismiss">Eventuelle indtastninger og gemte rapporter vil blive slettet, er du sikker?</string>
     <string name="dialog_cancel_full_report">Slet nuværende rapport</string>
-    <string name="cancel_full_report_message">Du er ved at slette hele din rapport, er du virkelig sikker?</string>
     <string name="delete">Slet</string>
-    <string name="date_start">"Dato: "</string>
-    <string name="dialog_send_full_report">Send rapporten</string>
-    <string name="dialog_send_full_report_message">Er du sikker på at du vil sende rapporten som den er nu?</string>
+    <string name="date_start">"Dato: "</string>s
     <string name="send">Send</string>
-    <string name="start_activity_validation_error">Udfyld venligst formål, organisatorisk placering, og takst inden du starter.</string>
+    <string name="start_activity_validation_error">Udfyld venligst formål, stilling, og takst inden du starter.</string>
     <string name="km_edit_notice_title">Advarsel</string>
     <string name="km_edit_notice_body">Hvis du redigerer din distance, vil dette blive opgivet, er du sikker du vil fortsætte?</string>
     <string name="km_edit_notice_accept">Ja</string>
@@ -55,7 +40,6 @@
     <string name="error_gps_retry">Prøv igen</string>
     <string name="error_gps_stop">Afslut kørsel</string>
     <string name="stopped_trip_gps">OS2Indberetning er stoppet, eftersom du har slukket for gps\'en.  åben notifikationen for at genoptage din rute.</string>
-    <string name="activate_gps_description">Du skal aktivere lokationstjenester for at kunne benytte appen.</string>
     <string name="error_distance_resume">Du er for langt væk fra din position da du pauserede kørslen. Vend tilbage til den position, eller afslut den nuværende kørsel og start en ny.</string>
     <string name="retry">prøv igen</string>
     <string name="cancel_route">afslut nuværende</string>
@@ -69,9 +53,7 @@
     <string name="invalid_user">Ugyldige bruger oplysninger</string>
     <string name="no_verication_error">Vi kunne ikke verificere at din enhed stadig er parret, tjek at du har internet</string>
     <string name="see_not_send">Se ikke sendte</string>
-    <string name="not_sent_reports_description">Klik på en rapport for enten at sende den eller slette den. Hvis du fortryder kan du klikke udenfor boksen eller på tilbage knappen.</string>
-    <string name="not_sent_reports_title">Ikke sendte rapporter</string>
-    <string name="purpose_prefix">Formål</string>
+    <string name="purpose_prefix">Formåls</string>
     <string name="distance_prefix">Distance</string>
     <string name="rate_prefix">Takst</string>
     <string name="repport_prefix">Rapporteret den</string>
@@ -96,15 +78,88 @@
         Her finder du også dit brugernavn, som er dine initialer.</string>
 
     <string name="choose_test_api">Benyt test backend</string>
-    <string name="purpose_list_empty">Tryk på \'+\' for at tilføje et nyt formål</string>
     <string name="user_sync_error_no_internet">Ingen internetforbindelse!</string>
     <string name="network_error_no_internet_description">Tjek din internetforbindelse og prøv igen.</string>
     <string name="user_sync_error_unauthorized">Kunne ikke synkronisere bruger info med serveren!</string>
     <string name="user_sync_error_unauthorized_description">Der er sket en ændring i din bruger info på serveren - du skal logge ind igen.</string>
     <string name="user_sync_error_unknown">Der opstod en uventet fejl ved synkronisering af bruger info - vi beklager.</string>
-    <string name="activate_gps_title">Aktiver lokation</string>
     <string name="settings">Indstillinger</string>
     <string name="version">Version %s</string>
-    <string name="purpose_list_delete_help">Hold nede på et formål for at slette det.</string>
-    <string name="after_tracking_hometoborderdistance_title">Antal km fra kommunegrænse til bopæl</string>
+
+
+    <string name="purpose_title">Formål med tjenestekørsel</string>
+    <string name="purpose_subtitle">Opret eller vælg formål</string>
+
+    <string name="employments_title">Stilling og ansættelsessted</string>
+    <string name="employments_subtitle">Vælg stilling og ansættelsessted</string>
+
+    <string name="rates_title">Takst</string>
+    <string name="rates_subtitle">Vælg takst</string>
+
+    <string name="comments_title">Kommentarer</string>
+    <string name="comments_subtitle">Indtast eventuelle uddybende kommentarer</string>
+
+    <string name="total_distance_title">Antal kørte km</string>
+    <string name="total_distance_subtitle"></string>
+
+    <string name="start_home_title">Starter du hjemme?</string>
+    <string name="end_home_title">Slutter du hjemme?</string>
+    <string name="use_fourkm_title">Jeg bruger 4 km-reglen</string>
+
+    <string name="hometoborderdistance_title">Afstand bopæl - kommunegrænse (4 km reglen)</string>
+
+    <string name="start_drive_button_title">Start kørsel</string>
+
+    <string name="pause_drive_button_title">Pause kørsel</string>
+    <string name="unpause_drive_button_title">Genoptag kørsel</string>
+    <string name="end_drive_button_title">Afslut kørsel</string>
+
+    <string name="confirmation_end_driving_dialog_title">Afslut kørsel?</string>
+    <string name="confirmation_end_driving_dialog_message">Er du sikker på du vil afslutte kørslen?</string>
+    <string name="confirmation_end_driving_dialog_end_home">Kørsel slutter hjemme</string>
+    <string name="confirmation_end_driving_dialog_No">Nej</string>
+    <string name="confirmation_end_driving_dialog_Yes">Ja</string>
+
+    <string name="after_tacking_cancel_button_title">Annuller og slet</string>
+    <string name="after_tacking_accept_button_title">Indsend kørsel</string>
+    <string name="after_tacking_accept_view_title">Afslut kørsel</string>
+
+    <string name="confirmation_delete_drivereport_title">Bekræft sletning</string>
+    <string name="confirmation_delete_drivereport_description">Kørslen vil ikke blive gemt</string>
+    <string name="confirmation_delete_drivereport_cancel">Fortryd</string>
+    <string name="confirmation_delete_drivereport_accept">Slet</string>
+
+    <string name="confirmation_send_drivereport_title">Send rapporten</string>
+    <string name="confirmation_send_drivereport_description">Er du sikker på at du vil sende rapporten som den er nu?</string>
+    <string name="confirmation_send_drivereport_cancel">Nej</string>
+    <string name="confirmation_send_drivereport_accept">Send</string>
+
+    <string name="confirmation_logout_drivereport_title">Du er ved at logge ud</string>
+    <string name="confirmation_logout_drivereport_description">Envertuelle indtastninger og gemte rapporter vil blive slettet, er du sikker?</string>
+    <string name="confirmation_logout_drivereport_cancel">Nej</string>
+    <string name="confirmation_logout_drivereport_accept">Ja</string>
+
+    <string name="gps_alert_title">Aktiver lokation</string>
+    <string name="gps_alert_description">Du skal aktivere lokationstjenester for at kunne benytte appen.</string>
+    <string name="gps_alert_accept">Ok</string>
+
+    <string name="new_drive_view_title">Ny kørsel</string>
+
+    <string name="purpose_view_title">Opret eller vælg formål</string>
+    <string name="purpose_view_description">Tryk på \'+\' for at tilføje et nyt formål</string>
+    <string name="purpose_view_delete_hint">Hold nede på et formål for at slette det.</string>
+
+    <string name="employments_view_title">Vælg stilling</string>
+
+    <string name="rates_view_title">Vælg takst</string>
+
+    <string name="comments_view_title">Indtast kommentarer</string>
+
+    <string name="hometoborderdistance_view_title">Antal km</string>
+    <string name="hometoborderdistance_view_description">Angiv antal km mellem din bopæl og kommunegrænsen (hele km, meter). OS2Indberetning fordobler automatisk afstanden, hvis du både er startet og stoppet hjemme.</string>
+
+    <string name="not_sent_reports_view_title">Gemte rapporteringer</string>
+    <string name="not_sent_reports_view_header">Ikke sendte rapporter</string>
+    <string name="not_sent_reports_view_description">Klik på en rapport for enten at sende den eller slette den. Hvis du fortryder kan du klikke udenfor boksen eller på tilbage knappen.</string>
+
 </resources>

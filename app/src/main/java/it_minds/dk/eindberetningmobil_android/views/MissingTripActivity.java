@@ -39,6 +39,7 @@ public class MissingTripActivity extends ProvidedSimpleActivity {
         setContentView(R.layout.missing_trips_view);
         listView = getViewById(R.id.missing_trips_listview);
         setActionbarBackDisplay();
+        setTitle(R.string.not_sent_reports_view_title);
         refreshData();
     }
 

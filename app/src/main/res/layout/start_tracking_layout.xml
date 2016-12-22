@@ -43,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Formål"
+                android:text="@string/purpose_title"
                 android:id="@+id/textView2"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vælg formål"
+                android:text="@string/purpose_subtitle"
                 android:id="@+id/start_tracking_layout_purpose_description"
                 android:layout_below="@+id/textView2"
                 android:layout_alignParentLeft="true"
@@ -88,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Organisatorisk placering"
+                android:text="@string/employments_title"
                 android:id="@+id/textView4"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -99,7 +99,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vælg placering"
+                android:text="@string/employments_subtitle"
                 android:id="@+id/start_tracking_layout_org_location_description"
                 android:layout_below="@+id/textView4"
                 android:layout_alignParentLeft="true"
@@ -133,7 +133,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Takst"
+                android:text="@string/rates_title"
                 android:id="@+id/textView6"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -144,7 +144,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vælg takst"
+                android:text="@string/rates_subtitle"
                 android:id="@+id/start_tracking_layout_rate_desc"
                 android:layout_below="@+id/textView6"
                 android:layout_alignParentLeft="true"
@@ -178,7 +178,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ekstra bemærkning"
+                android:text="@string/comments_title"
                 android:id="@+id/textView8"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -189,7 +189,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Indtast bemærkning"
+                android:text="@string/comments_subtitle"
                 android:id="@+id/start_tracking_layout_extra_desc_desc"
                 android:layout_below="@+id/textView8"
                 android:layout_alignParentLeft="true"
@@ -216,7 +216,7 @@
         <CheckBox
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Starter du hjemme ?"
+            android:text="@string/start_home_title"
             android:id="@+id/start_tracking_layout_start_at_home"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -231,8 +231,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start Kørsel"
+            android:text="@string/start_drive_button_title"
             android:id="@+id/start_tracking_layout_start_btn"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:background="#DB813C"
             android:layout_marginTop="5dp"

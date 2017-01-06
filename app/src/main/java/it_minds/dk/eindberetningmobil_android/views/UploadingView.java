@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 
@@ -122,6 +123,7 @@ public class UploadingView extends ProvidedSimpleActivity {
             @Override
             public void onSuccess(JSONObject result) {
                 Log.d("RESULT", result.toString());
+                Toast.makeText(UploadingView.this, toSend.getReport().getUuid().toString(), Toast.LENGTH_LONG).show(); // TODO: This has to be removed, it is just for testing if we send our uuid
                 updateStatusText(getString(R.string.success));
                 spinner.setVisibility(View.INVISIBLE);
                 MainSettings.getInstance(UploadingView.this).removeSavedReport(saveableReport);

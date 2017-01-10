@@ -25,12 +25,6 @@ public class DriveReport {
         this.profileId = profileId;
     }
 
-    /**
-     * @return String
-     */
-    public DrivingReport getReport() { return this.report; }
-
-
     public SafeJsonHelper saveAsJson() {
         SafeJsonHelper result = new SafeJsonHelper();
         result.put("Authorization", auth.saveGuIdToJson());

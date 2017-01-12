@@ -27,6 +27,7 @@ import it_minds.dk.eindberetningmobil_android.constants.IntentIndexes;
 import it_minds.dk.eindberetningmobil_android.interfaces.ResultCallback;
 import it_minds.dk.eindberetningmobil_android.models.DriveReport;
 import it_minds.dk.eindberetningmobil_android.models.DrivingReport;
+import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
 import it_minds.dk.eindberetningmobil_android.models.internal.SaveableReport;
 import it_minds.dk.eindberetningmobil_android.server.ServerFactory;
 import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
@@ -56,10 +57,7 @@ public class UploadingView extends ProvidedSimpleActivity {
         report = getIntent().getParcelableExtra(IntentIndexes.DATA_INDEX);
 
         checkForEmptyComment(report);
-        if(!checkForManualKilometerEdit(report)){
-            //Only check for single GPS point if user hasn't edited KM
-            checkForOnlySingleGPSPoint(report);
-        }
+        checkForGPSPoint(report);
 
         statusText = getViewById(R.id.upload_view_status_text);
         if (MainSettings.getInstance(this).getProvider() != null) { //just to be sure we have any data.
@@ -69,24 +67,17 @@ public class UploadingView extends ProvidedSimpleActivity {
         }
 
         spinner = (ProgressBar) findViewById(R.id.progressBar);
-
     }
 
-    private boolean checkForManualKilometerEdit(DrivingReport report) {
-        if(report.getHaveEditedDistance()){
-            //Empty coordinates array
-            report.getgpsPoints().clear();
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    private void checkForOnlySingleGPSPoint(DrivingReport report) {
+    private void checkForGPSPoint(DrivingReport report) {
         //Bit of an edge case
         if(report.getgpsPoints().size() == 1) {
             //If only 1 GPSPoint duplicate it, to make route from 2 identical points
             report.getgpsPoints().add(report.getgpsPoints().get(0));
+        }
+        else if (report.getgpsPoints().size() == 0) {
+            report.getgpsPoints().add(new GPSCoordinateModel(0.0, 0.0, false));
+            report.getgpsPoints().add(new GPSCoordinateModel(0.0, 0.0, false));
         }
     }
 

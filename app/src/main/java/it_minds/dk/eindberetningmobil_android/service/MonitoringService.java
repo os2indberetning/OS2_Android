@@ -55,7 +55,7 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
 
     private MonitoringServiceReport manager;
 
-    private static boolean haveBeenStarted = false;
+    private static boolean hasBeenStarted = false;
 
     private long mLastLocationFixTime = 0;
     private final long maxAllowedIntervalBetweenGpsUpdatesInMillis = 30000; // 30 seconds
@@ -82,7 +82,7 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
         }
         gpsMonitor = new GpsMonitor(onGpsChanged);
         gpsMonitor.startListening(this);
-        haveBeenStarted = true;
+        hasBeenStarted = true;
     }
 
     private void updateNotification(String title, String content) {
@@ -92,7 +92,7 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
 
     @Override
     public void onDestroy() {
-        haveBeenStarted = false;
+        hasBeenStarted = false;
         MainSettings.getInstance(this).setServiceClosed(true);
         locMgr.unRegisterOnLocationChanged(this);
         if (gpsMonitor != null) {
@@ -314,6 +314,6 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
      * @return
      */
     public static boolean isServiceActive() {
-        return haveBeenStarted;
+        return hasBeenStarted;
     }
 }

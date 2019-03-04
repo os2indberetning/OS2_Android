@@ -46,6 +46,7 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     private static final String COMMAND_SEND_STATUS = "COMMAND_SEND_STATUS";
     //</editor-fold>
 
+    private boolean isServiceRunning = false;
     private boolean isListening = false;
     private LocationMgr locMgr;
 
@@ -86,8 +87,14 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     }
 
     private void updateNotification(String title, String content) {
-        Notification notification = NotificationHelper.createNotification(this, title, content);
-        startForeground(SERVICE_ID, notification);
+        Notification notification = NotificationHelper.createNotification(this, title, content, true);
+
+        if (!isServiceRunning) {
+            startForeground(SERVICE_ID, notification);
+            isServiceRunning = true;
+        } else {
+            NotificationHelper.notify(this, SERVICE_ID, notification);
+        }
     }
 
     @Override
@@ -113,6 +120,9 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     public boolean stopService(Intent name) {
         super.stopService(name);
         stopForeground(true);
+
+        isServiceRunning = false;
+
         if (locMgr != null) {
             locMgr.unRegisterOnLocationChanged(this);
         }

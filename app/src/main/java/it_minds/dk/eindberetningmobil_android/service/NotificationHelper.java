@@ -37,7 +37,7 @@ public class NotificationHelper {
      * @param content
      * @return
      */
-    public static Notification createNotification(Context context, String title, String content) {
+    public static Notification createNotification(Context context, String title, String content, boolean onlyAlertOnce) {
         Intent intent = new Intent(context, MonitoringActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
@@ -52,7 +52,7 @@ public class NotificationHelper {
                     notificationChannelName,
                     importance);
 
-            NotificationManager notificationManager =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = getNotificationManager(context);
             notificationManager.createNotificationChannel(notificationChannel);
         }
 
@@ -74,8 +74,16 @@ public class NotificationHelper {
                 .setSmallIcon(smallIcon)
                 .setAutoCancel(true)
                 .setOngoing(true)
+                .setOnlyAlertOnce(onlyAlertOnce)
                 .build();
     }
 
+    public static NotificationManager getNotificationManager(Context context) {
+        return (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+    }
 
+    public static void notify(Context context, int notificationId, Notification notification) {
+        NotificationManager notificationManager = getNotificationManager(context);
+        notificationManager.notify(notificationId, notification);
+    }
 }

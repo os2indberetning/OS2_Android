@@ -49,7 +49,6 @@ public class LocationMgr implements GoogleApiClient.ConnectionCallbacks, GoogleA
     }
 
     private LocationMgr(Context context) {
-
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(4000);
         mLocationRequest.setFastestInterval(1000);
@@ -59,6 +58,7 @@ public class LocationMgr implements GoogleApiClient.ConnectionCallbacks, GoogleA
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+
         mGoogleApiClient.connect();
     }
     //</editor-fold>

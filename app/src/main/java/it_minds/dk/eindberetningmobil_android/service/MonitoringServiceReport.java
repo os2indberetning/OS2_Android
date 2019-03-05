@@ -25,10 +25,10 @@ import it_minds.dk.eindberetningmobil_android.models.GPSCoordinateModel;
  * an object, handling the bl (business logic), so that the monitoringservice do not have to work directly with the bl layer.
  */
 public class MonitoringServiceReport {
-
-
-    public static final int MINIMUM_REQURIED_ACC_IN_METERS = 100;
-    public static final int MAX_DIST_RESUME_ALLOWED_IN_METERES = 200;
+    private static final int MINIMUM_REQURIED_ACC_IN_METERS = 100;
+    private static final int MAX_DIST_RESUME_ALLOWED_IN_METERS = 200;
+    private static final int MINIMUM_VALID_SPEED_METERS_PER_SECOND = 3;
+    private static final int MAXIMUM_VALID_SPEED_METERS_PER_SECOND = 56;
     private MonitoringService monitoringService;
 
     //<editor-fold desc="report mangement">
@@ -60,12 +60,28 @@ public class MonitoringServiceReport {
             handleValidationOnResume(location);
             return;
         }
-        
-        if (location.getAccuracy() <= MINIMUM_REQURIED_ACC_IN_METERS) {
-            if(lastLocation == null ||
-                    (calculateDistanceBetweenPoints(lastLocation, location) >= location.getAccuracy())){ // Removes jitter in reports
 
-                if (!location.hasSpeed() || (location.hasSpeed() && location.getSpeed() > 0)) {
+        if (location.getAccuracy() <= MINIMUM_REQURIED_ACC_IN_METERS) {
+            if (lastLocation == null ||
+                    (calculateDistanceBetweenPoints(lastLocation, location) >= location.getAccuracy())) { // Removes jitter in reports
+
+                double speedMetersPerSecond = 0.0;
+
+                if (location.hasSpeed() && location.getSpeed() > 0) {
+                    speedMetersPerSecond = location.getSpeed();
+                } else if (lastLocation != null) {
+                    double elapsedTimeInSeconds = (location.getTime() - lastLocation.getTime()) / 1000.0;
+                    double distanceInMeters = lastLocation.distanceTo(location);
+
+                    speedMetersPerSecond = distanceInMeters / elapsedTimeInSeconds;
+                } else {
+                    // No last location, and no speed from location, just "fake" a speed to ensure the check below succeeds
+                    // ("getSpeed()" isn't guaranteed to actually return a speed)
+                    speedMetersPerSecond = MINIMUM_VALID_SPEED_METERS_PER_SECOND;
+                }
+
+                // Only consider location update "valid" if speed is between 3 m/s (~11 km/h) and 56 m/s (~200 km/h)
+                if (speedMetersPerSecond >= MINIMUM_VALID_SPEED_METERS_PER_SECOND && speedMetersPerSecond < MAXIMUM_VALID_SPEED_METERS_PER_SECOND) {
                     //yes yes , so lets handle the new location (update the distance, and update the displays)
                     handleNewLocation(location, false);
                 } else {
@@ -73,7 +89,7 @@ public class MonitoringServiceReport {
                     updateDisplay(location.getAccuracy(), report.getDistanceInMeters(), new DateTime(offset + location.getTime()));
                     Log.e("temp", "not moving");
                 }
-            }else{
+            } else {
                 long offset = TimeZone.getDefault().getOffset(location.getTime());
                 updateDisplay(location.getAccuracy(), report.getDistanceInMeters(), new DateTime(offset + location.getTime()));
             }
@@ -124,7 +140,7 @@ public class MonitoringServiceReport {
             Location.distanceBetween(lastLocation.getLatitude(), lastLocation.getLongitude(), location.getLatitude(), location.getLongitude(), result);
             Log.e("temp", "validation is within: " + result[0]);
             float distance = result[0];
-            if (distance < MAX_DIST_RESUME_ALLOWED_IN_METERES) {
+            if (distance < MAX_DIST_RESUME_ALLOWED_IN_METERS) {
                 //ok to contine.
                 handleNewLocation(location, false);//resume the function.
                 validateOnResume = false;
@@ -165,11 +181,9 @@ public class MonitoringServiceReport {
      * @param location
      */
     private void updateCurrentDistance(Location location) {
-        if (location.getSpeed() > 0) {
-            double currentDistance = report.getDistanceInMeters();
-            report.setDistanceInMeters(currentDistance + Math.abs(location.distanceTo(lastLocation)));
-            lastLocation = location;
-        }
+        double currentDistance = report.getDistanceInMeters();
+        report.setDistanceInMeters(currentDistance + Math.abs(location.distanceTo(lastLocation)));
+        lastLocation = location;
     }
 
     /**
@@ -203,8 +217,6 @@ public class MonitoringServiceReport {
         float distance = result[0];
         return distance;
     }
-
-
 
     public UiStatusModel createUiStatus() {
         return lastUiUpdate;

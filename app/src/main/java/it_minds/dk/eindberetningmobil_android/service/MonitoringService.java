@@ -46,6 +46,7 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     private static final String COMMAND_SEND_STATUS = "COMMAND_SEND_STATUS";
     //</editor-fold>
 
+    private boolean isServiceRunning = false;
     private boolean isListening = false;
     private LocationMgr locMgr;
 
@@ -57,8 +58,11 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
 
     private static boolean hasBeenStarted = false;
 
-    private long mLastLocationFixTime = 0;
+    private Location lastReceivedLocation;
+    private long lastLocationFixTime = 0;
+
     private final long maxAllowedIntervalBetweenGpsUpdatesInMillis = 30000; // 30 seconds
+    private final float maxAllowedDistanceBetweenGpsUpdatesInMeters = 200.0f;
     private boolean userShouldBeWarnedOfInaccuracy = false;
 
     /**
@@ -86,8 +90,14 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     }
 
     private void updateNotification(String title, String content) {
-        Notification notification = NotificationHelper.createNotification(this, title, content);
-        startForeground(SERVICE_ID, notification);
+        Notification notification = NotificationHelper.createNotification(this, title, content, true);
+
+        if (!isServiceRunning) {
+            startForeground(SERVICE_ID, notification);
+            isServiceRunning = true;
+        } else {
+            NotificationHelper.notify(this, SERVICE_ID, notification);
+        }
     }
 
     @Override
@@ -113,6 +123,9 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
     public boolean stopService(Intent name) {
         super.stopService(name);
         stopForeground(true);
+
+        isServiceRunning = false;
+
         if (locMgr != null) {
             locMgr.unRegisterOnLocationChanged(this);
         }
@@ -213,29 +226,37 @@ public class MonitoringService extends Service implements OnLocationChangedCallb
             manager.addLocation(location);
 
             // Send UI update on first fix as feedback to user that he can begin driving
-            if (mLastLocationFixTime == 0){
+            if (lastLocationFixTime == 0) {
                 long offset = TimeZone.getDefault().getOffset(location.getTime());
                 manager.updateDisplay(location.getAccuracy(), 0, new DateTime(offset + location.getTime()));
             }
 
             if(!userShouldBeWarnedOfInaccuracy) {
-                if (mLastLocationFixTime != 0 && (SystemClock.elapsedRealtime() - mLastLocationFixTime >= maxAllowedIntervalBetweenGpsUpdatesInMillis)){
-                    // User has not had an update in more than the allowed interval between updates
+                if (isInaccurateLocationUpdate(location)) {
                     userShouldBeWarnedOfInaccuracy = true;
                     sendInaccuracyWarning();
                 }
             }
 
-
-            mLastLocationFixTime = SystemClock.elapsedRealtime();
+            lastLocationFixTime = SystemClock.elapsedRealtime();
+            lastReceivedLocation = location;
 
             if (callback != null) {
                 callback.send(Activity.RESULT_OK, manager.createNotificationBundle());
             }
 
-
             updateNotification(getString(R.string.notification_active_title), getString(R.string.notification_active_message) + manager.getCurrentDistanceInKm() + " km");
         }
+    }
+
+    private boolean isInaccurateLocationUpdate(Location location) {
+        if (lastLocationFixTime != 0 && (SystemClock.elapsedRealtime() - lastLocationFixTime >= maxAllowedIntervalBetweenGpsUpdatesInMillis)) {
+            // User has not had an update in more than the allowed interval between updates
+            return true;
+        }
+
+        // Check if location distance to last location is more than max allowed distance
+        return (lastReceivedLocation != null && lastReceivedLocation.distanceTo(location) > maxAllowedDistanceBetweenGpsUpdatesInMeters);
     }
 
     //<editor-fold desc="Service commands">

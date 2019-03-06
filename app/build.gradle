@@ -28,7 +28,7 @@ android {
 
     defaultConfig {
         applicationId "it_minds.dk.eindberetningmobil_android"
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 15
         versionName "2.1.0"

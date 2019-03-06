@@ -15,3 +15,9 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# Okio (https://github.com/krschultz/android-proguard-snippets/blob/c636c6c8448565e91e25a66f11fab3fca035c29c/libraries/proguard-square-okio.pro)
+-keep class sun.misc.Unsafe { *; }
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn okio.**

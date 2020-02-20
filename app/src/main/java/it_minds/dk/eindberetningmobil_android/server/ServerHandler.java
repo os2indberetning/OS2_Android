@@ -48,7 +48,7 @@ public class ServerHandler implements ServerInterface {
     private final static int RETRY_MS = 6*1000;
     private final static int RETRY_COUNT = 4;
 
-    public static final String PROVIDER_URL = "https://ework.favrskov.dk/FavrskovMobilityAPI/api/AppInfo";
+    public static final String PROVIDER_URL = "https://www.os2indberetning.dk/appinfo.json";
     private static final RetryPolicy noRetryPolicy = new DefaultRetryPolicy(RETRY_MS, -1, 0);
     private final RetryPolicy defaultPolicy;
 

@@ -10,10 +10,14 @@ package it_minds.dk.eindberetningmobil_android.views;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -269,7 +273,11 @@ public class StartActivity extends BaseReportActivity {
 
                         @Override
                         public void onError(Exception error) {
-                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            Uri uri = new Uri.Builder()
+                                    .scheme("package")
+                                    .opaquePart(getPackageName())
+                                    .build();
+                            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri));
                         }
                     }
             );

@@ -7,8 +7,7 @@
 
 package it_minds.dk.eindberetningmobil_android.models;
 
-import android.support.annotation.NonNull;
-import android.text.format.DateFormat;
+import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;

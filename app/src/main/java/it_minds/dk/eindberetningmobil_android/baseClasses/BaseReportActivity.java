@@ -9,7 +9,7 @@ package it_minds.dk.eindberetningmobil_android.baseClasses;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;

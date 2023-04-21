@@ -8,7 +8,9 @@
 package eindberetning.it_minds.dk.eindberetningmobil_android;
 
 import android.app.Activity;
-import android.support.test.InstrumentationRegistry;
+
+import androidx.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
@@ -19,10 +21,6 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 
 public abstract class BaseTest<T extends Activity> extends ActivityInstrumentationTestCase2<T> {
     public Solo solo;
-
-    public BaseTest(Class<T> activityClass) {
-        super(activityClass);
-    }
 
     @Before
     public void setUp() throws Exception {

@@ -18,7 +18,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.ResultReceiver;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import org.joda.time.DateTime;

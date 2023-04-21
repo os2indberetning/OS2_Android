@@ -7,8 +7,6 @@
 
 package eindberetning.it_minds.dk.eindberetningmobil_android;
 
-import android.test.ApplicationTestCase;
-
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.junit.After;

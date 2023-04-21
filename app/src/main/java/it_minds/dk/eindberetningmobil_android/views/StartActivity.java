@@ -12,8 +12,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -232,37 +232,49 @@ public class StartActivity extends BaseReportActivity {
             return;
         }
 
-        int gpsPermission = checkGPSEnabled();
+        // check for permissions to access location services
+        int notificationPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS);
 
-        if (gpsPermission != GPS_ENABLED) {
-            if(gpsPermission == GPSAccesCode.GPS_DISABLED_GLOBAL_SETTINGS){
-                ConfirmationDialog dialog = new ConfirmationDialog(
-                        StartActivity.this,
-                        getString(R.string.gps_alert_title),
-                        getString(R.string.gps_alert_description),
-                        getString(R.string.gps_alert_accept),
-                        getString(R.string.settings),
-                        null,
-                        new ResultCallback<Boolean>() {
-                            @Override
-                            public void onSuccess(Boolean result) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && notificationPermissionCheck == PackageManager.PERMISSION_DENIED) {
+            String[] permissions = {Manifest.permission.POST_NOTIFICATIONS};
+            requestPermissions(permissions, PERMISSION_REQUEST_CODE);
+            return;
+        }
 
-                            }
+        // check for permissions to access location services
+        int fineLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarseLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
-                            @Override
-                            public void onError(Exception error) {
-                                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                            }
+        if (fineLocPermissionCheck == PackageManager.PERMISSION_DENIED || coarseLocPermissionCheck == PackageManager.PERMISSION_DENIED) {
+            String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+            requestPermissions(permissions, PERMISSION_REQUEST_CODE);
+            return;
+        }
+
+        // for Android version 13 extra background permission required
+        int backgroundLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && backgroundLocPermissionCheck == PackageManager.PERMISSION_DENIED) {
+            ConfirmationDialog dialog = new ConfirmationDialog(
+                    StartActivity.this,
+                    getString(R.string.gps_alert_title),
+                    getString(R.string.gps_alert_description),
+                    getString(R.string.gps_alert_accept),
+                    getString(R.string.settings),
+                    null,
+                    new ResultCallback<Boolean>() {
+                        @Override
+                        public void onSuccess(Boolean result) {
+
                         }
-                );
-                dialog.showDialog();
-            }else if(gpsPermission == GPSAccesCode.GPS_DISABLED_MARSHMALLOW && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
-                requestPermissions(permissions, PERMISSION_REQUEST_CODE);
-            }else{
-                ErrorDialog dialog = new ErrorDialog(StartActivity.this, "Ukendt fejl, kunne ikke starte kørsel - vi beklager.");
-                dialog.showDialog();
-            }
+
+                        @Override
+                        public void onError(Exception error) {
+                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        }
+                    }
+            );
+            dialog.showDialog();
+            //TODO ask Peter if we require this permission or if it can be skipped by the user
             return;
         }
 
@@ -303,29 +315,6 @@ public class StartActivity extends BaseReportActivity {
         }else{
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
-
-    private int checkGPSEnabled(){
-        boolean belowAPI23Check = GpsMonitor.isGpsEnabled(this);
-
-        if(!belowAPI23Check){
-            return GPS_DISABLED_GLOBAL_SETTINGS;
-        }
-
-        //Needs special check for Marshmallow (6.0+)
-        //Need to check for permissions on runtime
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            int fineLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-            int coarseLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-            Log.d("DEBUG", "fine = " + fineLocPermissionCheck + " coarse = " + coarseLocPermissionCheck);
-
-            if(fineLocPermissionCheck == PackageManager.PERMISSION_DENIED ||
-                    coarseLocPermissionCheck == PackageManager.PERMISSION_DENIED){
-                return GPS_DISABLED_MARSHMALLOW;
-            }
-        }
-
-        return GPS_ENABLED;
     }
 
     @Override

@@ -16,7 +16,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 
 import it_minds.dk.eindberetningmobil_android.R;
 import it_minds.dk.eindberetningmobil_android.views.MonitoringActivity;
@@ -41,7 +41,7 @@ public class NotificationHelper {
         Intent intent = new Intent(context, MonitoringActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, ID, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, ID, intent, PendingIntent.FLAG_IMMUTABLE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;

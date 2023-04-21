@@ -11,7 +11,7 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.widget.TextView;
 
 import it_minds.dk.eindberetningmobil_android.R;

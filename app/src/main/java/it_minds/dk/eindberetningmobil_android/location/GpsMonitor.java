@@ -8,11 +8,15 @@
 package it_minds.dk.eindberetningmobil_android.location;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.GnssStatus;
 import android.location.GpsStatus;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
+import android.os.Build;
+
+import androidx.core.app.ActivityCompat;
 
 /**
  * GPS Top layer, handles interaction with the LocationManager
@@ -27,12 +31,23 @@ public class GpsMonitor {
     }
 
     public void stopListening() {
-        locationManager.removeGpsStatusListener(listener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            locationManager.unregisterGnssStatusCallback(statusCallback);
+        } else {
+            locationManager.removeGpsStatusListener(listener);
+        }
     }
 
+
+    @SuppressLint("MissingPermission")
     public void startListening(Context context) {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        locationManager.addGpsStatusListener(listener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            locationManager.registerGnssStatusCallback(context.getMainExecutor(), statusCallback);
+        }
+        else {
+            locationManager.addGpsStatusListener(listener);
+        }
     }
 
     private final GpsStatus.Listener listener = new GpsStatus.Listener() {
@@ -41,6 +56,18 @@ public class GpsMonitor {
             if (event == GpsStatus.GPS_EVENT_STARTED || event == GpsStatus.GPS_EVENT_STOPPED) {
                 tryCallback();
             }
+        }
+    };
+
+    private GnssStatus.Callback statusCallback = new GnssStatus.Callback() {
+        @Override
+        public void onStarted() {
+            tryCallback();
+        }
+
+        @Override
+        public void onStopped() {
+            tryCallback();
         }
     };
 

@@ -8,7 +8,7 @@
 package it_minds.dk.eindberetningmobil_android.baseClasses.inner;
 
 import android.app.Activity;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;

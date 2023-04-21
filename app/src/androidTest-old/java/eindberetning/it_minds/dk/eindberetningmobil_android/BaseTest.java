@@ -22,6 +22,10 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 public abstract class BaseTest<T extends Activity> extends ActivityInstrumentationTestCase2<T> {
     public Solo solo;
 
+    public BaseTest(Class<T> activityClass) {
+        super(activityClass);
+    }
+
     @Before
     public void setUp() throws Exception {
         super.setUp();

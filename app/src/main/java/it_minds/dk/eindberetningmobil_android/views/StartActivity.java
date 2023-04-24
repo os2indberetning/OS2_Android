@@ -236,10 +236,10 @@ public class StartActivity extends BaseReportActivity {
             return;
         }
 
-        // check for permissions to access location services
+        // check for notification permission
         int notificationPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && notificationPermissionCheck == PackageManager.PERMISSION_DENIED) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && notificationPermissionCheck == PackageManager.PERMISSION_DENIED) {
             String[] permissions = {Manifest.permission.POST_NOTIFICATIONS};
             requestPermissions(permissions, PERMISSION_REQUEST_CODE);
             return;
@@ -282,7 +282,6 @@ public class StartActivity extends BaseReportActivity {
                     }
             );
             dialog.showDialog();
-            //TODO ask Peter if we require this permission or if it can be skipped by the user
             return;
         }
 

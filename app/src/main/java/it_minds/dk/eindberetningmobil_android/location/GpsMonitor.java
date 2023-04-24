@@ -80,9 +80,4 @@ public class GpsMonitor {
             callback.run();
         }
     }
-
-    public static boolean isGpsEnabled(Context context) {
-        LocationManager loc = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        return loc.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
 }

@@ -26,7 +26,7 @@ android {
         applicationId "it_minds.dk.eindberetningmobil_android"
         minSdk 28
         targetSdkVersion 33
-        versionCode 16
+        versionCode 17
         versionName "2.2.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 //        testInstrumentationRunnerArguments

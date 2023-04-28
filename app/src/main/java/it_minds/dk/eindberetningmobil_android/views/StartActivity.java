@@ -8,6 +8,7 @@
 package it_minds.dk.eindberetningmobil_android.views;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import androidx.core.content.ContextCompat;
 
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,6 +54,8 @@ import it_minds.dk.eindberetningmobil_android.settings.MainSettings;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ConfirmationDialog;
 import it_minds.dk.eindberetningmobil_android.views.dialogs.ErrorDialog;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_DISABLED_GLOBAL_SETTINGS;
 import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_DISABLED_MARSHMALLOW;
 import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_ENABLED;
@@ -61,7 +65,8 @@ import static it_minds.dk.eindberetningmobil_android.constants.GPSAccesCode.GPS_
  */
 public class StartActivity extends BaseReportActivity {
 
-    private static final int PERMISSION_REQUEST_CODE = 1001;
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1001;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1002;
     int badgeCount = 0;
     boolean didFailSync = false;
 
@@ -238,50 +243,50 @@ public class StartActivity extends BaseReportActivity {
 
         // check for notification permission
         int notificationPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && notificationPermissionCheck == PackageManager.PERMISSION_DENIED) {
-            String[] permissions = {Manifest.permission.POST_NOTIFICATIONS};
-            requestPermissions(permissions, PERMISSION_REQUEST_CODE);
-            return;
-        }
-
-        // check for permissions to access location services
         int fineLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int coarseLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        int backgroundLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
 
-        if (fineLocPermissionCheck == PackageManager.PERMISSION_DENIED || coarseLocPermissionCheck == PackageManager.PERMISSION_DENIED) {
-            String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
-            requestPermissions(permissions, PERMISSION_REQUEST_CODE);
+        if (notificationPermissionCheck == PackageManager.PERMISSION_DENIED) {
+            new MaterialAlertDialogBuilder(this)
+                    //TODO translate this text
+                    .setMessage("OS2indberetning Kørsel requires permission to show notification.")
+                    .setPositiveButton("Ok", (dialog, which) -> {
+                        String[] permissions = {Manifest.permission.POST_NOTIFICATIONS};
+                        requestPermissions(permissions, NOTIFICATION_PERMISSION_REQUEST_CODE);
+                        dialog.dismiss();
+                    })
+                    .show();
             return;
         }
 
-        // for Android version 13 extra background permission required
-        int backgroundLocPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && backgroundLocPermissionCheck == PackageManager.PERMISSION_DENIED) {
-            ConfirmationDialog dialog = new ConfirmationDialog(
-                    StartActivity.this,
-                    getString(R.string.gps_alert_title),
-                    getString(R.string.gps_alert_description),
-                    getString(R.string.gps_alert_accept),
-                    getString(R.string.settings),
-                    null,
-                    new ResultCallback<Boolean>() {
-                        @Override
-                        public void onSuccess(Boolean result) {
+        if (fineLocPermissionCheck ==  PackageManager.PERMISSION_DENIED ||coarseLocPermissionCheck == PackageManager.PERMISSION_DENIED) {
+            new MaterialAlertDialogBuilder(this)
+                    //TODO translate this text
+                    .setMessage("OS2indberetning Kørsel collects location data to enable car tracking even when the app is closed or not in use.")
+                    .setPositiveButton("Turn on", (dialog, which) -> { //TODO translate this text
+                        String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+                        requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE);
+                        dialog.dismiss();
+                    })
+                    .setNegativeButton("No thanks", (dialog, which) -> { //TODO translate this text
+                        dialog.cancel();
+                    })
+                    .show();
+            return;
+        }
 
-                        }
-
-                        @Override
-                        public void onError(Exception error) {
-                            Uri uri = new Uri.Builder()
-                                    .scheme("package")
-                                    .opaquePart(getPackageName())
-                                    .build();
-                            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri));
-                        }
-                    }
-            );
-            dialog.showDialog();
+        if (backgroundLocPermissionCheck == PackageManager.PERMISSION_DENIED) {
+            new MaterialAlertDialogBuilder(this)
+                    //TODO translate this text
+                    .setMessage("OS2indberetning Kørsel collects location data to enable car tracking even when the app is closed or not in use.")
+                    .setPositiveButton("Turn on", (dialog, which) -> { //TODO translate this text
+                        showBackgroundLocationSettingsDialog();
+                    })
+                    .setNegativeButton("No thanks", (dialog, which) -> { //TODO translate this text
+                        dialog.cancel();
+                    })
+                    .show();
             return;
         }
 
@@ -303,25 +308,61 @@ public class StartActivity extends BaseReportActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,@NonNull String[] permissions,@NonNull int[] grantResults) {
-        if(requestCode == PERMISSION_REQUEST_CODE && grantResults.length > 0){
-            for(int i : grantResults){
-                if(i != PackageManager.PERMISSION_GRANTED){
-                    ErrorDialog dialog = new ErrorDialog(
-                           this,
-                            "Appen skal kunne aflæse din lokation, for at kunne opmåle din rute.",
-                            "GPS adgang nægtet"
-                    );
-                    dialog.showDialog();
-                    return;
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case NOTIFICATION_PERMISSION_REQUEST_CODE:
+                for (int i = 0; i < permissions.length; i++) {
+                    String permission = permissions[i];
+                    int grantResult = grantResults[i];
+
+                    if (permission.equals(Manifest.permission.POST_NOTIFICATIONS)) {
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            handleStartDrive();
+                            return;
+                        }
+                    }
                 }
-            }
+                break;
+            case LOCATION_PERMISSION_REQUEST_CODE:
+                for (int i = 0; i < permissions.length; i++) {
+                    String permission = permissions[i];
+                    int grantResult = grantResults[i];
 
-            handleStartDrive();
-
-        }else{
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                    if (permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            showBackgroundLocationSettingsDialog();
+                        }
+                    }
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    void showBackgroundLocationSettingsDialog() {
+        AlertDialog.Builder locationDialog = new AlertDialog.Builder(StartActivity.this);
+        LayoutInflater factory = LayoutInflater.from(StartActivity.this);
+        final View view = factory.inflate(R.layout.image_dialog, null);
+
+        TextView title = (TextView) view.findViewById(R.id.location_settings_dialog_title_textview);
+        title.setText("Update location Settings"); //TODO translate this text
+
+        TextView message = (TextView) view.findViewById(R.id.location_settings_dialog_message_textview);
+        message.setText("Allow us to access your location all the time so can track your ride."); //TODO translate this text
+
+        locationDialog.setView(view);
+        locationDialog.setPositiveButton("Update Settings", (dialog, which) -> { //TODO translate this text
+            //Now that we have the location permission we can ask for background location
+            Uri uri = new Uri.Builder().scheme("package").opaquePart(getPackageName()).build();
+            startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri));
+            dialog.dismiss();
+        });
+        locationDialog.setNegativeButton("No thanks", (dialog, which) -> { //TODO translate this text
+            dialog.cancel();
+        });
+
+        locationDialog.show();
     }
 
     @Override

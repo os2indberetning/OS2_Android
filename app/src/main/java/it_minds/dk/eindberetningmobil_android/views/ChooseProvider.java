@@ -9,13 +9,17 @@ package it_minds.dk.eindberetningmobil_android.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -55,6 +59,10 @@ public class ChooseProvider extends SimpleActivity {
 
         //Fetch providers and setup list
         setContentView(R.layout.choose_provider_view);
+
+        TextView privacyPolicyLink = findViewById(R.id.privacy_link);
+        // method to redirect to provided link
+        privacyPolicyLink.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
@@ -163,6 +171,27 @@ public class ChooseProvider extends SimpleActivity {
         ServerFactory.getInstance(this).setBaseUrl(provider.getAPIUrl());
 
         startActivity(new Intent(this, UserLogin.class));
+    }
+
+    private void getListViewSize(ListView myListView) {
+        ListAdapter myListAdapter = myListView.getAdapter();
+        if (myListAdapter == null) {
+            //do nothing return null
+            return;
+        }
+        //set listAdapter in loop for getting final size
+        int totalHeight = 0;
+        for (int size = 0; size < myListAdapter.getCount(); size++) {
+            View listItem = myListAdapter.getView(size, null, myListView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        //setting listview item in adapter
+        ViewGroup.LayoutParams params = myListView.getLayoutParams();
+        params.height = totalHeight + (myListView.getDividerHeight() * (myListAdapter.getCount() - 1));
+        myListView.setLayoutParams(params);
+        // print height of adapter on log
+        Log.i("height of listItem:", String.valueOf(totalHeight));
     }
 }
 

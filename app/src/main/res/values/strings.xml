@@ -162,4 +162,6 @@
     <string name="not_sent_reports_view_header">Ikke sendte rapporter</string>
     <string name="not_sent_reports_view_description">Klik på en rapport for enten at sende den eller slette den. Hvis du fortryder kan du klikke udenfor boksen eller på tilbage knappen.</string>
 
+    <string name="policylink"><a href="https://www.os2indberetning.dk/privatlivspolitik.html">Privatlivspolitik</a></string>
+
 </resources>

@@ -249,7 +249,7 @@ public class StartActivity extends BaseReportActivity {
 
         if (notificationPermissionCheck == PackageManager.PERMISSION_DENIED) {
             new MaterialAlertDialogBuilder(this)
-                    .setMessage("OS2indberetning Kørsel kræver adgang til din enheds lokation for at registrere den kørte rute")
+                    .setMessage("OS2indberetning Kørsel kræver adgang notifikationer for at påminde om igangværende kørsel")
                     .setPositiveButton("Ok", (dialog, which) -> {
                         String[] permissions = {Manifest.permission.POST_NOTIFICATIONS};
                         requestPermissions(permissions, NOTIFICATION_PERMISSION_REQUEST_CODE);

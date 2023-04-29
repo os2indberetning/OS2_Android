@@ -249,8 +249,7 @@ public class StartActivity extends BaseReportActivity {
 
         if (notificationPermissionCheck == PackageManager.PERMISSION_DENIED) {
             new MaterialAlertDialogBuilder(this)
-                    //TODO translate this text
-                    .setMessage("OS2indberetning Kørsel requires permission to show notification.")
+                    .setMessage("OS2indberetning Kørsel kræver adgang til din enheds lokation for at registrere den kørte rute")
                     .setPositiveButton("Ok", (dialog, which) -> {
                         String[] permissions = {Manifest.permission.POST_NOTIFICATIONS};
                         requestPermissions(permissions, NOTIFICATION_PERMISSION_REQUEST_CODE);
@@ -262,14 +261,13 @@ public class StartActivity extends BaseReportActivity {
 
         if (fineLocPermissionCheck ==  PackageManager.PERMISSION_DENIED ||coarseLocPermissionCheck == PackageManager.PERMISSION_DENIED) {
             new MaterialAlertDialogBuilder(this)
-                    //TODO translate this text
-                    .setMessage("OS2indberetning Kørsel collects location data to enable car tracking even when the app is closed or not in use.")
-                    .setPositiveButton("Turn on", (dialog, which) -> { //TODO translate this text
+                    .setMessage("OS2indberetning Kørsel indsamler lokationsdata i baggrunden for at registrere den kørte rute korrekt")
+                    .setPositiveButton("Slå til", (dialog, which) -> {
                         String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
                         requestPermissions(permissions, LOCATION_PERMISSION_REQUEST_CODE);
                         dialog.dismiss();
                     })
-                    .setNegativeButton("No thanks", (dialog, which) -> { //TODO translate this text
+                    .setNegativeButton("Afvis", (dialog, which) -> {
                         dialog.cancel();
                     })
                     .show();
@@ -278,12 +276,11 @@ public class StartActivity extends BaseReportActivity {
 
         if (backgroundLocPermissionCheck == PackageManager.PERMISSION_DENIED) {
             new MaterialAlertDialogBuilder(this)
-                    //TODO translate this text
-                    .setMessage("OS2indberetning Kørsel collects location data to enable car tracking even when the app is closed or not in use.")
-                    .setPositiveButton("Turn on", (dialog, which) -> { //TODO translate this text
+                    .setMessage("OS2indberetning Kørsel indsamler lokationsdata i baggrunden for at registrere den kørte rute korrekt")
+                    .setPositiveButton("Slå til", (dialog, which) -> {
                         showBackgroundLocationSettingsDialog();
                     })
-                    .setNegativeButton("No thanks", (dialog, which) -> { //TODO translate this text
+                    .setNegativeButton("Afvis", (dialog, which) -> {
                         dialog.cancel();
                     })
                     .show();
@@ -346,19 +343,19 @@ public class StartActivity extends BaseReportActivity {
         final View view = factory.inflate(R.layout.image_dialog, null);
 
         TextView title = (TextView) view.findViewById(R.id.location_settings_dialog_title_textview);
-        title.setText("Update location Settings"); //TODO translate this text
+        title.setText("Opdatér indstillinger for lokation");
 
         TextView message = (TextView) view.findViewById(R.id.location_settings_dialog_message_textview);
-        message.setText("Allow us to access your location all the time so can track your ride."); //TODO translate this text
+        message.setText("Giv OS2indberetning adgang til lokation hele tiden for at registrere den kørte rute korrekt");
 
         locationDialog.setView(view);
-        locationDialog.setPositiveButton("Update Settings", (dialog, which) -> { //TODO translate this text
+        locationDialog.setPositiveButton("Indstillinger", (dialog, which) -> {
             //Now that we have the location permission we can ask for background location
             Uri uri = new Uri.Builder().scheme("package").opaquePart(getPackageName()).build();
             startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri));
             dialog.dismiss();
         });
-        locationDialog.setNegativeButton("No thanks", (dialog, which) -> { //TODO translate this text
+        locationDialog.setNegativeButton("Afvis", (dialog, which) -> {
             dialog.cancel();
         });
 

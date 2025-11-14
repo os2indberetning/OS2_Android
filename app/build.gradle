@@ -18,14 +18,18 @@ android {
         }
     }
 
-    compileSdkVersion 33
-    buildToolsVersion '33.0.2'
+    compileSdkVersion 35
+    buildToolsVersion '35.0.0'
     useLibrary 'org.apache.http.legacy'
+
+    buildFeatures {
+        buildConfig = true
+    }
 
     defaultConfig {
         applicationId "it_minds.dk.eindberetningmobil_android"
-        minSdk 28
-        targetSdkVersion 33
+        minSdk 31
+        targetSdkVersion 35
         versionCode 19
         versionName "2.2.2"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
@@ -40,7 +44,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            testCoverageEnabled = true
+            enableUnitTestCoverage true
+            enableAndroidTestCoverage true
         }
 
         applicationVariants.all { variant ->
@@ -50,7 +55,9 @@ android {
         }
     }
     packagingOptions {
-        exclude 'LICENSE.txt'
+        resources {
+            excludes += ['LICENSE.txt']
+        }
     }
     namespace 'it_minds.dk.eindberetningmobil_android'
 }

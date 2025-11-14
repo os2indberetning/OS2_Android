@@ -6,6 +6,7 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/RootLayoutStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -14,13 +15,13 @@
         android:id="@+id/choose_provider_view_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/privacy_link"
         />
 
     <TextView
         android:id="@+id/privacy_link"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_weight="1"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="@string/policylink"/>

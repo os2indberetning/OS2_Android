@@ -40,30 +40,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-
-/*        // Pad the ActionBar root with STATUS BAR inset (so it sits below the status bar)
-        View actionBarRoot = findViewById(androidx.appcompat.R.id.action_bar_root);
-        if (actionBarRoot != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(actionBarRoot, (v, insets) -> {
-                androidx.core.graphics.Insets top = insets.getInsets(
-                        WindowInsetsCompat.Type.statusBars() | WindowInsetsCompat.Type.displayCutout());
-                v.setPadding(v.getPaddingLeft(), top.top, v.getPaddingRight(), v.getPaddingBottom());
-                return insets;
-            });
-            ViewCompat.requestApplyInsets(actionBarRoot);
-        }
-
-        // Pad your content with NAV bars only (bottom & sides)
-        View content = findViewById(android.R.id.content);
-        if (content != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
-                androidx.core.graphics.Insets bars =
-                        insets.getInsets(WindowInsetsCompat.Type.navigationBars());
-                v.setPadding(bars.left, v.getPaddingTop(), bars.right, bars.bottom);
-                return insets;
-            });
-            ViewCompat.requestApplyInsets(content);
-        }*/
     }
 
     public <T extends View> T getViewById(@IdRes int id) throws ClassCastException {

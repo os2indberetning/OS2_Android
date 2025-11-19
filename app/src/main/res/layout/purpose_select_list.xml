@@ -7,23 +7,23 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RootLayoutStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/purpose_list_empty_view"
         layout="@layout/purpose_select_empty_view"
         android:visibility="gone"
-        tools:visibility="visible"
-        />
+        tools:visibility="visible" />
 
     <ListView
         android:id="@+id/purpose_select_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/purpose_list_empty_view"
         android:layout_above="@+id/purpose_list_delete_help"
+        android:layout_below="@+id/purpose_list_empty_view"
         tools:listitem="@layout/purpose_list_item">
 
     </ListView>
@@ -31,21 +31,20 @@
     <View
         android:id="@+id/purpose_list_delete_help_divider"
         android:layout_width="match_parent"
-        android:layout_above="@+id/purpose_list_delete_help"
         android:layout_height="8dp"
-        android:background="@drawable/view_upper_shadow"/>
+        android:layout_above="@+id/purpose_list_delete_help"
+        android:background="@drawable/view_upper_shadow" />
 
     <TextView
         android:id="@+id/purpose_list_delete_help"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
         android:layout_margin="8dp"
-        android:textStyle="italic"
+        android:gravity="center"
         android:text="@string/purpose_view_delete_hint"
-        android:textSize="16sp"
         android:textColor="#bbb"
-        />
+        android:textSize="16sp"
+        android:textStyle="italic" />
 
 </RelativeLayout>

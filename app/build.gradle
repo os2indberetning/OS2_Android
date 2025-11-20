@@ -11,10 +11,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'os2'
-            keyPassword 'os2android'
-            storeFile rootProject.file("autobuild/os2.keystore")
-            storePassword 'os2android'
+            keyAlias 'os2indberetning'
+            keyPassword 'insert password here'
+            storeFile rootProject.file("autobuild/os2indberetning_upload.jks")
+            storePassword 'insert password here'
         }
     }
 
